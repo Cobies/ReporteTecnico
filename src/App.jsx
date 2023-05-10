@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
-import Login from "./Components/Login";
 import { useState } from "react";
 import ProtectedRoutes from "./ProtectedRoute";
+import Error from "./Components/Error";
+import __Layout from "./Shared/__Layout";
 
 function App() {
 
@@ -10,14 +11,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route index path="/" element={<Login session={session} setSession={setSession} />} />
-        <Route index path="/admin" element={<h1>EMPLEADO</h1>} />
-        <Route exact element={<ProtectedRoutes session={session} />}>
+      <__Layout session={session} setSession={setSession} >
+        <Routes>
+          <Route index path="/" element={<h1>Cliente</h1>} />
+          <Route index path="/admin" element={<h1>EMPLEADO</h1>} />
+          <Route exact element={<ProtectedRoutes session={session} />}>
             <Route path="/profile" element={<h1>PERFIL</h1>} />
-        </Route>
-      </Routes>
+          </Route>
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </__Layout>
     </BrowserRouter>
+
   )
 }
 
