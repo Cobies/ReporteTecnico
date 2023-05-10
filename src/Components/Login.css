@@ -16,7 +16,7 @@ form {
     left: 50%;
     display: flex;
     position: absolute;
-    padding: 70px 30px;
+    padding: 280px 30px;
     transform: translate(-50%,-50%);
     flex-wrap: nowrap;
     flex-direction: column;

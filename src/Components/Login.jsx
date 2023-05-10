@@ -50,14 +50,12 @@ const Login = ({ session, setSession }) => {
           </div>
           :
           <div>
-            <p>No has iniciado sesión</p>
             <form
               onSubmit={handleLogin}
               style={{
                 background: "#00B2FF",
-                height: 400,
-                width: 400,
-                margin: "auto",
+                height: "100vh",
+                width: "100vw",
               }}
             >
               <img src={logo} style={{ width: 250, padding: 25 }} alt="Logo"></img>
