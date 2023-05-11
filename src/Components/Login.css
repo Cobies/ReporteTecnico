@@ -10,7 +10,7 @@
     }
 }
 
-form {
+.form-login {
     top:50%;
     left: 50%;
     display: flex;
@@ -27,7 +27,7 @@ form {
     text-align: center;
 }
 
-input {
+.input-login {
     border: none;
     background: var(--background-primary) ;
     text-align: center;
@@ -37,12 +37,12 @@ input {
     
 }   
 
-input::placeholder {
+.input-login::placeholder {
     color: #ffffff99;
     text-align: center;
 }
 
-input:focus 
+.input-login:focus 
 {
     outline: none;
 }
