@@ -67,10 +67,10 @@ span{
     animation: inputA infinite 2s  alternate; */
 }
 
-#loading{
-    /* background: red;
-    animation: inputA infinite 2s  alternate; */
-}
+/* #loading{
+    background: red;
+    animation: inputA infinite 2s  alternate; 
+} */
 
 strong {
     font-size: 20px;
