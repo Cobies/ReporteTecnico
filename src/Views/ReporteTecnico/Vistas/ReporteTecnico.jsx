@@ -1,4 +1,5 @@
 import html2pdf from 'html2pdf.js';
+import DetalleReporteTecnico from '../Modals/DetalleReporteTecnico';
 
 function ReporteTecnico() {
 
@@ -48,7 +49,7 @@ function ReporteTecnico() {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> */}
       <div class="modal-body">
-      <Vista></Vista>
+      <DetalleReporteTecnico></DetalleReporteTecnico>
       </div>
     </div>
   </div>
