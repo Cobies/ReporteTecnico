@@ -57,6 +57,7 @@ const Login = ({ session, setSession }) => {
             <div className=""  >
               <Link className="navbar-brand px-1" to="/admin">Test</Link>
               <Link className="navbar-brand px-1" to="/login">Login</Link>
+              <Link className="navbar-brand px-1" to="/reportes">reportes</Link>
               <i onClick={handleLogout} className="bi bi-box-arrow-left text-danger p-1"> {session.username}</i>
             </div>
             {/* <button className="btn">
