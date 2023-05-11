@@ -47,7 +47,7 @@
     outline: none;
 }
 
-label {
+.label-login {
     color: white;
     display: block;
 }

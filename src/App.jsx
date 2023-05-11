@@ -5,6 +5,7 @@ import ProtectedRoutes from "./ProtectedRoute";
 import Error from "./Components/Error";
 import __Layout from "./Shared/__Layout";
 import MainReporte from "./Views/ReporteTecnico/Vistas/MainReporte";
+import DetalleReporteTecnico from "./Views/ReporteTecnico/Modals/DetalleReporteTecnico";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route exact element={<ProtectedRoutes session={session} />}>
             <Route path="/profile" element={<h1>PERFIL</h1>} />
             <Route path="/reportes" element={<MainReporte></MainReporte>} />
+            <Route path="/reportes/Detalles" element={<DetalleReporteTecnico></DetalleReporteTecnico>} />
           </Route>
           <Route path="*" element={<Error />} />
         </Routes>
