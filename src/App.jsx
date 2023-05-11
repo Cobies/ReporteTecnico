@@ -16,9 +16,10 @@ function App() {
     <BrowserRouter>
       <__Layout session={session} setSession={setSession} >
         <Routes>
-          <Route index path="/" element={<h1 className="container">Cliente</h1>} />
+
           <Route index path="/admin" element={<h1>EMPLEADO</h1>} />
           <Route exact element={<ProtectedRoutes session={session} />}>
+            <Route index path="/" element={<h1 className="container">Cliente</h1>} />
             <Route path="/profile" element={<h1>PERFIL</h1>} />
             <Route path="/reportes" element={<MainReporte></MainReporte>} />
             <Route path="/reportes/Detalles" element={<DetalleReporteTecnico></DetalleReporteTecnico>} />
