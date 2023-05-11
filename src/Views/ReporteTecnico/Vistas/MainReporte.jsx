@@ -7,8 +7,15 @@ function MainReporte() {
   return ( 
     <>
     <div className='container'>
-      <FormReportes></FormReportes>
-      <ReporteTecnico></ReporteTecnico>
+      <div className='row'>
+
+        <div className='col-4'>
+          <FormReportes></FormReportes>
+        </div>
+        <div className='col-8'>
+          <ReporteTecnico></ReporteTecnico>
+        </div>
+      </div>
     </div>
     </>
    );
