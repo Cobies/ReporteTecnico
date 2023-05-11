@@ -15,50 +15,11 @@ function DetalleReporteTecnico() {
 
   return ( 
  
- 
     <>
-    {/* <!-- Modal --> */}
-   
+   <div className='container' style={{ marginTop: "5rem" }}>
         <div className="row pdfmodal" style={{ marginTop: "2rem" }}>
      <h3 className='text-center'>INVENTARIO DE HARDWARE</h3>
-  <div className='col-4'>
-      {/* <img src={{  }}></img> */}
-  </div>
-        {/* <div className="table-responsive d-flex justify-content-center">
-          <table className="table table-striped table-sm w-50" style={{ fontSize: "0.8rem" }}>
-            <tbody>
-              <tr>
-                <th scope="col">INFORMACIÓN DEL CLIENTE</th>
-              </tr>
-              <tr>
-                <th scope="row">NOMBRE</th>
-                <td>COLEGIO MONTESSORI</td>
-              </tr>
-              <tr>
-                <th scope="row">DIRECCIÓN</th>
-                <td>Av. Jose Olaya N° 513, Cerro Colorado</td>
-              </tr>
-              <tr>
-                <th scope="row">CIUDAD</th>
-                <td>AREQUIPA</td>
-              </tr>
-            
-              <tr>
-                <th scope="row">TELÉFONO</th>
-                <td>900151546</td>
-              </tr>
-              <tr>
-                <th scope="row">FECHA</th>
-                <td>25/04/2023</td>
-              </tr>
-              <tr>
-                <th scope="row">RESPONSBALE</th>
-                <td>30 años</td>
-              </tr>
-            </tbody>
-          </table>
-        </div> */}
-  
+
       <div className='table-responsive'>
        <table className="table table-sm table-striped table-bordered" style={{ fontSize: "0.8rem" }}>
           <thead>
@@ -70,7 +31,6 @@ function DetalleReporteTecnico() {
               <th scope="col">MODELO</th>
               <th scope="col">AREA</th>
               <th scope="col">FECHA DE COMPRA</th>
-              {/* <th scope="col">N° SERIE</th> */}
               <th scope="col">CONDICION</th>
               <th scope="col">OBSERVACIONES</th>
               <th scope="col">ACCIONES</th>
@@ -85,9 +45,13 @@ function DetalleReporteTecnico() {
               <td>200G422</td>
               <td>Centro de Computo</td>
               <td>20/10/2022</td>
-              {/* <td>WFBF691005L</td> */}
               <td>OPERATIVO</td>
               <td>Equipo con varios años de uso, requiere mantenimient, cambio de ventiladores.</td>
+              <td className="text-center">
+                <div className="d-flex justify-content-center gap-2 align-items-center">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button>
+                </div>
+              </td>
             </tr>
             <tr>
               <th scope="row">1</th>
@@ -97,9 +61,13 @@ function DetalleReporteTecnico() {
               <td>200G422</td>
               <td>Centro de Computo</td>
               <td>20/10/2022</td>
-              {/* <td>WFBF691005L</td> */}
               <td>OPERATIVO</td>
               <td>Equipo con varios años de uso, requiere mantenimient, cambio de ventiladores.</td>
+              <td className="text-center">
+                <div className="d-flex justify-content-center gap-2 align-items-center">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button>
+                </div>
+              </td>
             </tr>
             <tr>
               <th scope="row">1</th>
@@ -109,9 +77,13 @@ function DetalleReporteTecnico() {
               <td>200G422</td>
               <td>Centro de Computo</td>
               <td>20/10/2022</td>
-              {/* <td>WFBF691005L</td> */}
               <td>OPERATIVO</td>
               <td>Equipo con varios años de uso, requiere mantenimient, cambio de ventiladores.</td>
+              <td className="text-center">
+                <div className="d-flex justify-content-center gap-2 align-items-center">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button>
+                </div>
+              </td>
             </tr>
             <tr>
               <th scope="row">1</th>
@@ -121,9 +93,13 @@ function DetalleReporteTecnico() {
               <td>200G422</td>
               <td>Centro de Computo</td>
               <td>20/10/2022</td>
-              {/* <td>WFBF691005L</td> */}
               <td>OPERATIVO</td>
               <td>Equipo con varios años de uso, requiere mantenimient, cambio de ventiladores.</td>
+              <td className="text-center">
+                <div className="d-flex justify-content-center gap-2 align-items-center">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button>
+                </div>
+              </td>
             </tr>
             <tr>
               <th scope="row">1</th>
@@ -137,11 +113,9 @@ function DetalleReporteTecnico() {
               <td>OPERATIVO</td>
               <td>Equipo con varios años de uso, requiere mantenimient, cambio de ventiladores.</td>
               <td className="text-center">
-                          <div className="d-flex justify-content-center gap-2 align-items-center">
-                            <button className="btn btn-primary border border-0" data-bs-toggle="modal" data-bs-target="#ModalDetalleArticulos"><i className="bi bi-search"></i></button>
-                            {/* <button className="btn btn-success border border-0" data-bs-toggle="modal" data-bs-target="#ModalEditar"><i className="bi bi-pencil-fill"></i></button> */}
-                              {/* <button className="btn btn-danger border border-0"><i className="bi bi-trash-fill"></i></button> */}
-                          </div>
+                <div className="d-flex justify-content-center gap-2 align-items-center">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver</button>
+                </div>
               </td>
             </tr>
             
@@ -153,22 +127,60 @@ function DetalleReporteTecnico() {
       </button>
       </div>
      
-  {/* MODALES */}
-  <div className="modal fade" id="ModalDetalleArticulos" tabindex="-1" aria-labelledby="ModalDetalleArticulosLabel" aria-hidden="true">
-    <div className="modal-dialog modal-xl">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>                
-        <div className="modal-body">
-        <div>
-          <p>Hola soy yo</p>
-        </div>
-        </div>
+
+   {/* <!-- Modal --> */}
+<div class="modal fade mt-5" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles del Reporte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+      <div className='table-responsive'>
+       <table className="table table-sm table-striped table-bordered" style={{ fontSize: "0.8rem" }}>
+          <thead>
+            <tr className='text-center'>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Articulo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>PC- AIO</td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td>PC- AIO</td>
+            </tr>
+            <tr>
+              <th scope="row">13</th>
+              <td>PC- AIO</td>
+            </tr>
+            <tr>
+              <th scope="row">1</th>
+              <td>PC- AIO</td>
+            </tr>
+            <tr>
+              <th scope="row">1</th>
+              <td>PC- AIO</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        {/* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> */}
+        {/* <button type="button" class="btn btn-primary">Save changes</button> */}
       </div>
     </div>
   </div>
+</div>
+   </div>
+
   
       </>
   
