@@ -4,6 +4,9 @@ import { useState } from "react";
 import ProtectedRoutes from "./ProtectedRoute";
 import Error from "./Components/Error";
 import __Layout from "./Shared/__Layout";
+import MainReporte from "./Views/ReporteTecnico/Vistas/MainReporte";
+import DetalleReporteTecnico from "./Views/ReporteTecnico/Modals/DetalleReporteTecnico";
+import FormAgregarDetallesReporte from './Views/ReporteTecnico/Vistas/FormAgregarDetallesReporte';
 
 function App() {
 
@@ -13,10 +16,14 @@ function App() {
     <BrowserRouter>
       <__Layout session={session} setSession={setSession} >
         <Routes>
-          <Route index path="/" element={<h1>Cliente</h1>} />
+
           <Route index path="/admin" element={<h1>EMPLEADO</h1>} />
           <Route exact element={<ProtectedRoutes session={session} />}>
+            <Route index path="/" element={<h1 className="container">Cliente</h1>} />
             <Route path="/profile" element={<h1>PERFIL</h1>} />
+            <Route path="/reportes" element={<MainReporte></MainReporte>} />
+            <Route path="/reportes/Detalles" element={<DetalleReporteTecnico></DetalleReporteTecnico>} />
+            <Route path="/reportes/AgregarDetalles" element={<FormAgregarDetallesReporte></FormAgregarDetallesReporte>} />
           </Route>
           <Route path="*" element={<Error />} />
         </Routes>

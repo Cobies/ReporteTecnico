@@ -1,0 +1,184 @@
+[
+  {
+    "id": "1",
+    "Articulos": [
+      {
+        "Cantidad": "2",
+        "Articulo": "Laptop HP",
+        "Descripcion": "Notebook Lenovo Ideapad 3 14 HD AMD Ryzen 3 3250U 2.6GHz 4GB DDR4 128GB SSD M.2 2242 NVMe, Video AMD Radeon Graphics",
+        "Marca": "HP",
+        "Modelo": "PAVILION 900",
+        "Area": "Tecnologia",
+        "FechaCompra": "20/09/2022",
+        "Condicion": "Operativo",
+        "Observaciones": "Necesita actualizacion"
+      },
+      {
+        "Cantidad": "1",
+        "Articulo": "Monitor Dell",
+        "Descripcion": "Pantalla LED de 24 pulgadas, resolución Full HD, tiempo de respuesta de 5ms",
+        "Marca": "Dell",
+        "Modelo": "U2419H",
+        "Area": "Oficina",
+        "FechaCompra": "10/12/2021",
+        "Condicion": "Operativo",
+        "Observaciones": "Sin daños visibles"
+      },
+      {
+        "Cantidad": "3",
+        "Articulo": "Impresora Epson",
+        "Descripcion": "Impresora multifuncional de inyección de tinta, conexión Wi-Fi, impresión a doble cara",
+        "Marca": "Epson",
+        "Modelo": "XP-4100",
+        "Area": "Administración",
+        "FechaCompra": "05/05/2023",
+        "Condicion": "Nuevo",
+        "Observaciones": "Incluye cartuchos de tinta adicionales"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "Articulos": [
+      {
+        "Cantidad": "1",
+        "Articulo": "Monitor Dell",
+        "Descripcion": "Pantalla LED de 24 pulgadas, resolución Full HD, tiempo de respuesta de 5ms",
+        "Marca": "Dell",
+        "Modelo": "U2419H",
+        "Area": "Oficina",
+        "FechaCompra": "10/12/2021",
+        "Condicion": "Operativo",
+        "Observaciones": "Sin daños visibles"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "Articulos": [
+      {
+        "Cantidad": "3",
+        "Articulo": "Impresora Epson",
+        "Descripcion": "Impresora multifuncional de inyección de tinta, conexión Wi-Fi, impresión a doble cara",
+        "Marca": "Epson",
+        "Modelo": "XP-4100",
+        "Area": "Administración",
+        "FechaCompra": "05/05/2023",
+        "Condicion": "Nuevo",
+        "Observaciones": "Incluye cartuchos de tinta adicionales"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "Articulos": [
+      {
+        "Cantidad": "5",
+        "Articulo": "Silla de Oficina",
+        "Descripcion": "Silla ergonómica con respaldo ajustable y soporte lumbar",
+        "Marca": "Steelcase",
+        "Modelo": "Gesture",
+        "Area": "Recursos Humanos",
+        "FechaCompra": "15/07/2020",
+        "Condicion": "Usado",
+        "Observaciones": "Pequeña rotura en el apoyabrazos izquierdo"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "Articulos": [
+      {
+        "Cantidad": "1",
+        "Articulo": "Proyector Epson",
+        "Descripcion": "Proyector de alta definición con conectividad HDMI y resolución de 1080p",
+        "Marca": "Epson",
+        "Modelo": "EH-TW6700",
+        "Area": "Sala de Conferencias",
+        "FechaCompra": "30/03/2019",
+        "Condicion": "Operativo",
+        "Observaciones": "Lámpara reemplazada recientemente"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "Articulos": [
+      {
+        "Cantidad": "4",
+        "Articulo": "Escritorio",
+        "Descripcion": "Escritorio de madera resistente con cajones incorporados",
+        "Marca": "IKEA",
+        "Modelo": "MALM",
+        "Area": "Despacho Gerencial",
+        "FechaCompra": "18/06/2017",
+        "Condicion": "Usado",
+        "Observaciones": "Algunos arañazos en la superficie"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "Articulos": [
+      {
+        "Cantidad": "2",
+        "Articulo": "Teléfono Samsung",
+        "Descripcion": "Teléfono inteligente Samsung Galaxy S21 5G con pantalla AMOLED de 6.2 pulgadas",
+        "Marca": "Samsung",
+        "Modelo": "Galaxy S21",
+        "Area": "Ventas",
+        "FechaCompra": "02/11/2022",
+        "Condicion": "Operativo",
+        "Observaciones": "Viene con funda protectora"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "Articulos": [
+      {
+        "Cantidad": "1",
+        "Articulo": "Escáner de Documentos",
+        "Descripcion": "Escáner de documentos de alta velocidad con alimentador automático de hojas",
+        "Marca": "Canon",
+        "Modelo": "imageFORMULA DR-C225 II",
+        "Area": "Departamento de Archivos",
+        "FechaCompra": "12/09/2020",
+        "Condicion": "Operativo",
+        "Observaciones": "Viene con software de gestión de documentos"
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "Articulos": [
+      {
+        "Cantidad": "3",
+        "Articulo": "Lámpara de Escritorio",
+        "Descripcion": "Lámpara de escritorio LED con brazo ajustable y regulador de intensidad",
+        "Marca": "IKEA",
+        "Modelo": "JANSJÖ",
+        "Area": "Área de Trabajo",
+        "FechaCompra": "07/03/2021",
+        "Condicion": "Operativo",
+        "Observaciones": "Incluye bombillas de repuesto"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "Articulos": [
+      {
+        "Cantidad": "1",
+        "Articulo": "Cámara Canon",
+        "Descripcion": "Cámara réflex digital de 24.2 megapíxeles con lente incluido",
+        "Marca": "Canon",
+        "Modelo": "EOS Rebel T7",
+        "Area": "Departamento de Fotografía",
+        "FechaCompra": "25/08/2019",
+        "Condicion": "Operativo",
+        "Observaciones": "Incluye tarjeta de memoria de 16GB"
+      }
+    ]
+  }
+]

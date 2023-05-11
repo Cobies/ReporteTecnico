@@ -10,7 +10,7 @@
     }
 }
 
-form {
+.form-login {
     top:50%;
     left: 50%;
     display: flex;
@@ -27,7 +27,7 @@ form {
     text-align: center;
 }
 
-input {
+.input-login {
     border: none;
     background: var(--background-primary) ;
     text-align: center;
@@ -37,17 +37,17 @@ input {
     
 }   
 
-input::placeholder {
+.input-login::placeholder {
     color: #ffffff99;
     text-align: center;
 }
 
-input:focus 
+.input-login:focus 
 {
     outline: none;
 }
 
-label {
+.label-login {
     color: white;
     display: block;
 }
@@ -67,10 +67,10 @@ span{
     animation: inputA infinite 2s  alternate; */
 }
 
-#loading{
-    /* background: red;
-    animation: inputA infinite 2s  alternate; */
-}
+/* #loading{
+    background: red;
+    animation: inputA infinite 2s  alternate; 
+} */
 
 strong {
     font-size: 20px;

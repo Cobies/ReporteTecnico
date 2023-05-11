@@ -1,5 +1,4 @@
 import __NavMenu from "./__NavMenu";
-import __Footer from "./__Footer";
 
 const __Layout = ({ children, session , setSession }) => {
 
@@ -7,7 +6,7 @@ const __Layout = ({ children, session , setSession }) => {
     <>
       <__NavMenu session={session} setSession={setSession} />
         {children}
-      <__Footer />
+     
     </>
   );
 };
