@@ -60,12 +60,7 @@ function MainReporte() {
       </div>
     </div>
   </div>
-  <MainReporte></MainReporte>
-  <MainReporte></MainReporte>
-  <MainReporte></MainReporte>
-  <MainReporte></MainReporte>
-  <MainReporte></MainReporte>
-  <MainReporte></MainReporte>
+  
 </div>
     </>
    );
