@@ -1,5 +1,4 @@
 import __NavMenu from "./__NavMenu";
-import __Footer from "./__Footer";
 
 const __Layout = ({ children, session , setSession }) => {
 

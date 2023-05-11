@@ -12,9 +12,9 @@ const Login = ({ session, setSession }) => {
     password: "123"
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setMessage("")
-  },[session.isLoggedIn])
+  }, [session.isLoggedIn])
 
   const [message, setMessage] = useState("")
 
@@ -50,7 +50,7 @@ const Login = ({ session, setSession }) => {
 
   return (
     <>
-      <motion.div className="fixed-top" initial={{height: "100vh"}} animate={{
+      <motion.div className="fixed-top" initial={{ height: "100vh" }} animate={{
         background: "#00B2FF",
         width: "100vw",
         height: session.isLoggedIn ? "50px" : "100vh",
@@ -59,12 +59,12 @@ const Login = ({ session, setSession }) => {
       }}>
         {session.isLoggedIn
           ? <div style={{ padding: "12px 0", fontSize: 17 }} className="container d-flex justify-content-between text-white position-relative">
-            <Link className="navbar-brand" to="/">Soporte Tecnico</Link>
+            <Link className="navbar-brand" to="/" style={{ paddingLeft: 25 }}>Soporte Tecnico</Link>
             <div className="">
               <Link className="navbar-brand px-1" to="/admin">Test</Link>
               <Link className="navbar-brand px-1" to="/login">Login</Link>
               <Link className="navbar-brand px-1" to="/reportes">reportes</Link>
-              <i onClick={handleLogout} className="bi bi-box-arrow-left text-danger p-1"> {session.username}</i>
+              <i onClick={handleLogout} style={{marginRight:25}} className="bi bi-box-arrow-left text-danger p-1"> {session.username}</i>
             </div>
             {/* <button className="btn">
               <i onClick={handleLogout}  className="bi bi-box-arrow-left text-danger"></i>
