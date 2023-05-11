@@ -14,11 +14,11 @@ function App() {
     <BrowserRouter>
       <__Layout session={session} setSession={setSession} >
         <Routes>
-          <Route index path="/" element={<h1>Cliente</h1>} />
+          <Route index path="/" element={<h1 className="container">Cliente</h1>} />
           <Route index path="/admin" element={<h1>EMPLEADO</h1>} />
           <Route exact element={<ProtectedRoutes session={session} />}>
             <Route path="/profile" element={<h1>PERFIL</h1>} />
-            <Route path="/reportes" element={<ReporteTecnico></ReporteTecnico>} />
+            {/* <Route path="/reportes" element={<ReporteTecnico></ReporteTecnico>} /> */}
           </Route>
           <Route path="*" element={<Error />} />
         </Routes>

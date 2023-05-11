@@ -7,7 +7,7 @@ const __Footer = () => {
       className="text-center text-lg-start text-white"
       style={{ backgroundColor: "GREY" }}
     >
-      HOLAAAAAAA
+      Footer
     </footer>
 
   );
