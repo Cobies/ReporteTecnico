@@ -65,13 +65,14 @@ const Login = ({ session, setSession }) => {
             </button> */}
           </div>
           : <form
+            className="form-login"
             onSubmit={handleLogin}
           >
             <img src={logo} style={{ width: 250, padding: 25 }} alt="Logo"></img>
             <h2 style={{ color: "white" }}>Soporte Técnico</h2>
             <div className="mb-6" style={{ margin: "auto" }}>
               <input
-                className="psw"
+                className="psw input-login"
                 id="floatingInput"
                 type="text"
                 name="username"
@@ -85,7 +86,7 @@ const Login = ({ session, setSession }) => {
             </div>
             <div className="mb-6">
               <input
-                className="psw"
+                className="psw input-login"
                 type="password"
                 name="password"
                 placeholder="Contraseña"
