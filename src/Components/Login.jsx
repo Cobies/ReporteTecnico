@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import "./Login.css";
 import logo from "./Logo.svg"
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /* eslint-disable react/prop-types */
 const Login = ({ session, setSession }) => {
@@ -11,6 +11,12 @@ const Login = ({ session, setSession }) => {
     username: "pedro",
     password: "123"
   }
+
+  useEffect(()=>{
+    setMessage("")
+  },[session.isLoggedIn])
+
+  const [message, setMessage] = useState("")
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,7 +34,7 @@ const Login = ({ session, setSession }) => {
       // setSession({ username: data.username, isLoggedIn: true });
       setSession({ username: user.username, isLoggedIn: true })
     } else {
-      console.error("Credenciales Invalidas")
+      setMessage("Credenciales Invalidas")
       e.target.username.value = ""
       e.target.password.value = ""
     }
@@ -44,7 +50,7 @@ const Login = ({ session, setSession }) => {
 
   return (
     <>
-      <motion.div className="fixed-top" animate={{
+      <motion.div className="fixed-top" initial={{height: "100vh"}} animate={{
         background: "#00B2FF",
         width: "100vw",
         height: session.isLoggedIn ? "50px" : "100vh",
@@ -52,7 +58,7 @@ const Login = ({ session, setSession }) => {
 
       }}>
         {session.isLoggedIn
-          ? <div style={{padding:"12px 0" ,fontSize:17}} className="container d-flex justify-content-between text-white position-relative">
+          ? <div style={{ padding: "12px 0", fontSize: 17 }} className="container d-flex justify-content-between text-white position-relative">
             <Link className="navbar-brand" to="/">Soporte Tecnico</Link>
             <div className="">
               <Link className="navbar-brand px-1" to="/admin">Test</Link>
@@ -76,6 +82,8 @@ const Login = ({ session, setSession }) => {
                 type="text"
                 name="username"
                 placeholder="Usuario"
+                required
+                autoComplete="off"
               />
               <motion.span id="loading"
                 initial={{ background: "linear-gradient(45deg , rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))" }}
@@ -89,7 +97,8 @@ const Login = ({ session, setSession }) => {
                 type="password"
                 name="password"
                 placeholder="Contraseña"
-
+                autoComplete="off"
+                required
               />
               <motion.span
                 initial={{ background: "linear-gradient(45deg , rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))" }}
@@ -112,8 +121,11 @@ const Login = ({ session, setSession }) => {
             >
               Ingresar
             </motion.button>
+
             <p style={{ color: "#ffffff99" }}>Desarrolado por <strong>Consultancy</strong> </p>
+            <motion.span initial={{ color: "white" }} animate={{ color: "red", y: 20 }}>{message}</motion.span>
           </form>}
+
       </motion.div>
     </>
   );
