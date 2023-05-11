@@ -1,10 +1,10 @@
 import html2pdf from 'html2pdf.js';
-// import DetalleReporteTecnico from '../Modals/DetalleReporteTecnico';
+import DetalleReporteTecnico from '../Modals/DetalleReporteTecnico';
 
 function MainReporte() {
   return ( 
     <>
-        <div className="container" style={{ marginTop: "5rem" }}>
+        <div className="container" style={{ marginTop: "2rem" }}>
        <div className='table-responsive'>
         <table class="table table-striped table-bordered"
         //  style={{ fontSize: "0.8rem" }}
@@ -60,6 +60,12 @@ function MainReporte() {
       </div>
     </div>
   </div>
+  <MainReporte></MainReporte>
+  <MainReporte></MainReporte>
+  <MainReporte></MainReporte>
+  <MainReporte></MainReporte>
+  <MainReporte></MainReporte>
+  <MainReporte></MainReporte>
 </div>
     </>
    );
