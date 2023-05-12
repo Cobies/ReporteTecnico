@@ -3,6 +3,7 @@ import "./Login.css";
 import logo from "./Logo.svg"
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
 
 /* eslint-disable react/prop-types */
 const Login = ({ session, setSession }) => {
@@ -20,21 +21,28 @@ const Login = ({ session, setSession }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const username = e.target.username.value;
+    const nombreUsuario = e.target.username.value;
     const password = e.target.password.value;
+    let vari = ""
+    const response = await fetch('https://api.grupoupgrade.com.pe/Autenticacion/Autenticacion', {
+      method: 'POST',
+      body: JSON.stringify({ nombreUsuario, password }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    // console.log("Hola1");
+    // vari = await response.text();
+    // console.log(vari)
+    // console.log("Hola2");
+    const data = await response.text();
+    console.log(data)
+    const perfil = jwtDecode(data)
+    console.log(perfil)
 
-    // const response = await fetch('https://ejemplo.com/api/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ username, password }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // })
-    // const data = await response.json();
-
-    if (user.username === username && user.password === password) {
+    if (data !== 'false') {
       // setSession({ username: data.username, isLoggedIn: true });
-      setSession({ username: user.username, isLoggedIn: true })
+      await setSession({ username: perfil.nombreusuaio, isLoggedIn: true })
     } else {
-      setMessage("Credenciales Invalidas")
+      await setMessage("Credenciales Invalidas")
       e.target.username.value = ""
       e.target.password.value = ""
     }
