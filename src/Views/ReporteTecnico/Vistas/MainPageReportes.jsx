@@ -1,16 +1,15 @@
 import html2pdf from 'html2pdf.js';
-import DetalleReporteTecnico from '../Modals/DetalleReporteTecnico';
-import FormReportes from './FormReporte';
+import CrearReporte from '../Forms/CrearReporte';
 import ReporteTecnico from './ReporteTecnico';
 
-function MainReporte() {
+function MainPageReportes() {
   return ( 
     <>
     <div className='container'>
       <div className='row'>
 
         <div className='col-4'>
-          <FormReportes></FormReportes>
+          <CrearReporte></CrearReporte>
         </div>
         <div className='col-8'>
           <ReporteTecnico></ReporteTecnico>
@@ -21,4 +20,4 @@ function MainReporte() {
    );
 }
 
-export default MainReporte;
+export default MainPageReportes;

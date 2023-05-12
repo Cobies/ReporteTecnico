@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import DetalleReporteTecnico from "./../Modals/DetalleReporteTecnico";
+import DetalleReporteTecnico from "./DetalleReportetecnico";
 
 function ReporteTecnico() {
   return (
@@ -30,7 +30,7 @@ function ReporteTecnico() {
                     <button className="btn btn-danger border border-0">
                       <i className="bi bi-trash-fill"></i>
                     </button>
-                  </div>
+                  </div>                                                                                         
                 </td>
               </tr>
             </tbody>
@@ -38,8 +38,7 @@ function ReporteTecnico() {
         </div>
       </div>
       {/* <!-- Modal --> */}
-      <div class="modal fade" id="ModalDetalle" tabindex="-1" aria-labelledby="ModalDetalleLabel" aria-hidden="true"
-      >
+      <div class="modal fade" id="ModalDetalle" tabindex="-1" aria-labelledby="ModalDetalleLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-body">
