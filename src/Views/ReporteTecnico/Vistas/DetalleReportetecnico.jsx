@@ -1,6 +1,7 @@
-import html2pdf from 'html2pdf.js';
 import data from "../test.json"
 import React, { useState } from 'react';
+import html2pdf from 'html2pdf.js';
+import ModalDetalleReporteTecnico from './../Modals/ModalDetalleReporteTecnico';
 
 function DetalleReporteTecnico() {
 
@@ -16,13 +17,12 @@ function DetalleReporteTecnico() {
     };
     html2pdf().set(options).from(element).save();
   };
-
-  return (
-
+ 
+  return ( 
     <>
-      <div className='container' style={{ marginTop: "5rem" }}>
-        <div className="row pdfmodal" style={{ marginTop: "2rem" }}>
-          <h3 className='text-center'>INVENTARIO DE HARDWARE</h3>
+      <div className="container" style={{ marginTop: "5rem" }}>
+      <div className="row pdfmodal" style={{ marginTop: "2rem" }}>
+          <h3 className='text-center'>INVENTARIO DEL REPORTE</h3>
           <div className='table-responsive'>
             <table className="table table-sm table-striped table-bordered" style={{ fontSize: "0.8rem" }}>
               <thead>
@@ -65,46 +65,10 @@ function DetalleReporteTecnico() {
             Generar PDF
           </button>
         </div>
-
-        {/* <!-- Modal --> */}
-        <div className="modal fade mt-5" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog modal-xl">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Detalles del Reporte</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div className="modal-body">
-                {productoSeleccionado && (
-                  <div className='table-responsive'>
-                    <table className="table table-sm table-striped table-bordered" style={{ fontSize: "0.8rem" }}>
-                      <thead>
-                        <tr className='text-center'>
-                          <th scope="col">Cantidad</th>
-                          <th scope="col">Articulo</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">{productoSeleccionado.Cantidad}</th>
-                          <td>{productoSeleccionado.Articulo}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-              <div className="modal-footer">
-                {/* <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button> */}
-                {/* <button type="button" className="btn btn-primary">Save changes</button> */}
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
+      <ModalDetalleReporteTecnico productoSeleccionado={productoSeleccionado}></ModalDetalleReporteTecnico>
     </>
-  );
+   );
 }
 
 export default DetalleReporteTecnico;
