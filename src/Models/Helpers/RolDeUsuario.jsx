@@ -1,5 +1,5 @@
 const RolDeUsuario = {
-    _id: "",
+    _id: null,
     nombre: "",
     descripcion: "",
     nivel: 0

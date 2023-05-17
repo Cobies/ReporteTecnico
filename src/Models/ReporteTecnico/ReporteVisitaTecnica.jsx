@@ -1,15 +1,16 @@
 import Cliente from "../Persona/Cliente"
 import Empleado from "../Persona/Empleado"
+import DetalleReporteVisitaTecnica from "./DetalleReporteVisitaTecnica"
 
 const ReporteVisitaTecnica = {
-    _id: "",
+    _id: null,
     numero: 0,
     fechaCreado: new Date(),
     cliente: Cliente,
     empleado: Empleado,
-    detalle: [],
+    detalle: [DetalleReporteVisitaTecnica],
     sugerencia: "",
-    documentosPdf
+    documentosPdf: ""
 }
 
 export default ReporteVisitaTecnica

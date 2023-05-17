@@ -1,7 +1,7 @@
 import Sede from "./Sede";
 
 const Almacen = {
-    _id: "",
+    _id: null,
     sede: Sede,
     nombre: "",
     telefono: "",

@@ -1,7 +1,7 @@
 import Departamento from "./Departamento";
 
 const Provincia = {
-    _id: "",
+    _id: null,
     nombre: "",
     departamento: Departamento,
     ubigeo: "",

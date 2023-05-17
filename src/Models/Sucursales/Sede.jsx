@@ -1,7 +1,7 @@
 import Distrito from "../Ubicacion/Distrito";
 
 const Sede = {
-    nombre: "",
+    nombre: null,
     direccion: "",
     telefono: "",
     distrito: Distrito

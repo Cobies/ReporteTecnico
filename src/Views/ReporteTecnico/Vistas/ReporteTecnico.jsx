@@ -8,7 +8,7 @@ function ReporteTecnico() {
         <h3 className="text-dark fw-bold">Tus Reportes Actuales</h3>
         <div className="table-responsive" style={{ marginTop: "5rem" }}>
           <table
-            class="table table-striped table-bordered"
+            className="table table-striped table-bordered"
           //  style={{ fontSize: "0.8rem" }}
           >
             <thead>
@@ -24,13 +24,13 @@ function ReporteTecnico() {
                 <td>Colegio Americano</td>
                 <td className="text-center">
                   <div className="d-flex justify-content-center gap-2 align-items-center">
-                    <Link  className="btn btn-primary border border-0 bi bi-search"  to="/reportes/Detalles"></Link>
+                    <Link className="btn btn-primary border border-0 bi bi-search" to="/reportes/Detalles"></Link>
                     {/* <button className="btn btn-primary border border-0" data-bs-toggle="modal" data-bs-target="#ModalDetalle"><i className="bi bi-search"></i></button> */}
-                    <Link  className="btn btn-success border border-0 bi bi-pencil-fill"  to="/reportes/AgregarDetalles"></Link>
+                    <Link className="btn btn-success border border-0 bi bi-pencil-fill" to="/reportes/AgregarDetalles"></Link>
                     <button className="btn btn-danger border border-0">
                       <i className="bi bi-trash-fill"></i>
                     </button>
-                  </div>                                                                                         
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -38,10 +38,10 @@ function ReporteTecnico() {
         </div>
       </div>
       {/* <!-- Modal --> */}
-      <div class="modal fade" id="ModalDetalle" tabindex="-1" aria-labelledby="ModalDetalleLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-body">
+      <div className="modal fade" id="ModalDetalle" tabIndex={-1} aria-labelledby="ModalDetalleLabel" aria-hidden="true">
+        <div className="modal-dialog modal-xl">
+          <div className="modal-content">
+            <div className="modal-body">
               <DetalleReporteTecnico></DetalleReporteTecnico>
             </div>
           </div>

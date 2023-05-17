@@ -1,7 +1,7 @@
 import Cliente from "../Persona/Cliente";
 
 const UsuarioClienteReporteTecnico = {
-    _id: "",
+    _id: null,
     fechaCreado: new Date(),
     cliente: Cliente
 }

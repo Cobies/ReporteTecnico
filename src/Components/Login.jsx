@@ -36,10 +36,10 @@ const Login = ({ session, setSession }) => {
       // console.log("Hola2");
       const data = await response.text();
       const perfil = jwtDecode(data)
-      console.log(perfil)
+      // console.log(perfil)
       setSession({ username: perfil.nombreusuaio, isLoggedIn: true })
     } catch (error) {
-      setMessage("Credenciales Invalidas")
+      setMessage("Intruso Detectado")
       e.target.username.value = ""
       e.target.password.value = ""
     }

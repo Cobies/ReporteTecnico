@@ -3,7 +3,7 @@ import Almacen from "../Sucursales/Almacen";
 import Persona from "./Persona";
 
 const Empleado = {
-    _id: "",
+    _id: null,
     activo: true,
     nombreUsuario: "",
     pass: "",

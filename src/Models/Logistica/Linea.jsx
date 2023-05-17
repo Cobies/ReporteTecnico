@@ -1,5 +1,5 @@
 const Linea = {
-    _id: "",
+    _id: null,
     nombre: "",
     descripcion: "",
     abreviatura: ""

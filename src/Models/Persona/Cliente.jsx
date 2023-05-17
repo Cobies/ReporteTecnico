@@ -2,6 +2,7 @@ import Sede from "../Sucursales/Sede";
 import Persona from "./Persona";
 
 const Cliente = {
+    _id: null,
     nombreUsuario: "",
     pass: "",
     fechaRegistro: new Date(),
