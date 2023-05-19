@@ -21,7 +21,7 @@ function App() {
           <Route exact element={<ProtectedRoutes session={session} />}>
             <Route index path="/" element={<h1 className="container">Cliente</h1>} />
             <Route path="/profile" element={<h1>PERFIL</h1>} />
-            <Route path="/reportes" element={<MainPageReportes></MainPageReportes>} />
+            <Route path="/reportes" element={<MainPageReportes />} />
             <Route path="/reportes/Detalles" element={<DetalleReporteTecnico></DetalleReporteTecnico>} />
             <Route path="/reportes/AddClient" element={<AgregarCliente></AgregarCliente>} />
             <Route path="/reportes/AgregarDetalles" element={<FormAgregarDetallesReporte></FormAgregarDetallesReporte>} />

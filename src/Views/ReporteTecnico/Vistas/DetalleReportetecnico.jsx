@@ -1,5 +1,5 @@
 import data from "../test.json"
-import React, { useState } from 'react';
+import { useState } from 'react';
 import html2pdf from 'html2pdf.js';
 import ModalDetalleReporteTecnico from './../Modals/ModalDetalleReporteTecnico';
 

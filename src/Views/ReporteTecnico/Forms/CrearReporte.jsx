@@ -18,7 +18,7 @@ function CrearReporte() {
   }
 
   useEffect(() => {
-    GetAllCliente()
+    // GetAllCliente()
   }, [])
 
   const ReporteSubmit = async (e) => {
@@ -26,12 +26,14 @@ function CrearReporte() {
     const DocumentosPdf = e.target.DocumentosPdf.value;
     const Sugerencia = e.target.Sugerencia.value;
     const Activo = e.target.Activo.checked;
-    console.log(DocumentosPdf.split('\n'), Sugerencia, Activo)
+    const Cliente = e.target.Cliente.value;
+    const Empleado = e.target.Empleado.value;
+    console.log(DocumentosPdf.split('\n'), Sugerencia, Activo, Cliente, Empleado)
     try {
-      const response = await fetch('https://api.grupoupgrade.com.pe/ReporteVisitaTecnica/SetReporteVisitaTecnica', {
+      const response = await fetch('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', {
         method: 'POST',
-        body: JSON.stringify({ _id: null, Activo: Activo, FechaCreado: new Date(), Sugerencia: "Sugerencia", DocumentosPdf: DocumentosPdf.split('\n') }),
-        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Activo: Activo, Cliente: JSON.parse(Cliente), Empleado: JSON.parse(Empleado), FechaCreado: new Date(), Sugerencia: Sugerencia, DocumentosPdf: DocumentosPdf.split('\n') }),
+        headers: { 'Content-Type': 'application/json' }
       })
       console.log(response)
     } catch (error) {
@@ -62,29 +64,22 @@ function CrearReporte() {
                 />
                 <label htmlFor="Activo" className="form-check-label" >Activo</label>
               </div>
-              {/* <Select options={options} onMenuScrollToBottom={loadMoreOptions}
-                isClearable
-                isSearchable
-                placeholder="Select an option" />
-
-              <SelectSearch /> */}
-
-              <SelectPro name={"Cliente"}></SelectPro>
-              {/* <SelectPro name={"Empleado"}></SelectPro> */}
+              <SelectPro name={"Cliente"} endpoint={"/Cliente/GetBusquedaClienteLimite/0&20"} nameExtractor={(x) => x.persona.nombre}></SelectPro>
+              <SelectPro name={"Empleado"} endpoint={"/Empleado/GetAllEmpleado"} nameExtractor={(x) => x.persona.nombre} ></SelectPro>
               <div className="form-floating">
                 <input type="text" id='Sugerencia' className="form-control" name="Sugerencia" placeholder='Sugerencia' autoComplete='off' />
                 <label htmlFor="Sugerencia" className="form-label" >Sugerencia</label>
               </div>
-              <div className="form-floating">
+              <div className="form-group">
+                <label htmlFor="DocumentosPdf" className="form-label">DocumentosPdf</label>
                 <textarea
                   className='form-control'
                   id='DocumentosPdf'
                   name="DocumentosPdf"
                   rows="4"
                   cols="100"
-                  placeholder='DocumentosPdf'
+                  placeholder='Url'
                 />
-                <label htmlFor="DocumentosPdf" className="form-label">DocumentosPdf</label>
               </div>
               <div className="d-flex justify-content-between">
                 <button type="submit" className="btn btn-primary">Crear</button>
