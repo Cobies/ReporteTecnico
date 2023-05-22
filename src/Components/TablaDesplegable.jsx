@@ -26,9 +26,9 @@ const TablaDesplegable = () => {
     if (filasDesplegadas.includes(indice)) {
       setFilasDesplegadas(filasDesplegadas.filter((i) => i !== indice));
     } else {
-      setFilasDesplegadas([...filasDesplegadas, indice]);
+      setFilasDesplegadas([...filasDesplegadas, indice])
     }
-  };
+  }
 
   return (
     <table className="table table-light">
@@ -54,7 +54,10 @@ const TablaDesplegable = () => {
             </tr>
             {filasDesplegadas.includes(indice) && (
               <tr className="contenido-desplegable">
-                <td colSpan="4">{dato.informacionAdicional}</td>
+                <td >contenido-desplegable</td>
+                <td >contenido-desplegable</td>
+                <td >contenido-desplegable</td>
+                <td >contenido-desplegable</td>
               </tr>
             )}
           </>

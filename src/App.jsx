@@ -10,7 +10,6 @@ import FormAgregarDetallesReporte from './Views/ReporteTecnico/Forms/FormAgregar
 import AgregarCliente from "./Views/Clientes/Modals/AgregarCliente";
 
 function App() {
-
   const [session, setSession] = useState({ username: '', isLoggedIn: false })
 
   return (
@@ -30,7 +29,6 @@ function App() {
         </Routes>
       </__Layout>
     </BrowserRouter>
-
   )
 }
 

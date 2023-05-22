@@ -3,6 +3,7 @@
 import AgregarCliente from './../../Clientes/Modals/AgregarCliente';
 import { useEffect, useState } from 'react';
 import SelectPro from '../../../Components/SelectPro';
+import axios from 'axios';
 // import ReporteVisitaTecnica from '../../../Models/ReporteTecnico/ReporteVisitaTecnica';
 
 function CrearReporte() {
@@ -28,28 +29,24 @@ function CrearReporte() {
     const Activo = e.target.Activo.checked;
     const Cliente = e.target.Cliente.value;
     const Empleado = e.target.Empleado.value;
-    console.log(DocumentosPdf.split('\n'), Sugerencia, Activo, Cliente, Empleado)
+  
     try {
-      const response = await fetch('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', {
-        method: 'POST',
-        body: JSON.stringify({ Activo: Activo, Cliente: JSON.parse(Cliente), Empleado: JSON.parse(Empleado), FechaCreado: new Date(), Sugerencia: Sugerencia, DocumentosPdf: DocumentosPdf.split('\n') }),
+      const response = await axios.post('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', {
+        Activo: Activo,
+        Cliente: JSON.parse(Cliente),
+        Empleado: JSON.parse(Empleado),
+        FechaCreado: new Date(),
+        Sugerencia: Sugerencia,
+        DocumentosPdf: DocumentosPdf.split('\n')
+      }, {
         headers: { 'Content-Type': 'application/json' }
       })
       console.log(response)
     } catch (error) {
       console.error(error)
     }
-  }
+  };
 
-  async function GetAllCliente() {
-    try {
-      const response = await fetch('https://api.grupoupgrade.com.pe/Cliente/GetBusquedaClienteLimite/0&20')
-      const data = await response.json()
-      setCliente(data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
   return (
     <>
       <form onSubmit={ReporteSubmit}>
@@ -64,8 +61,11 @@ function CrearReporte() {
                 />
                 <label htmlFor="Activo" className="form-check-label" >Activo</label>
               </div>
+            
               <SelectPro name={"Cliente"} endpoint={"/Cliente/GetBusquedaClienteLimite/0&20"} nameExtractor={(x) => x.persona.nombre}></SelectPro>
               <SelectPro name={"Empleado"} endpoint={"/Empleado/GetAllEmpleado"} nameExtractor={(x) => x.persona.nombre} ></SelectPro>
+
+
               <div className="form-floating">
                 <input type="text" id='Sugerencia' className="form-control" name="Sugerencia" placeholder='Sugerencia' autoComplete='off' />
                 <label htmlFor="Sugerencia" className="form-label" >Sugerencia</label>
