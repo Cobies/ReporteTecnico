@@ -6,10 +6,12 @@ function FormAgregarDetallesReporte() {
 
   async function PostDetalle(e) {
     e.preventDefault();
-    const DocumentosPdf = e.target.DocumentosPdf.value;
+    const cantidad = e.target.cantidad.value;
     try {
-      const response = axios.post("https://localhost:7044/DetalleReporteVisitaTecnica/SetDetalleReporteVisitaTecnica",{
-        
+      const response = axios.post("https://localhost:7044/DetalleReporteVisitaTecnica/SetDetalleReporteVisitaTecnica", {
+
+      }, {
+        headers: { 'Content-Type': 'application/json' }
       })
       console.log(response)
     } catch (error) {
@@ -35,8 +37,8 @@ function FormAgregarDetallesReporte() {
         // eliminarProducto();
         console.log("Eliminado")
       }
-    });
-  };
+    })
+  }
 
   const ReporteGenerado = () => {
     Swal.fire(

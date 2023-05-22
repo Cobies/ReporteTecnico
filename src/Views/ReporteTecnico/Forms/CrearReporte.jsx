@@ -29,7 +29,7 @@ function CrearReporte() {
     const Activo = e.target.Activo.checked;
     const Cliente = e.target.Cliente.value;
     const Empleado = e.target.Empleado.value;
-  
+
     try {
       const response = await axios.post('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', {
         Activo: Activo,
