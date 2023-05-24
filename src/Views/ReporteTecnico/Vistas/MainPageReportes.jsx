@@ -4,11 +4,18 @@ import { GetAllReportes } from '../../../Services/ReporteVistaTecnico';
 import { Link } from 'react-router-dom';
 import AgregarDetallesReporte from '../Modals/AgregarDetallesReporte';
 import AgregarReporteVistaTecnica from '../Modals/AgregarReporteVistaTecnico';
-import Detalles from '../Modals/Detalles';
 
 function MainPageReportes() {
 
-  const [reporteVistaTecnico, setReporteVisitaTecnica] = useState([{}])
+  const [reporteVistaTecnico, setReporteVisitaTecnica] = useState([{
+    detalles: []
+  }])
+  const [detalles, setDetalles] = useState([])
+  const [articulo, setArticulo] = useState([])
+
+  useEffect(() => {
+    console.log(reporteVistaTecnico)
+  }, [reporteVistaTecnico])
 
   useEffect(() => {
     fetchData();
@@ -24,6 +31,7 @@ function MainPageReportes() {
       <div className='container'>
         <div className='row'>
           <div className="container" style={{ marginTop: "7rem" }}>
+            {/* <Detalles></Detalles> */}
             <h3 className="text-dark fw-bold">Tus Reportes Actuales</h3>
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AgregarReporteVistaTecnica">Crear Reporte</button>
             <div className="table-responsive" style={{ marginTop: "5rem" }}>
@@ -39,7 +47,7 @@ function MainPageReportes() {
                   </tr>
                 </thead>
                 <tbody>
-                  {reporteVistaTecnico.length === 0 ? <tr><td className='text-center' colSpan={3}>Loading</td> </tr> : reporteVistaTecnico.map(x => (<tr key={x._id}>
+                  {reporteVistaTecnico.length === 0 ? <tr><td className='text-center' colSpan={6}>Loading</td> </tr> : reporteVistaTecnico.map(x => (<tr key={x._id}>
                     <td>{x.activo ? "activo" : "desactivo"}</td>
                     <td>{x.numero}</td>
                     <td>{x.empleado?.persona.nombre}</td>
@@ -61,8 +69,8 @@ function MainPageReportes() {
           </div>
         </div>
       </div>
-      <AgregarReporteVistaTecnica />
-      <AgregarDetallesReporte />
+      <AgregarReporteVistaTecnica detalles={detalles} setDetalles={setDetalles} />
+      <AgregarDetallesReporte detalles={detalles} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
     </>
   );
 }

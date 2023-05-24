@@ -1,57 +1,56 @@
+import { useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
 const Detalles = () => {
+  const [showOuterModal, setShowOuterModal] = useState(false);
+  const [showInnerModal, setShowInnerModal] = useState(false);
+
+  const handleOuterModal = () => {
+    setShowOuterModal(!showOuterModal);
+  };
+
+  const handleInnerModal = () => {
+    setShowInnerModal(!showInnerModal);
+  };
+
   return (
     <div>
-      <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalPrincipal">
-        Abrir Modal Principal
-      </button>
+      <h1>Modal Component</h1>
+      <Button variant="primary" onClick={handleOuterModal}>
+        Open Outer Modal
+      </Button>
 
-      <div className="modal fade" id="modalPrincipal" tabIndex={-1} role="dialog" aria-labelledby="modalPrincipalLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="modalPrincipalLabel">Modal Principal</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <p>Este es el contenido del modal principal.</p>
-              <button type="button" className="btn btn-secondary" data-toggle="modal" data-target="#modalSecundario">
-                Abrir Modal Secundario
-              </button>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Modal show={showOuterModal} onHide={handleOuterModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Outer Modal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Content of Outer Modal</p>
+          <Button variant="primary" onClick={handleInnerModal}>
+            Open Inner Modal
+          </Button>
 
-      <div className="modal fade" id="modalSecundario" tabIndex={-1} role="dialog" aria-labelledby="modalSecundarioLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="modalSecundarioLabel">Modal Secundario</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <p>Este es el contenido del modal secundario.</p>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+          <Modal show={showInnerModal} onHide={handleInnerModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Inner Modal</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Content of Inner Modal</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleInnerModal}>
+                Close Inner Modal
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleOuterModal}>
+            Close Outer Modal
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
 
-export default Detalles
+export default Detalles;

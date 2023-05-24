@@ -14,7 +14,7 @@ const SelectPro = ({ name, endpoint, nameExtractor }) => {
     }
 
     useEffect(() => {
-        GetAllCliente()
+        GetAll()
     }, [])
 
     return (
@@ -33,7 +33,7 @@ const SelectPro = ({ name, endpoint, nameExtractor }) => {
         </div>
     )
 
-    async function GetAllCliente() {
+    async function GetAll() {
         const response = await axios.get(`https://localhost:7044${endpoint}`)
         setData(response.data)
     }

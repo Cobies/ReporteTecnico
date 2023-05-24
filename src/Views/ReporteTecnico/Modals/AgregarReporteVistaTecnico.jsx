@@ -1,60 +1,64 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import SelectPro from "../../../Components/SelectPro";
-import { useState } from "react";
-import Swal from 'sweetalert2';
 
-const AgregarReporteVistaTecnica = () => {
 
-    const [detalles, setDetalles] = useState([{}])
+const AgregarReporteVistaTecnica = ({ detalles }) => {
 
     const ReporteSubmit = async (e) => {
         e.preventDefault();
         const DocumentosPdf = e.target.DocumentosPdf.value;
         const Sugerencia = e.target.Sugerencia.value;
         const Activo = e.target.Activo.checked;
-        const Cliente = e.target.Cliente.value;
-        const Empleado = e.target.Empleado.value;
-
+        const Cliente = JSON.parse(e.target.Cliente.value);
+        const Empleado = JSON.parse(e.target.Empleado.value);
+        console.log(detalles)
         try {
-            const response = await axios.post('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', {
+            const body = {
                 Activo: Activo,
-                Cliente: JSON.parse(Cliente),
-                Empleado: JSON.parse(Empleado),
+                Cliente: Cliente,
+                Empleado: Empleado,
                 FechaCreado: new Date(),
+                Detalle: detalles,
                 Sugerencia: Sugerencia,
                 DocumentosPdf: DocumentosPdf.split('\n')
-            }, {
+            }
+            for (let i = 0; i < body.Detalle.length; i++) {
+                delete body.Detalle[i].cantidad;
+            }
+            console.log(body)
+            const response = await axios.post('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', body, {
                 headers: { 'Content-Type': 'application/json' }
             })
-            console.log(response)
+            console.log(response.data)
         } catch (error) {
             console.error(error)
         }
     };
 
     // Alerta por si desea eliminar el producto
-    const handleEliminarProducto = () => {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: 'Esta acción eliminará el articulo permanentemente',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Eliminar',
-            cancelButtonText: 'Cancelar',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Aquí puedes realizar la acción de eliminación del producto
-                // Ejemplo: llamar a una función para eliminar el producto desde el backend
-                // eliminarProducto();
-            }
-        })
-    }
+    // const handleEliminarProducto = () => {
+    //     Swal.fire({
+    //         title: '¿Estás seguro?',
+    //         text: 'Esta acción eliminará el articulo permanentemente',
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#d33',
+    //         cancelButtonColor: '#3085d6',
+    //         confirmButtonText: 'Eliminar',
+    //         cancelButtonText: 'Cancelar',
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             // Aquí puedes realizar la acción de eliminación del producto
+    //             // Ejemplo: llamar a una función para eliminar el producto desde el backend
+    //             // eliminarProducto();
+    //         }
+    //     })
+    // }
 
     return (
         <div className="modal fade" id="AgregarReporteVistaTecnica" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-            <div className="modal-dialog modal-dialog-scrollable modal-lg">
+            <div className="modal-dialog modal-dialog-scrollable modal-fullscreen-xxl-down p-5">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="staticBackdropLabel">Agregar Reporte Vista Tecnico</h5>
@@ -111,8 +115,7 @@ const AgregarReporteVistaTecnica = () => {
                                     <thead>
                                         <tr className='text-center'>
                                             <th scope="col">Cantidad</th>
-                                            <th scope="col">Articulo</th>
-                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Producto</th>
                                             <th scope="col">MARCA</th>
                                             <th scope="col">MODELO</th>
                                             <th scope="col">AREA</th>
@@ -123,54 +126,37 @@ const AgregarReporteVistaTecnica = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>PC- AIO</td>
-                                            <td>Procesador core i3-1011ou 2.10Ghz RAM 8GB, Windows 10 pro SSD 256 HDD 1Tb Teclado hp Mouse Hp</td>
-                                            <td>HP</td>
-                                            <td>200G422</td>
-                                            <td>Centro de Computo</td>
-                                            <td>20/10/2022</td>
-                                            <td>OPERATIVO</td>
-                                            <td>Equipo con varios años de uso, requiere mantenimient, cambio de ventiladores.</td>
-                                            <td className="text-center">
-                                                <div className="d-flex justify-content-center gap-2 align-items-center">
-                                                    <button type="button" className="btn btn-success border border-0 bi bi-pencil" data-bs-toggle="modal" data-bs-target="#ModalEditDetailProduct" style={{ fontSize: "0.8rem", padding: "0.3rem 0.4rem" }}></button>
-                                                    {/* <button type="button" className="btn btn-danger border border-0 bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ fontSize: "0.8rem", padding: "0.3rem 0.4rem" }}></button> */}
-                                                    <button type="button" className="btn btn-danger border border-0 bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ fontSize: "0.8rem", padding: "0.3rem 0.4rem" }} onClick={handleEliminarProducto}></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {/* {data.map((item) => (
-                                            <tr key={item.id}>
-                                                <td scope="row">{item.Cantidad}</td>
-                                                <td>{item.Articulo}</td>
-                                                <td>{item.Descripcion}</td>
-                                                <td>{item.Marca}</td>
-                                                <td>{item.Modelo}</td>
+                                        {detalles.length === 0 ? <tr > <td className="text-center" colSpan={9}>Vacio</td> </tr> : detalles.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{item.cantidad}</td>
+                                                <td>{item.Producto?.Nombre}</td>
+                                                <td>{item.Producto?.Marca?.Nombre}</td>
+                                                <td>{item.Producto?.Modelo}</td>
                                                 <td>{item.Area}</td>
-                                                <td>{item.FechaCompra}</td>
-                                                <td>{item.Condicion}</td>
-                                                <td>{item.Observaciones}</td>
+                                                <td>{item.FechaCreado.toString()}</td>
+                                                <td>{item.condicion}</td>
+                                                <td>{item.Observacion}</td>
                                                 <td className="text-center">
                                                     <div className="d-flex justify-content-center gap-2 align-items-center">
-                                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setProductoSeleccionado(item)}>Ver</button>
+                                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => console.log(item)}>Ver</button>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        ))} */}
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
                             <div className="modal-footer">
-                                <button className="btn btn-success" data-bs-toggle="modal" data-bs-target="#AgregarDetallesReporte"> Agregar Detalles</button>
+                                <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#AgregarDetallesReporte">Agregar Detalles</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Editar</button>
+                                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Crear</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>)
+        </div>
+    )
 }
 
 export default AgregarReporteVistaTecnica
