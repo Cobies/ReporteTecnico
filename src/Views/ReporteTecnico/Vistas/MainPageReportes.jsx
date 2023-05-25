@@ -4,6 +4,7 @@ import { GetAllReportes } from '../../../Services/ReporteVistaTecnico';
 import { Link } from 'react-router-dom';
 import AgregarDetallesReporte from '../Modals/AgregarDetallesReporte';
 import AgregarReporteVistaTecnica from '../Modals/AgregarReporteVistaTecnico';
+import AgregarArticulosDetalles from '../Modals/AgregarArticulosDetalles';
 
 function MainPageReportes() {
 
@@ -11,7 +12,7 @@ function MainPageReportes() {
     detalles: []
   }])
   const [detalles, setDetalles] = useState([])
-  const [articulo, setArticulo] = useState([])
+  const [articulos, setArticulos] = useState([])
 
   useEffect(() => {
     console.log(reporteVistaTecnico)
@@ -70,7 +71,8 @@ function MainPageReportes() {
         </div>
       </div>
       <AgregarReporteVistaTecnica detalles={detalles} setDetalles={setDetalles} />
-      <AgregarDetallesReporte detalles={detalles} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
+      <AgregarDetallesReporte  articulos={articulos} detalles={detalles} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
+      <AgregarArticulosDetalles articulos={articulos} detalles={detalles} setArticulos={setArticulos} />
     </>
   );
 }

@@ -26,7 +26,7 @@ const SelectPro = ({ name, endpoint, nameExtractor }) => {
             {showList && (
                 <ul className="list-group position-absolute" style={{ zIndex: 99999, width: 335 }} >
                     <input type='text' placeholder='Search' className='form-control' autoFocus></input>
-                    {data.map((x) => (<li key={x._id} onClick={() => handleSelection(nameExtractor(x), x._id, x)} className="list-group-item">{nameExtractor(x)}</li>))}
+                    {data ? data.map((x) => (<li key={x._id} onClick={() => handleSelection(nameExtractor(x), x._id, x)} className="list-group-item">{nameExtractor(x)}</li>)) : null}
                 </ul>
             )}
             <input type="hidden" name={name} value={JSON.stringify(selectedValue.obj)} />

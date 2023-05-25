@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import SelectPro from "../../../Components/SelectPro";
+import moment from "moment/moment";
 
 
 const AgregarReporteVistaTecnica = ({ detalles }) => {
@@ -12,7 +13,6 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
         const Activo = e.target.Activo.checked;
         const Cliente = JSON.parse(e.target.Cliente.value);
         const Empleado = JSON.parse(e.target.Empleado.value);
-        console.log(detalles)
         try {
             const body = {
                 Activo: Activo,
@@ -34,7 +34,7 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
         } catch (error) {
             console.error(error)
         }
-    };
+    }
 
     // Alerta por si desea eliminar el producto
     // const handleEliminarProducto = () => {
@@ -58,7 +58,7 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
 
     return (
         <div className="modal fade" id="AgregarReporteVistaTecnica" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-            <div className="modal-dialog modal-dialog-scrollable modal-fullscreen-xxl-down p-5">
+            <div className="modal-dialog modal-dialog-scrollable modal-fullscreen p-5">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="staticBackdropLabel">Agregar Reporte Vista Tecnico</h5>
@@ -121,19 +121,19 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
                                             <th scope="col">AREA</th>
                                             <th scope="col">FECHA DE COMPRA</th>
                                             <th scope="col">CONDICION</th>
-                                            <th scope="col">OBSERVACIONES</th>
+                                            <th scope="col">OBS. GENERAL</th>
                                             <th scope="col">ACCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {detalles.length === 0 ? <tr > <td className="text-center" colSpan={9}>Vacio</td> </tr> : detalles.map((item, index) => (
                                             <tr key={index}>
-                                                <td>{item.cantidad}</td>
+                                                <td>{item.Articulos.length}</td>
                                                 <td>{item.Producto?.Nombre}</td>
-                                                <td>{item.Producto?.Marca?.Nombre}</td>
+                                                <td>{item.Producto?.Marca?.nombre}</td>
                                                 <td>{item.Producto?.Modelo}</td>
                                                 <td>{item.Area}</td>
-                                                <td>{item.FechaCreado.toString()}</td>
+                                                <td>{moment(item.FechaCreado).format('L')}</td>
                                                 <td>{item.condicion}</td>
                                                 <td>{item.Observacion}</td>
                                                 <td className="text-center">
