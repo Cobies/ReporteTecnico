@@ -1,66 +1,75 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
-    const ModalArticulos = useRef(null);
 
     const [formArticulos, setFormArticulos] = useState({
         fechaCompra: "",
-
+        operativo: true,
+        observaciones: ""
     })
 
     const handleChange = (e) => {
-        setFormArticulos({
-            ...formArticulos,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value, type, checked } = e.target;
+        const fieldValue = type === 'checkbox'
+            ? checked : type === 'date'
+                ? new Date(value) : value;
+
+        setFormArticulos((prevFormArticulos) => ({
+            ...prevFormArticulos,
+            [name]: fieldValue,
+        }))
     }
 
     useEffect(() => {
-        const handleModalClose = () => {
-            // Lógica a ejecutar al cerrar el modal
-            console.log("Modal cerrado");
-            // Agrega aquí tu script personalizado al cerrar el modal
-        };
+        console.log(formArticulos)
+    }, [formArticulos])
+    // const ModalArticulos = useRef(null);
+    // useEffect(() => {
+    //     const handleModalClose = () => {
+    //         // Lógica a ejecutar al cerrar el modal
+    //         console.log("Modal cerrado");
+    //         // Agrega aquí tu script personalizado al cerrar el modal
+    //     };
 
-        // Agrega un event listener al evento 'hidden.bs.modal'
-        ModalArticulos.current.addEventListener(
-            "hidden.bs.modal",
-            handleModalClose
-        );
+    //     // Agrega un event listener al evento 'hidden.bs.modal'
+    //     ModalArticulos.current.addEventListener(
+    //         "hidden.bs.modal",
+    //         handleModalClose
+    //     );
 
-        // Limpia el event listener cuando el componente se desmonte
-        return () => {
-            ModalArticulos.current.removeEventListener(
-                "hidden.bs.modal",
-                handleModalClose
-            );
-        };
-    }, []);
+    //     // Limpia el event listener cuando el componente se desmonte
+    //     return () => {
+    //         ModalArticulos.current.removeEventListener(
+    //             "hidden.bs.modal",
+    //             handleModalClose
+    //         );
+    //     };
+    // }, []);
 
     async function PostArticuloDetalle(e) {
         e.preventDefault();
-        console.log(e);
-        const fechaCompra = e.target.fechaCompra.value;
-        const operativo = e.target.operativo.checked;
-        const observaciones = e.target.observaciones.value;
-        const serie = uuidv4().substring(0, 8);
         setArticulos([
             ...articulos,
             {
                 FechaCreado: new Date(),
-                Serie: serie,
-                Operativo: operativo,
-                Observaciones: observaciones,
-                FechaCompra: fechaCompra,
+                Serie: uuidv4().substring(0, 8),
+                Operativo: formArticulos.operativo,
+                Observaciones: formArticulos.observaciones,
+                FechaCompra: formArticulos.fechaCompra,
             },
         ]);
+        setFormArticulos({
+            fechaCompra: "",
+            operativo: true,
+            observaciones: ""
+        })
     }
 
     return (
         <div
-            ref={ModalArticulos}
+            // ref={ModalArticulos}
             className="modal fade"
             id="AgregarArticulosDetalles"
             data-bs-backdrop="static"
@@ -91,7 +100,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                                             type="date"
                                             className="form-control"
                                             name="fechaCompra"
-                                            value={formArticulos.fechaCompra}
+                                            value={formArticulos.fechaCompra ? formArticulos.fechaCompra.toISOString().substr(0, 10) : ''}
                                             onChange={handleChange}
                                             required
                                         ></input>
@@ -105,7 +114,8 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                                                 name="operativo"
                                                 type="checkbox"
                                                 role="switch"
-                                                id="flexSwitchCheckDefault"
+                                                value={formArticulos.operativo}
+                                                onChange={handleChange}
                                                 defaultChecked={true}
                                             />
                                             <label
@@ -126,6 +136,8 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                                             className="form-control"
                                             id="observaciones"
                                             name="observaciones"
+                                            value={formArticulos.observaciones}
+                                            onChange={handleChange}
                                             rows="3"
                                             placeholder="Ingrese observaciones"
                                         ></textarea>
