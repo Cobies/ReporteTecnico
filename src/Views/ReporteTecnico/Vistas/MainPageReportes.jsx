@@ -43,7 +43,7 @@ function MainPageReportes() {
                     <th scope="col">CODIGO</th>
                     <th scope="col">EMPLEADO</th>
                     <th scope="col">CLIENTE</th>
-                    <th scope="col">PDF</th>
+                    {/* <th scope="col">PDF</th> */}
                     <th scope="col">ACCIONES</th>
                   </tr>
                 </thead>
@@ -53,7 +53,7 @@ function MainPageReportes() {
                     <td>{x.numero}</td>
                     <td>{x.empleado?.persona.nombre}</td>
                     <td>{x.cliente?.persona.nombre}</td>
-                    <td>{x.documentosPdf?.map((u, index) => <a href={u} key={index} target='_blank' rel='noreferrer'>{u}<br></br></a>)}</td>
+                    {/* <td>{x.documentosPdf?.map((u, index) => <a href={u} key={index} target='_blank' rel='noreferrer'>{u}<br></br></a>)}</td> */}
                     <td>
                       <div className="d-flex justify-content-center gap-2 align-items-center">
                         <Link className="btn btn-primary border border-0 bi bi-search" to="/reportes/Detalles"></Link>

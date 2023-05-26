@@ -3,7 +3,6 @@ import axios from "axios";
 import SelectPro from "../../../Components/SelectPro";
 import moment from "moment/moment";
 
-
 const AgregarReporteVistaTecnica = ({ detalles }) => {
 
     const ReporteSubmit = async (e) => {
@@ -65,14 +64,13 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <form onSubmit={ReporteSubmit}>
+                        <form onSubmit={ReporteSubmit} >
                             <div className="row">
                                 <div className="form-check">
-                                    <input className='form-check-input' type="checkbox"
-                                        id="checkbox"
-                                        name='Activo'
-                                    />
-                                    <label htmlFor="Activo" className="form-check-label" >Activo</label>
+                                    <div className="form-check form-switch">
+                                        <input className="form-check-input" name="Activo" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                                        <label className="form-check-label" htmlFor="Activo">Activo</label>
+                                    </div>
                                 </div>
 
                                 <div className="mb-3 col-6">
@@ -98,7 +96,7 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
                                 </div>
 
                                 <div className="mb-3 col-6">
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label htmlFor="DocumentosPdf" className="form-label">DocumentosPdf</label>
                                         <textarea
                                             className='form-control'
@@ -108,7 +106,7 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
                                             cols="100"
                                             placeholder='Url'
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <table className="table table-sm table-striped table-bordered" style={{ fontSize: "0.8rem" }}>
