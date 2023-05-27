@@ -17,9 +17,9 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
     }
   })
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(formDetalles)
-  },[formDetalles])
+  }, [formDetalles])
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -33,13 +33,35 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
     }))
   }
 
+  const handleChangeProducto = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value)
+    setFormDetalles((prevFormDetalles) => ({
+      ...prevFormDetalles,
+      Producto: {
+        ...prevFormDetalles.Producto,
+        [name]: value
+      }
+    }));
+  };
+
+  const onCaptureObj = (producto) => {
+    // Aquí puedes hacer lo que necesites con el objeto seleccionado
+    setFormDetalles((prevState) => ({
+      ...prevState,
+      Producto: {
+        ...prevState.Producto,
+        nombre: producto.nombre,
+        marca: producto.marca,
+        linea: producto.linea,
+        codigo: producto.codigo
+      }
+    }));
+  };
+
   async function PostDetalle(e) {
     e.preventDefault();
     // const cantidad = e.target.cantidad.value
-    const { nombre, marca, linea, codigo } = JSON.parse(
-      e.target.Producto.value
-    );
-
     setDetalles([
       ...detalles,
       {
@@ -47,15 +69,22 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
         Observacion: formDetalles.observacion,
         Area: formDetalles.observacion,
         Articulos: articulos,
-        Producto: {
-          Nombre: nombre,
-          Marca: marca,
-          Linea: linea,
-          Codigo: codigo,
-          Modelo: formDetalles.Producto.modelo,
-        },
+        Producto: formDetalles.Producto
       },
     ]);
+
+    setFormDetalles({
+      observacion: "",
+      area: "",
+      Producto: {
+        nombre: "",
+        marca: "",
+        linea: {
+        },
+        codigo: "",
+        modelo: ""
+      }
+    })
     // setReporteVisitaTecnica((prevState) => [
     //   ...prevState,
     //   {
@@ -117,6 +146,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
                         name={"Producto"}
                         endpoint={"/Producto/GetBusquedaProductoLimite/0&20"}
                         nameExtractor={(x) => x.nombre}
+                        onCaptureObj={onCaptureObj}
                       />
                     </div>
                   </div>
@@ -143,7 +173,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
                         className="form-control"
                         name="modelo"
                         value={formDetalles.Producto.modelo}
-                        onChange={handleChange}
+                        onChange={handleChangeProducto}
                         placeholder="Ingrese el área"
                       ></input>
                     </div>
