@@ -1,9 +1,10 @@
 import ProductoReporte from "./ProductoReporte";
+import ArticuloReporte from "./ArticuloReporte"
 
 const DetalleReporteVisitaTecnica = {
-    _id: "",
+    _id: null,
     fechaCreado: new Date(),
-    articulos: [],
+    articulos: [ArticuloReporte],
     producto: ProductoReporte,
     area: "",
     observacion: ""

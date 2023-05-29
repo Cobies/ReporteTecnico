@@ -1,7 +1,7 @@
 import ProductoReporte from "./ProductoReporte";
 
 const ArticuloReporte = {
-    _id: "",
+    _id: null,
     fechaCreado: new Date(),
     serie: "",
     producto: ProductoReporte,

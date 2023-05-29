@@ -1,7 +1,7 @@
 import Pais from "./Pais";
 
 const Departamento = {
-    _id: "",
+    _id: null,
     nombre: "",
     pais: Pais,
     ubigeo: ""

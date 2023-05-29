@@ -1,7 +1,7 @@
 import Provincia from "./Provincia";
 
 const Distrito = {
-    _id: "",
+    _id: null,
     nombre: "",
     provincia: Provincia,
     ubigeo: ""

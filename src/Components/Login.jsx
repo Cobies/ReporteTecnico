@@ -3,14 +3,15 @@ import "./Login.css";
 import logo from "./Logo.svg"
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
 
 /* eslint-disable react/prop-types */
 const Login = ({ session, setSession }) => {
 
-  const user = {
-    username: "pedro",
-    password: "123"
-  }
+  // const user = {
+  //   username: "pedro",
+  //   password: "123"
+  // }
 
   useEffect(() => {
     setMessage("")
@@ -19,34 +20,40 @@ const Login = ({ session, setSession }) => {
   const [message, setMessage] = useState("")
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    const username = e.target.username.value;
-    const password = e.target.password.value;
 
-    // const response = await fetch('https://ejemplo.com/api/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ username, password }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // })
-    // const data = await response.json();
-
-    if (user.username === username && user.password === password) {
-      // setSession({ username: data.username, isLoggedIn: true });
-      setSession({ username: user.username, isLoggedIn: true })
-    } else {
-      setMessage("Credenciales Invalidas")
+    try {
+      e.preventDefault();
+      const nombreUsuario = e.target.username.value;
+      const password = e.target.password.value;
+      const response = await fetch('https://api.grupoupgrade.com.pe/Autenticacion/Autenticacion', {
+        method: 'POST',
+        body: JSON.stringify({ nombreUsuario, password }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      // console.log("Hola1");
+      // vari = await response.text();
+      // console.log(vari)
+      // console.log("Hola2");
+      const data = await response.text();
+      const perfil = jwtDecode(data)
+      // console.log(perfil)
+      setSession({ username: perfil.nombreusuaio, isLoggedIn: true })
+    } catch (error) {
+      setMessage("Intruso Detectado")
       e.target.username.value = ""
       e.target.password.value = ""
     }
-
   }
+
+  // async function checkData(data) {
+  //   return data != 'false';
+  // }
 
   const handleLogout = (event) => {
     event.preventDefault();
     // Aquí se haría la lógica para cerrar sesión y borrar la información de la sesión
     setSession({ username: '', isLoggedIn: false });
   }
-
 
   return (
     <>
@@ -64,7 +71,7 @@ const Login = ({ session, setSession }) => {
               <Link className="navbar-brand px-1" to="/admin">Test</Link>
               <Link className="navbar-brand px-1" to="/login">Login</Link>
               <Link className="navbar-brand px-1" to="/reportes">reportes</Link>
-              <i onClick={handleLogout} style={{marginRight:25}} className="bi bi-box-arrow-left text-danger p-1"> {session.username}</i>
+              <i onClick={handleLogout} style={{ marginRight: 25 }} className="bi bi-box-arrow-left text-danger p-1"> {session.username}</i>
             </div>
             {/* <button className="btn">
               <i onClick={handleLogout}  className="bi bi-box-arrow-left text-danger"></i>

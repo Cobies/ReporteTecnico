@@ -1,5 +1,5 @@
 const Marca = {
-    _id: "",
+    _id: null,
     nombre: "",
     abreviatura: ""
 }

@@ -1,5 +1,5 @@
 const TipoDocumentoIdentidad = {
-    _id: "",
+    _id: null,
     activo: true,
     nombre: "",
     abreviatura: ""

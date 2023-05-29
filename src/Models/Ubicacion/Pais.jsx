@@ -1,5 +1,5 @@
 const Pais = {
-    _id: "",
+    _id: null,
     nombre: ""
 }
 
