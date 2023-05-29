@@ -21,7 +21,6 @@ const SelectPro = ({ name, endpoint, nameExtractor, onCaptureObj, SP }) => {
             GetAll(0, searchQuery, SP);
         }
     }
-
     useEffect(() => {
         GetAll(0, "20", SP)
         // eslint-disable-next-line react-hooks/exhaustive-deps
