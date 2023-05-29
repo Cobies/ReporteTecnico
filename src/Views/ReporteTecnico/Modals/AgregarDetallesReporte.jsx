@@ -18,7 +18,6 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
   })
 
   useEffect(() => {
-    console.log(formDetalles)
   }, [formDetalles])
 
   const handleChange = (e) => {
@@ -35,7 +34,6 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
 
   const handleChangeProducto = (e) => {
     const { name, value } = e.target;
-    console.log(name, value)
     setFormDetalles((prevFormDetalles) => ({
       ...prevFormDetalles,
       Producto: {
@@ -144,9 +142,10 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
                     <div className="mb-3">
                       <SelectPro
                         name={"Producto"}
-                        endpoint={"/Producto/GetBusquedaProductoLimite/0&20"}
+                        endpoint={"/Producto/GetBusquedaProductoLimite"}
                         nameExtractor={(x) => x.nombre}
                         onCaptureObj={onCaptureObj}
+                        SP={false}
                       />
                     </div>
                   </div>

@@ -11,7 +11,6 @@ function SelectSearch() {
         value: option._id,
         label: option.persona.nombre,
       }));
-      console.log(options)
       return options;
     } catch (error) {
       console.error(error);

@@ -30,14 +30,9 @@ const Login = ({ session, setSession }) => {
         body: JSON.stringify({ nombreUsuario, password }),
         headers: { 'Content-Type': 'application/json' },
       })
-      // console.log("Hola1");
-      // vari = await response.text();
-      // console.log(vari)
-      // console.log("Hola2");
       const data = await response.text();
       const perfil = jwtDecode(data)
-      // console.log(perfil)
-      setSession({ username: perfil.nombreusuaio, isLoggedIn: true })
+      setSession({ username: perfil.nombreusuaio, isLoggedIn: true, id: perfil.identificador })
     } catch (error) {
       setMessage("Intruso Detectado")
       e.target.username.value = ""
@@ -66,11 +61,11 @@ const Login = ({ session, setSession }) => {
       }}>
         {session.isLoggedIn
           ? <div style={{ padding: "12px 0", fontSize: 17 }} className="container d-flex justify-content-between text-white position-relative">
-            <Link className="navbar-brand" to="/" style={{ paddingLeft: 25 }}>Soporte Tecnico</Link>
-            <div className="">
-              <Link className="navbar-brand px-1" to="/admin">Test</Link>
-              <Link className="navbar-brand px-1" to="/login">Login</Link>
-              <Link className="navbar-brand px-1" to="/reportes">reportes</Link>
+            <Link to="/" style={{ color: "white", textDecoration: "none", cursor: "pointer" }}>Soporte Tecnico</Link>
+            <div style={{ cursor: "pointer" }} >
+              {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link>
+              <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/login">Login</Link>
+              <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/reportes">reportes</Link> */}
               <i onClick={handleLogout} style={{ marginRight: 25 }} className="bi bi-box-arrow-left text-danger p-1"> {session.username}</i>
             </div>
             {/* <button className="btn">
@@ -130,7 +125,7 @@ const Login = ({ session, setSession }) => {
               Ingresar
             </motion.button>
 
-            <p style={{ color: "#ffffff99" }}>Desarrolado por <strong>Consultancy</strong> </p>
+            <p style={{ color: "#ffffff99" }}>Desarrolado por <strong>Consultancy</strong></p>
             <motion.span initial={{ color: "white" }} animate={{ color: "red", y: 20 }}>{message}</motion.span>
           </form>}
 

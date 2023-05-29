@@ -23,7 +23,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
     }
 
     useEffect(() => {
-        console.log(formArticulos)
+
     }, [formArticulos])
     // const ModalArticulos = useRef(null);
     // useEffect(() => {

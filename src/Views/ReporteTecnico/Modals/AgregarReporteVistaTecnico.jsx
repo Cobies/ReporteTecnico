@@ -2,30 +2,30 @@
 import axios from "axios";
 import SelectPro from "../../../Components/SelectPro";
 import moment from "moment/moment";
+import { useEffect, useState } from "react";
 
-const AgregarReporteVistaTecnica = ({ detalles }) => {
+const AgregarReporteVistaTecnica = ({ detalles, session }) => {
+
+    const [perfil, setPerfil] = useState({})
+    const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({ Activo: true })
 
     const ReporteSubmit = async (e) => {
         e.preventDefault();
-        const DocumentosPdf = e.target.DocumentosPdf.value;
-        const Sugerencia = e.target.Sugerencia.value;
-        const Activo = e.target.Activo.checked;
-        const Cliente = JSON.parse(e.target.Cliente.value);
-        const Empleado = JSON.parse(e.target.Empleado.value);
+        // const DocumentosPdf = e.target.DocumentosPdf.value;
         try {
             const body = {
-                Activo: Activo,
-                Cliente: Cliente,
-                Empleado: Empleado,
+                Activo: formReporteVistaTecnica.Activo,
+                Cliente: formReporteVistaTecnica.Cliente,
+                Empleado: perfil,
                 FechaCreado: new Date(),
                 Detalle: detalles,
-                Sugerencia: Sugerencia,
-                DocumentosPdf: DocumentosPdf.split('\n')
+                Sugerencia: formReporteVistaTecnica.Sugerencia,
+                // DocumentosPdf: DocumentosPdf.split('\n')
             }
+            console.log(body)
             for (let i = 0; i < body.Detalle.length; i++) {
                 delete body.Detalle[i].cantidad;
             }
-            console.log(body)
             const response = await axios.post('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', body, {
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -34,6 +34,42 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
             console.error(error)
         }
     }
+
+    useEffect(() => {
+        console.log(formReporteVistaTecnica)
+    }, [formReporteVistaTecnica])
+
+    useEffect(() => {
+        getPerfil(session.id)
+    }, [])
+
+    async function getPerfil(id) {
+        try {
+            const response = await axios.get(`https://localhost:7044/Empleado/GetEmpleadoId/${id}`)
+            setPerfil(response.data)
+        } catch (error) {
+            console.log("")
+        }
+    }
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        const fieldValue = type === 'checkbox'
+            ? checked : type === 'date'
+                ? new Date(value) : value;
+
+        setFormReporteVistaTecnica((prev) => ({
+            ...prev,
+            [name]: fieldValue,
+        }))
+    }
+
+    const onCaptureObj = (cliente) => {
+        // Aquí puedes hacer lo que necesites con el objeto seleccionado
+        setFormReporteVistaTecnica((prevState) => ({
+            ...prevState,
+            Cliente: cliente
+        }));
+    };
 
     // Alerta por si desea eliminar el producto
     // const handleEliminarProducto = () => {
@@ -68,23 +104,30 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
                             <div className="row">
                                 <div className="form-check">
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" name="Activo" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                                        <input checked={formReporteVistaTecnica.Activo} onChange={handleChange} className="form-check-input" name="Activo" type="checkbox" role="switch" />
                                         <label className="form-check-label" htmlFor="Activo">Activo</label>
                                     </div>
                                 </div>
 
                                 <div className="mb-3 col-6">
-                                    <SelectPro name={"Cliente"} endpoint={"/Cliente/GetBusquedaClienteLimite/0&20"} nameExtractor={(x) => x.persona.nombre}></SelectPro>
+                                    <SelectPro onCaptureObj={onCaptureObj} name={"Cliente"} endpoint={"/Cliente/GetBusquedaClienteLimite"} nameExtractor={(x) => x.persona.nombre} SP={false} />
                                 </div>
 
                                 <div className="mb-3 col-6">
-                                    <SelectPro name={"Empleado"} endpoint={"/Empleado/GetAllEmpleado"} nameExtractor={(x) => x.persona.nombre} ></SelectPro>
+                                    <div className="form-floating mb-3">
+                                        <input value={perfil.persona?.nombre} type="text" className="form-control" id="Empleado" placeholder="Empleado" readOnly />
+                                        <label htmlFor="Empleado">Empleado</label>
+                                        <input type="hidden" name="Empleado" value={JSON.stringify(perfil)} />
+                                    </div>
+                                    {/* <SelectPro name={"Empleado"} endpoint={"/Empleado/GetAllEmpleado"} nameExtractor={(x) => x.persona.nombre} SP={true} /> */}
                                 </div>
 
                                 <div className="mb-3 col-6">
                                     <div className="form-group">
                                         <label htmlFor="Sugerencia" className="form-label">Sugerencia</label>
                                         <textarea
+                                            value={formReporteVistaTecnica.Sugerencia}
+                                            onChange={handleChange}
                                             className='form-control'
                                             id='Sugerencia'
                                             name="Sugerencia"
@@ -127,9 +170,9 @@ const AgregarReporteVistaTecnica = ({ detalles }) => {
                                         {detalles.length === 0 ? <tr > <td className="text-center" colSpan={9}>Vacio</td> </tr> : detalles.map((item, index) => (
                                             <tr key={index}>
                                                 <td>{item.Articulos.length}</td>
-                                                <td>{item.Producto?.Nombre}</td>
-                                                <td>{item.Producto?.Marca?.nombre}</td>
-                                                <td>{item.Producto?.Modelo}</td>
+                                                <td>{item.Producto?.nombre}</td>
+                                                <td>{item.Producto?.marca?.nombre}</td>
+                                                <td>{item.Producto?.modelo}</td>
                                                 <td>{item.Area}</td>
                                                 <td>{moment(item.FechaCreado).format('L')}</td>
                                                 <td>{item.condicion}</td>
