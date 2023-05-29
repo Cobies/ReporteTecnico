@@ -4,7 +4,7 @@ import SelectPro from "../../../Components/SelectPro";
 import moment from "moment/moment";
 import { useEffect, useState } from "react";
 
-const AgregarReporteVistaTecnica = ({ detalles, session }) => {
+const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticulos }) => {
 
     const [perfil, setPerfil] = useState({})
     const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({ Activo: true })
@@ -30,6 +30,9 @@ const AgregarReporteVistaTecnica = ({ detalles, session }) => {
                 headers: { 'Content-Type': 'application/json' }
             })
             console.log(response.data)
+
+            setDetalles([])
+            setArticulos([])
         } catch (error) {
             console.error(error)
         }

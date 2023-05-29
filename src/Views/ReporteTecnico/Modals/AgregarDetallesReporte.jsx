@@ -3,7 +3,7 @@ import SelectPro from "../../../Components/SelectPro";
 import moment from "moment";
 
 /* eslint-disable react/prop-types */
-const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
+const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos }) => {
   const [formDetalles, setFormDetalles] = useState({
     observacion: "",
     area: "",
@@ -83,6 +83,8 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
         modelo: ""
       }
     })
+
+    setArticulos([])
     // setReporteVisitaTecnica((prevState) => [
     //   ...prevState,
     //   {

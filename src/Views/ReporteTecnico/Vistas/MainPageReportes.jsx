@@ -70,8 +70,8 @@ function MainPageReportes({ session }) {
           </div>
         </div>
       </div>
-      <AgregarReporteVistaTecnica session={session} detalles={detalles} setDetalles={setDetalles} />
-      <AgregarDetallesReporte articulos={articulos} detalles={detalles} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
+      <AgregarReporteVistaTecnica session={session} detalles={detalles} setDetalles={setDetalles} setArticulos={setArticulos} />
+      <AgregarDetallesReporte articulos={articulos} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
       <AgregarArticulosDetalles articulos={articulos} detalles={detalles} setArticulos={setArticulos} />
     </>
   );
