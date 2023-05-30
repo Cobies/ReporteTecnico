@@ -41,7 +41,7 @@ function MainPageReportes({ session }) {
             <h3 className="text-center">Tus Reportes Actuales</h3>
             <button type="button" className="btn text-white" style={{ background: "#00B2FF" }} data-bs-toggle="modal" data-bs-target="#AgregarReporteVistaTecnica">Crear Reporte</button>
             <div className="table-responsive" style={{ marginTop: "5rem" }}>
-              <table className="table table-striped table-bordered" style={{fontSize: 15}}>
+              <table className="table table-striped table-bordered" style={{ fontSize: 15 }}>
                 <thead style={{ background: "#00B2FF" }}>
                   <tr className="text-center text-white">
                     <th scope="col">ACTIVO</th>
@@ -75,7 +75,14 @@ function MainPageReportes({ session }) {
           </div>
         </div>
       </div>
-      <AgregarReporteVistaTecnica setReporteVisitaTecnica={setReporteVisitaTecnica} fetchData={fetchData} session={session} detalles={detalles} setDetalles={setDetalles} setArticulos={setArticulos} />
+      <AgregarReporteVistaTecnica {...{
+        setReporteVisitaTecnica,
+        fetchData,
+        session,
+        detalles,
+        setDetalles,
+        setArticulos,
+      }} />
       <AgregarDetallesReporte articulos={articulos} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
       <AgregarArticulosDetalles articulos={articulos} detalles={detalles} setArticulos={setArticulos} />
     </>

@@ -9,6 +9,7 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
 
     const [perfil, setPerfil] = useState({})
     const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({ Activo: true, Sugerencia: "", Cliente: {} })
+    const [message, setMessage] = useState("")
 
     const ReporteSubmit = async (e) => {
         e.preventDefault();
@@ -48,7 +49,14 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                 console.log(response.data)
                 setDetalles([])
                 setArticulos([])
-                setFormReporteVistaTecnica({ Activo: true, Sugerencia: "" })
+                setFormReporteVistaTecnica(prevState => ({
+                    ...prevState,
+                    Cliente: null,
+                    FechaCreado: null,
+                    Detalle: null,
+                    Activo: true,
+                    Sugerencia: ""
+                }));
                 const data = await GetAllReportes()
                 setReporteVisitaTecnica(data)
             }
@@ -73,12 +81,12 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
             console.log("")
         }
     }
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         const fieldValue = type === 'checkbox'
             ? checked : type === 'date'
                 ? new Date(value) : value;
-
         setFormReporteVistaTecnica((prev) => ({
             ...prev,
             [name]: fieldValue,
@@ -146,7 +154,6 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
 
                                 <div className="mb-3 col-4">
                                     <div className="form-floating">
-
                                         <textarea
                                             value={formReporteVistaTecnica.Sugerencia}
                                             onChange={handleChange}
@@ -211,6 +218,7 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                                 </table>
                             </div>
                             <div className="modal-footer" style={{ position: "absolute", bottom: "0", right: "0", width: "100%" }}>
+                                <label className="text-danger">{message}</label>
                                 <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#AgregarDetallesReporte">Agregar Detalles</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" className="btn text-white" style={{ background: "#00B2FF" }} data-bs-dismiss="modal">Crear</button>
