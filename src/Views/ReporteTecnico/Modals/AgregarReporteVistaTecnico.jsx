@@ -3,17 +3,19 @@ import axios from "axios";
 import SelectPro from "../../../Components/SelectPro";
 import moment from "moment/moment";
 import { useEffect, useState } from "react";
+import { GetAllReportes } from "../../../Services/ReporteVistaTecnico";
 
-const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticulos }) => {
+const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticulos, setReporteVisitaTecnica }) => {
 
     const [perfil, setPerfil] = useState({})
-    const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({ Activo: true })
+    const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({ Activo: true, Sugerencia: "", Cliente: {} })
 
     const ReporteSubmit = async (e) => {
         e.preventDefault();
         // const DocumentosPdf = e.target.DocumentosPdf.value;
         try {
             const body = {
+                Numero: 5,
                 Activo: formReporteVistaTecnica.Activo,
                 Cliente: formReporteVistaTecnica.Cliente,
                 Empleado: perfil,
@@ -22,24 +24,41 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                 Sugerencia: formReporteVistaTecnica.Sugerencia,
                 // DocumentosPdf: DocumentosPdf.split('\n')
             }
-            console.log(body)
             for (let i = 0; i < body.Detalle.length; i++) {
                 delete body.Detalle[i].cantidad;
             }
-            const response = await axios.post('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', body, {
-                headers: { 'Content-Type': 'application/json' }
-            })
-            console.log(response.data)
-
-            setDetalles([])
-            setArticulos([])
+            if (body.Detalle == null || body.Cliente == null || body.Empleado == null) {
+                if (body.Detalle == null) {
+                    console.log("Falta Detalles")
+                    if (body.Detalle.Articulos == null) {
+                        console.log("Falta Detalles Articulos")
+                    }
+                }
+                if (body.Cliente == null) {
+                    console.log("Falta Cliente")
+                }
+                if (body.Empleado == null) {
+                    console.log("Falta Empleado")
+                }
+            }
+            else {
+                const response = await axios.post('https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica', body, {
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                console.log(response.data)
+                setDetalles([])
+                setArticulos([])
+                setFormReporteVistaTecnica({ Activo: true, Sugerencia: "" })
+                const data = await GetAllReportes()
+                setReporteVisitaTecnica(data)
+            }
         } catch (error) {
             console.error(error)
         }
     }
 
     useEffect(() => {
-        // console.log(formReporteVistaTecnica)
+        console.log(formReporteVistaTecnica)
     }, [formReporteVistaTecnica])
 
     useEffect(() => {
@@ -98,9 +117,9 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
         <div className="modal fade" id="AgregarReporteVistaTecnica" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true" >
             <div className="modal-dialog modal-dialog-scrollable modal-fullscreen p-5">
                 <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="staticBackdropLabel">Agregar Reporte Vista Tecnico</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="modal-header text-white" style={{ background: "#00B2FF" }}>
+                        <h5 className="modal-title" >Agregar Reporte Vista Tecnico</h5>
+                        <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
                         <form onSubmit={ReporteSubmit} >
@@ -157,8 +176,8 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                                 </div>
 
                                 <table className="table table-sm table-striped table-bordered" style={{ fontSize: "0.8rem" }}>
-                                    <thead>
-                                        <tr className='text-center'>
+                                    <thead style={{ background: "#00B2FF" }}>
+                                        <tr className='text-center text-white'>
                                             <th scope="col">Cantidad</th>
                                             <th scope="col">Producto</th>
                                             <th scope="col">MARCA</th>
@@ -170,7 +189,7 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                                             <th scope="col">ACCIONES</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="text-center">
                                         {detalles.length === 0 ? <tr > <td className="text-center" colSpan={9}>Vacio</td> </tr> : detalles.map((item, index) => (
                                             <tr key={index}>
                                                 <td>{item.Articulos.length}</td>
@@ -191,7 +210,7 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="modal-footer">
+                            <div className="modal-footer" style={{ position: "absolute", bottom: "0", right: "0", width: "100%" }}>
                                 <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#AgregarDetallesReporte">Agregar Detalles</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" className="btn text-white" style={{ background: "#00B2FF" }} data-bs-dismiss="modal">Crear</button>

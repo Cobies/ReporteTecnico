@@ -56,8 +56,8 @@ const Login = ({ session, setSession }) => {
         background: "#00B2FF",
         width: "100vw",
         height: session.isLoggedIn ? "50px" : "100vh",
-        zIndex: 9999
-
+        zIndex: 9999,
+        borderBottom:"1px solid white"
       }}>
         {session.isLoggedIn
           ? <div style={{ padding: "12px 0", fontSize: 17 }} className="container d-flex justify-content-between text-white position-relative">

@@ -18,7 +18,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
   })
 
   useEffect(() => {
-    console.log(formDetalles)
+    // console.log(formDetalles)
   }, [formDetalles])
 
   const handleChange = (e) => {
@@ -72,18 +72,14 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
       },
     ]);
 
-    setFormDetalles({
+    setFormDetalles((prevState) => ({
+      ...prevState,
       observacion: "",
       area: "",
       Producto: {
-        nombre: "",
-        marca: "",
-        linea: {
-        },
-        codigo: "",
         modelo: ""
       }
-    })
+    }));
 
     setArticulos([])
     // setReporteVisitaTecnica((prevState) => [
@@ -125,11 +121,11 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
       >
         <div className="modal-dialog modal-dialog-scrollable modal-fullscreen p-5">
           <div className="modal-content">
-            <div className="modal-header">
+            <div className="modal-header text-white" style={{ background: "#00B2FF" }}>
               <h5 className="modal-title">Agregar Detalles</h5>
               <button
                 type="button"
-                className="btn-close"
+                className="btn-close btn-close-white"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -185,29 +181,29 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                   className="table table-sm table-striped table-bordered"
                   style={{ fontSize: "0.8rem" }}
                 >
-                  <thead>
-                    <tr className="text-center">
+                  <thead style={{ background: "#00B2FF" }}>
+                    <tr className="text-center text-white">
                       <th scope="col">FECHA CREADO</th>
                       <th scope="col">SERIE</th>
                       <th scope="col">OPERATIVO</th>
                       <th scope="col">OBSERVACIONES</th>
                       <th scope="col">FECHA COMPRA</th>
+                      <th scope="col">ACCIONES</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="text-center">
                     {articulos.length === 0 ? (
                       <tr>
-                        {" "}
                         <td className="text-center" colSpan={9}>
                           Vacio
-                        </td>{" "}
+                        </td>
                       </tr>
                     ) : (
                       articulos.map((x, index) => (
                         <tr key={index}>
                           <td>{moment(x.FechaCreado).format("L")}</td>
                           <td>{x.Serie}</td>
-                          <td>{x.Operativo ? "Si" : "No"}</td>
+                          <td>{x.Operativo ? <i className="bi bi-check text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}</td>
                           <td>{x.Observaciones}</td>
                           <td>{moment(x.FechaCompra).format("L")}</td>
                           <td className="text-center">
@@ -228,10 +224,10 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                     )}
                   </tbody>
                 </table>
-                <div className="modal-footer">
+                <div className="modal-footer" style={{ position: "absolute", bottom: "0", right: "0", width: "100%" }}>
                   <button
                     type="button"
-                    className="btn btn-success"
+                    className="btn text-white" style={{ background: "#008065" }}
                     data-bs-toggle="modal"
                     data-bs-target="#AgregarArticulosDetalles"
                   >

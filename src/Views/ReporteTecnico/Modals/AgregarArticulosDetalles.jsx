@@ -79,11 +79,11 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
         >
             <div className="modal-dialog modal-dialog-scrollable modal-fullscreen p-5">
                 <div className="modal-content">
-                    <div className="modal-header">
+                    <div className="modal-header text-white" style={{ background: "#00B2FF" }}>
                         <h5 className="modal-title">Agregar Articulos</h5>
                         <button
                             type="button"
-                            className="btn-close"
+                            className="btn-close btn-close-white"
                             data-bs-dismiss="modal"
                             aria-label="Close"
                         ></button>
@@ -148,7 +148,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="modal-footer">
+                            <div className="modal-footer" style={{ position: "absolute", bottom: "0", right: "0", width: "100%" }}>
                                 <button
                                     type="button"
                                     className="btn btn-secondary"
