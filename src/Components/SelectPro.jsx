@@ -27,34 +27,38 @@ const SelectPro = ({ name, endpoint, nameExtractor, onCaptureObj, SP }) => {
     }, [])
 
     return (
-        <div className="form-floating">
-            <input onClick={() => setShowList(!showList)} className="form-control" id='select' type="text" placeholder='Pedro' value={selectedValue.value} autoComplete='off' />
-            <label htmlFor={"select"} className="form-label">
-                {name}
-            </label>
-            {showList && (
-                <ul className="list-group position-absolute" style={{ zIndex: 99999, width: 335, height: 200, overflow: 'scroll' }}>
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="form-control"
-                        autoFocus
-                        onKeyDown={handleSearchKeyDown}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    {data ? (
-                        data.map((x) => (
-                            <li key={x._id} onClick={() => handleSelection(nameExtractor(x), x._id, x)} className="list-group-item">
-                                {nameExtractor(x)}
-                            </li>
-                        ))
-                    ) : (
-                        <li>No se encontro datos</li>
-                    )}
-                </ul>
-            )}
-            <input type="hidden" name={name} value={JSON.stringify(selectedValue.obj)} />
-        </div>
+        <>
+
+            <div className=" form-floating position-relative">
+                <input style={{ zIndex: 50 }} onClick={() => setShowList(!showList)} className="form-control" id='select' type="text" placeholder={name} value={selectedValue.value} autoComplete='off' />
+                <span style={{background: "#00B2FF"}} onClick={()=>console.log("xD")} className=' h-100 text-center text-white' type="button">+</span>
+                <label htmlFor={"select"} className="form-label">
+                    {name}
+                </label>
+                {showList && (
+                    <ul className="list-group position-absolute" style={{ zIndex: 99999, width: "100%", height: 200, overflow: 'scroll' }}>
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            className="form-control"
+                            autoFocus
+                            onKeyDown={handleSearchKeyDown}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        {data ? (
+                            data.map((x) => (
+                                <li key={x._id} onClick={() => handleSelection(nameExtractor(x), x._id, x)} className="list-group-item">
+                                    {nameExtractor(x)}
+                                </li>
+                            ))
+                        ) : (
+                            <li>No se encontro datos</li>
+                        )}
+                    </ul>
+                )}
+                <input type="hidden" name={name} value={JSON.stringify(selectedValue.obj)} />
+            </div>
+        </>
     )
 
     async function GetAll(skip, search, SP) {

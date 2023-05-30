@@ -90,12 +90,32 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                     </div>
                     <div className="modal-body">
                         <form onSubmit={PostArticuloDetalle}>
-                            <div className="row">
-                                <div className="col-md-3">
-                                    <div className="mb-3">
-                                        <label htmlFor="fechaCompra" className="form-label">
-                                            Fecha Compra
+                            <div className="col-md-4">
+                                <div className="mb-3">
+                                    <div className="form-check form-switch">
+                                        <input
+                                            className="form-check-input"
+                                            name="operativo"
+                                            type="checkbox"
+                                            role="switch"
+                                            value={formArticulos.operativo}
+                                            onChange={handleChange}
+                                            defaultChecked={true}
+                                            style={{ backgroundColor: formArticulos.operativo ? '#00B2FF' : null, border: "none" }}
+                                        />
+                                        <label
+                                            className="form-check-label"
+                                            htmlFor="flexSwitchCheckDefault"
+                                        >
+                                            Operativo
                                         </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+
+                                <div className="col-md-6">
+                                    <div className="form-floating mb-3">
                                         <input
                                             type="date"
                                             className="form-control"
@@ -104,34 +124,15 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                                             onChange={handleChange}
                                             required
                                         ></input>
-                                    </div>
-                                </div>
-                                <div className="col-md-3">
-                                    <div className="mb-3">
-                                        <div className="form-check form-switch">
-                                            <input
-                                                className="form-check-input"
-                                                name="operativo"
-                                                type="checkbox"
-                                                role="switch"
-                                                value={formArticulos.operativo}
-                                                onChange={handleChange}
-                                                defaultChecked={true}
-                                            />
-                                            <label
-                                                className="form-check-label"
-                                                htmlFor="flexSwitchCheckDefault"
-                                            >
-                                                Operativo
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-3">
-                                    <div className="mb-3">
-                                        <label htmlFor="observacion" className="form-label">
-                                            Observaciones
+                                        <label htmlFor="fechaCompra" className="form-label">
+                                            Fecha Compra
                                         </label>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <div className="form-floating mb-3">
+
                                         <textarea
                                             className="form-control"
                                             id="observaciones"
@@ -141,6 +142,9 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                                             rows="3"
                                             placeholder="Ingrese observaciones"
                                         ></textarea>
+                                        <label htmlFor="observacion" className="form-label">
+                                            Observaciones
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +157,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                                 >
                                     Close
                                 </button>
-                                <button type="submit" className="btn btn-success">
+                                <button type="submit" className="btn text-white" style={{ background: "#00B2FF" }}>
                                     {" "}
                                     Crear
                                 </button>

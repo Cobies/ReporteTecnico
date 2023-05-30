@@ -39,7 +39,7 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
     }
 
     useEffect(() => {
-        console.log(formReporteVistaTecnica)
+        // console.log(formReporteVistaTecnica)
     }, [formReporteVistaTecnica])
 
     useEffect(() => {
@@ -107,16 +107,16 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                             <div className="row">
                                 <div className="form-check">
                                     <div className="form-check form-switch">
-                                        <input checked={formReporteVistaTecnica.Activo} onChange={handleChange} className="form-check-input" name="Activo" type="checkbox" role="switch" />
+                                        <input checked={formReporteVistaTecnica.Activo} onChange={handleChange} style={{ backgroundColor: formReporteVistaTecnica.Activo ? '#00B2FF' : null, border: "none" }} className="form-check-input" name="Activo" type="checkbox" role="switch" />
                                         <label className="form-check-label" htmlFor="Activo">Activo</label>
                                     </div>
                                 </div>
 
-                                <div className="mb-3 col-6">
+                                <div className="mb-3 col-4">
                                     <SelectPro onCaptureObj={onCaptureObj} name={"Cliente"} endpoint={"/Cliente/GetBusquedaClienteLimite"} nameExtractor={(x) => x.persona.nombre} SP={false} />
                                 </div>
 
-                                <div className="mb-3 col-6">
+                                <div className="mb-3 col-4">
                                     <div className="form-floating mb-3">
                                         <input value={perfil.persona?.nombre} type="text" className="form-control" id="Empleado" placeholder="Empleado" readOnly />
                                         <label htmlFor="Empleado">Empleado</label>
@@ -125,19 +125,20 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                                     {/* <SelectPro name={"Empleado"} endpoint={"/Empleado/GetAllEmpleado"} nameExtractor={(x) => x.persona.nombre} SP={true} /> */}
                                 </div>
 
-                                <div className="mb-3 col-6">
-                                    <div className="form-group">
-                                        <label htmlFor="Sugerencia" className="form-label">Sugerencia</label>
+                                <div className="mb-3 col-4">
+                                    <div className="form-floating">
+
                                         <textarea
                                             value={formReporteVistaTecnica.Sugerencia}
                                             onChange={handleChange}
                                             className='form-control'
                                             id='Sugerencia'
                                             name="Sugerencia"
-                                            rows="4"
+                                            rows={4}
                                             cols="100"
                                             placeholder='Sugerencia'
                                         />
+                                        <label htmlFor="Sugerencia" className="form-label">Sugerencia</label>
                                     </div>
                                 </div>
 
@@ -193,7 +194,7 @@ const AgregarReporteVistaTecnica = ({ detalles, setDetalles, session, setArticul
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#AgregarDetallesReporte">Agregar Detalles</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Crear</button>
+                                <button type="submit" className="btn text-white" style={{ background: "#00B2FF" }} data-bs-dismiss="modal">Crear</button>
                             </div>
                         </form>
                     </div>

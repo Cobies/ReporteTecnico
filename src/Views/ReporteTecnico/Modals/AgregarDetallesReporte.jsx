@@ -18,6 +18,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
   })
 
   useEffect(() => {
+    console.log(formDetalles)
   }, [formDetalles])
 
   const handleChange = (e) => {
@@ -152,46 +153,31 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="area" className="form-label">
-                        Área
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="area"
-                        value={formDetalles.area}
-                        onChange={handleChange}
-                        placeholder="Ingrese el área"
-                      ></input>
+                    <div className="form-floating mb-3">
+                      <input name="area" value={formDetalles.area} onChange={handleChange} type="text" className="form-control" placeholder="area" />
+                      <label htmlFor="area" className="form-label">Área</label>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="modelo" className="form-label">
-                        Modelo
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="modelo"
-                        value={formDetalles.Producto.modelo}
-                        onChange={handleChangeProducto}
-                        placeholder="Ingrese el área"
-                      ></input>
+
+                  </div>
+                  <div className="col-md-3">
+                    <div className="form-floating mb-3">
+                      <input name="modelo" value={formDetalles.Producto.modelo} onChange={handleChangeProducto} type="text" className="form-control" placeholder="modelo" />
+                      <label htmlFor="modelo" className="form-label">Modelo</label>
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="observacion" className="form-label">
-                        Observacion
-                      </label>
+                    <div className="form-floating mb-3">
                       <textarea
                         className="form-control"
                         value={formDetalles.observacion}
                         onChange={handleChange}
                         name="observacion"
-                        rows="3"
+                        rows={3}
                         placeholder="Ingrese observaciones"
                       ></textarea>
+                      <label htmlFor="observacion" className="form-label">
+                        Observacion
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -259,7 +245,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                   >
                     Close
                   </button>
-                  <button type="submit" className="btn btn-success">
+                  <button type="submit" className="btn text-white" style={{ background: "#00B2FF" }}>
                     {" "}
                     Crear
                   </button>
