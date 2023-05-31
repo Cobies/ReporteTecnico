@@ -151,20 +151,21 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                   </div>
                   <div className="col-md-3">
                     <div className="form-floating mb-3">
-                      <input name="area" value={formDetalles.area} onChange={handleChange} type="text" className="form-control" placeholder="area" />
+                      <input autoComplete="off" name="area" value={formDetalles.area} onChange={handleChange} type="text" className="form-control" placeholder="area" />
                       <label htmlFor="area" className="form-label">Área</label>
                     </div>
 
                   </div>
                   <div className="col-md-3">
                     <div className="form-floating mb-3">
-                      <input name="modelo" value={formDetalles.Producto.modelo} onChange={handleChangeProducto} type="text" className="form-control" placeholder="modelo" />
+                      <input autoComplete="off" name="modelo" value={formDetalles.Producto.modelo} onChange={handleChangeProducto} type="text" className="form-control" placeholder="modelo" />
                       <label htmlFor="modelo" className="form-label">Modelo</label>
                     </div>
                   </div>
                   <div className="col-md-3">
                     <div className="form-floating mb-3">
                       <textarea
+                        autoComplete="off"
                         className="form-control"
                         value={formDetalles.observacion}
                         onChange={handleChange}

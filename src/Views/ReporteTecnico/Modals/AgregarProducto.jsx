@@ -1,6 +1,63 @@
+import { useEffect, useState } from "react";
 import SelectPro from "../../../Components/SelectPro";
+import axios from "axios";
 
 const AgregarProducto = () => {
+  const [formProducto, setFormProducto] = useState({ nombre: "", modelo: "" })
+  const [message, setMessage] = useState("")
+
+  useEffect(() => {
+    console.log(formProducto)
+  }, [formProducto])
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const fieldValue =
+      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+    setFormProducto((prev) => ({
+      ...prev,
+      [name]: fieldValue,
+    }));
+  };
+
+  function generarCodigo(nombreProducto, abreviaturaMarca, linea) {
+    // Dividir el nombre del producto en palabras
+    const palabras = nombreProducto.split(' ');
+
+    // Obtener la primera letra de cada palabra
+    const letras = palabras.map(palabra => palabra.charAt(0));
+
+    // Unir las letras, la abreviatura de la marca y la línea
+    const codigo = letras.join('') + abreviaturaMarca + linea;
+
+    return codigo;
+  }
+
+  async function postProducto(e) {
+    e.preventDefault()
+    if (!formProducto.nombre || !formProducto.modelo || !formProducto.marca || !formProducto.linea) {
+      setMessage("Completa los campos que falta")
+    } else {
+      const response = await axios.post("https://localhost:7044/ProductoReporte/SetProductoReporte",
+        {
+          codigo: generarCodigo(formProducto.nombre, formProducto.marca?.abreviatura, formProducto.linea?.nombre),
+          nombre: formProducto.nombre.toUpperCase(),
+          marca: formProducto.marca,
+          linea: formProducto.linea,
+          modelo: formProducto.modelo.toUpperCase()
+        }, {
+        headers: {
+          // Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json"
+        }
+      })
+      console.log(response.data)
+      setFormProducto({ ...formProducto, nombre: "", modelo: "" })
+      setMessage("")
+    }
+
+  }
+
   return (
     <div
       style={{ paddingTop: "15%" }}
@@ -25,42 +82,44 @@ const AgregarProducto = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={postProducto}>
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-floating">
                     <input
+                      autoComplete="off"
                       name="nombre"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formProducto.nombre.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="nombre"
                     />
                     <label htmlFor="nombre" className="form-label">
-                      Nombre
+                      Nombre *
                     </label>
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-floating">
                     <input
+                      autoComplete="off"
                       name="modelo"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formProducto.modelo.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="modelo"
                     />
                     <label htmlFor="modelo" className="form-label">
-                      Modelo
+                      Modelo *
                     </label>
                   </div>
                 </div>
                 <div className="col-md-6 py-3">
                   <SelectPro
                     name={"Marca"}
-                    onCaptureObj={(x) => console.log(x)}
+                    onCaptureObj={(x) => setFormProducto({ ...formProducto, marca: x })}
                     nameExtractor={(x) => x.nombre}
                     endpoint={"/Marca/GetBusquedaMarcaLimite"}
                     SP={false}
@@ -70,7 +129,7 @@ const AgregarProducto = () => {
                 <div className="col-md-6 py-3">
                   <SelectPro
                     name={"Linea"}
-                    onCaptureObj={(x) => console.log(x)}
+                    onCaptureObj={(x) => setFormProducto({ ...formProducto, linea: x })}
                     nameExtractor={(x) => x.nombre}
                     endpoint={"/Linea/GetBusquedaLineaLimite"}
                     SP={false}
@@ -79,6 +138,7 @@ const AgregarProducto = () => {
                 </div>
               </div>
               <div className="modal-footer">
+                <label className="text-danger">{message}</label>
                 <button
                   type="button"
                   className="btn btn-secondary"

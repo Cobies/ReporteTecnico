@@ -1,4 +1,42 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 const AgregarLinea = () => {
+
+  const [formLinea, setFormLinea] = useState({ nombre: "", descripcion: "" })
+  const [message, setMessage] = useState("")
+
+  useEffect(() => {
+    console.log(formLinea)
+  }, [formLinea])
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const fieldValue =
+      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+    setFormLinea((prev) => ({
+      ...prev,
+      [name]: fieldValue,
+    }));
+  };
+
+  async function postLinea(e) {
+    e.preventDefault()
+    if (!formLinea.nombre || !formLinea.descripcion) {
+      setMessage("Completa los campos que faltan")
+    } else {
+      const response = await axios.post("https://localhost:7044/Linea/SetLinea", { nombre: formLinea.nombre.toUpperCase(), descripcion: formLinea.descripcion.toUpperCase() }, {
+        headers: {
+          // Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json"
+        }
+      })
+      console.log(response.data)
+      setFormLinea({ nombre: "", descripcion: "" })
+    }
+
+  }
+
   return (
     <div
       style={{ paddingTop: "15%" }}
@@ -23,14 +61,14 @@ const AgregarLinea = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={postLinea}>
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 pb-3">
                   <div className="form-floating">
                     <input
                       name="nombre"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formLinea.nombre.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="nombre"
@@ -40,12 +78,12 @@ const AgregarLinea = () => {
                     </label>
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 pb-3">
                   <div className="form-floating">
                     <input
                       name="descripcion"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formLinea.descripcion.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="descripcion"
@@ -57,6 +95,7 @@ const AgregarLinea = () => {
                 </div>
               </div>
               <div className="modal-footer">
+                <label className="text-danger">{message}</label>
                 <button
                   type="button"
                   className="btn btn-secondary"

@@ -9,14 +9,78 @@ const AgregarCliente = () => {
     distrito: null,
     nombre: "",
     documento: "",
-    tipoDocumentoIdentidad: ""
-
+    correoElectronico: "",
+    tipoDocumentoIdentidad: null,
+    telefono: "",
+    direccion: ""
   });
 
+  const [message, setMessage] = useState("")
+
+  async function postCliente(e) {
+    e.preventDefault()
+
+    const bodyPersona = {
+
+      nombre: formCliente.nombre,
+      documentoIdentidad: formCliente.documento,
+      tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
+      direccion: formCliente.direccion,
+      email: formCliente.correoElectronico,
+      telefono: formCliente.telefono,
+      distrito: formCliente.distrito
+
+    }
+    const response = await axios.post(`https://localhost:7044/Persona/SetPersona`, bodyPersona, {
+      headers: {
+        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    })
+    const bodyCliente = {
+      FechaRegistro: new Date(),
+      persona: {
+        _id: response.data,
+        nombre: formCliente.nombre,
+        documentoIdentidad: formCliente.documento,
+        tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
+        direccion: formCliente.direccion,
+        email: formCliente.correoElectronico,
+        telefono: formCliente.telefono,
+        distrito: formCliente.distrito
+      }
+    }
+    const responseCliente = await axios.post(`https://localhost:7044/Cliente/SetCliente`, bodyCliente, {
+      headers: {
+        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    })
+    console.log(responseCliente.data)
+    setFormCliente(prevState => ({
+      ...prevState,
+      departamento: {},
+      provincia: null,
+      distrito: null,
+      nombre: "",
+      documento: "",
+      correoElectronico: "",
+      telefono: "",
+      direccion: ""
+    }));
+
+  }
+
   const GetData = async (numero) => {
-    const response = await axios.get(`https://localhost:7044/Cliente/ObtenerDNI/${numero}`)
+    const response = await axios.get(`https://api.grupoupgrade.com.pe/Cliente/ObtenerDNI/${numero}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    })
     console.log(response.data)
     setFormCliente({ ...formCliente, nombre: response.data.nombre })
+    setMessage("")
   }
 
   const handleChange = (e) => {
@@ -58,7 +122,7 @@ const AgregarCliente = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={postCliente}>
               <div className="row">
                 <div className="col-md-6 pb-3">
                   <SelectPro
@@ -77,7 +141,7 @@ const AgregarCliente = () => {
                     <input
                       autoComplete="off"
                       name="documento"
-                      // value={formCliente.Producto.modelo}
+                      value={formCliente.documento}
                       onChange={handleChange}
                       type="text"
                       className="form-control"
@@ -88,7 +152,7 @@ const AgregarCliente = () => {
                     </label>
                     <button
                       style={{ background: "#00B2FF", borderRadius: 3, border: "none" }}
-                      onClick={()=>GetData(formCliente.documento)}
+                      onClick={() => formCliente.tipoDocumentoIdentidad && formCliente.documento ? GetData(formCliente.documento) : setMessage("Falta TipoDocumento o Numero")}
                       className="btn btn-outline-secondary"
                       type="button"
                     >
@@ -111,7 +175,7 @@ const AgregarCliente = () => {
                       placeholder="nombre"
                     />
                     <label htmlFor="nombre" className="form-label">
-                      Nombres y Apellidos
+                      Apellidos y Nombres *
                     </label>
                   </div>
                 </div>
@@ -120,7 +184,7 @@ const AgregarCliente = () => {
                     <input
                       autoComplete="off"
                       name="telefono"
-                      // value={formDetalles.Producto.modelo}
+                      value={formCliente.telefono}
                       onChange={handleChange}
                       type="text"
                       className="form-control"
@@ -182,7 +246,7 @@ const AgregarCliente = () => {
                     <input
                       autoComplete="off"
                       name="direccion"
-                      // value={formDetalles.Producto.modelo}
+                      value={formCliente.direccion}
                       onChange={handleChange}
                       type="text"
                       className="form-control"
@@ -198,7 +262,7 @@ const AgregarCliente = () => {
                     <input
                       autoComplete="off"
                       name="correoElectronico"
-                      // value={formDetalles.Producto.modelo}
+                      value={formCliente.correoElectronico}
                       onChange={handleChange}
                       type="text"
                       className="form-control"
@@ -211,6 +275,7 @@ const AgregarCliente = () => {
                 </div>
               </div>
               <div className="modal-footer">
+                <label className="text-danger">{message}</label>
                 <button
                   type="button"
                   className="btn btn-secondary"
@@ -219,7 +284,7 @@ const AgregarCliente = () => {
                   Cerrar
                 </button>
                 <button
-                  type="button"
+                  type="submit"
                   className="btn text-white"
                   style={{ background: "#00B2FF" }}
                 >

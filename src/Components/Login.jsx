@@ -47,6 +47,7 @@ const Login = ({ session, setSession }) => {
 
   const handleLogout = (event) => {
     event.preventDefault();
+    localStorage.removeItem('token')
     // Aquí se haría la lógica para cerrar sesión y borrar la información de la sesión
     setSession({ username: '', isLoggedIn: false });
   }

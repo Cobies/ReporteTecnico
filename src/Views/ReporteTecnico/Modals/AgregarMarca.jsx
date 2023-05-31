@@ -1,4 +1,38 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 const AgregarMarca = () => {
+
+  const [formMarca, setFormMarca] = useState({ nombre: "", abreviatura: "" })
+  // const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    console.log(formMarca)
+  }, [formMarca])
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const fieldValue =
+      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+    setFormMarca((prev) => ({
+      ...prev,
+      [name]: fieldValue,
+    }));
+  };
+
+  async function postMarca(e) {
+    e.preventDefault()
+    const response = await axios.post("https://localhost:7044/Marca/SetMarca", { nombre: formMarca.nombre.toUpperCase(), abreviatura: formMarca.abreviatura.toUpperCase() }, {
+      headers: {
+        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    })
+    console.log(response.data)
+    setFormMarca({ nombre: "", abreviatura: "" })
+    // setMessage("")
+  }
+
   return (
     <div
       style={{ paddingTop: "15%" }}
@@ -23,14 +57,14 @@ const AgregarMarca = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={postMarca}>
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-floating">
                     <input
                       name="nombre"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formMarca.nombre.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="nombre"
@@ -44,8 +78,8 @@ const AgregarMarca = () => {
                   <div className="form-floating">
                     <input
                       name="abreviatura"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formMarca.abreviatura.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="abreviatura"
@@ -57,6 +91,7 @@ const AgregarMarca = () => {
                 </div>
               </div>
               <div className="modal-footer">
+                {/* <label className="text-danger">{message}</label> */}
                 <button
                   type="button"
                   className="btn btn-secondary"

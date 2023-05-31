@@ -71,7 +71,7 @@ const SelectPro = ({
         }
 
         <label htmlFor={"select"} className="form-label">
-          {name}
+          {name + " *"}
         </label>
         {showList && (
           <ul
@@ -85,7 +85,7 @@ const SelectPro = ({
           >
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Buscar por Nombre"
               className="form-control"
               autoFocus
               onKeyDown={handleSearchKeyDown}
@@ -119,7 +119,7 @@ const SelectPro = ({
   async function GetAll(skip, search, SP, id) {
     // console.log(id)
     const response = await axios.get(
-      `https://localhost:7044${endpoint}/${SP ? "" : id ? id : `${skip}&${search}`}`
+      `https://localhost:7044${endpoint}/${SP ? "" : id ? id : `${skip}&${search.toUpperCase()}`}`
     );
     setData(response.data);
     // console.log(response.data);
