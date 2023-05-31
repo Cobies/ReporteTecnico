@@ -3,7 +3,7 @@ import SelectPro from "../../../Components/SelectPro";
 import moment from "moment";
 
 /* eslint-disable react/prop-types */
-const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
+const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos }) => {
   const [formDetalles, setFormDetalles] = useState({
     observacion: "",
     area: "",
@@ -18,7 +18,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
   })
 
   useEffect(() => {
-    console.log(formDetalles)
+    // console.log(formDetalles)
   }, [formDetalles])
 
   const handleChange = (e) => {
@@ -35,7 +35,6 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
 
   const handleChangeProducto = (e) => {
     const { name, value } = e.target;
-    console.log(name, value)
     setFormDetalles((prevFormDetalles) => ({
       ...prevFormDetalles,
       Producto: {
@@ -73,18 +72,16 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
       },
     ]);
 
-    setFormDetalles({
+    setFormDetalles((prevState) => ({
+      ...prevState,
       observacion: "",
       area: "",
       Producto: {
-        nombre: "",
-        marca: "",
-        linea: {
-        },
-        codigo: "",
         modelo: ""
       }
-    })
+    }));
+
+    setArticulos([])
     // setReporteVisitaTecnica((prevState) => [
     //   ...prevState,
     //   {
@@ -124,11 +121,11 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
       >
         <div className="modal-dialog modal-dialog-scrollable modal-fullscreen p-5">
           <div className="modal-content">
-            <div className="modal-header">
+            <div className="modal-header text-white" style={{ background: "#00B2FF" }}>
               <h5 className="modal-title">Agregar Detalles</h5>
               <button
                 type="button"
-                className="btn-close"
+                className="btn-close btn-close-white"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -144,53 +141,39 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
                     <div className="mb-3">
                       <SelectPro
                         name={"Producto"}
-                        endpoint={"/Producto/GetBusquedaProductoLimite/0&20"}
+                        endpoint={"/Producto/GetBusquedaProductoLimite"}
                         nameExtractor={(x) => x.nombre}
                         onCaptureObj={onCaptureObj}
+                        SP={false}
                       />
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="area" className="form-label">
-                        Área
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="area"
-                        value={formDetalles.area}
-                        onChange={handleChange}
-                        placeholder="Ingrese el área"
-                      ></input>
+                    <div className="form-floating mb-3">
+                      <input name="area" value={formDetalles.area} onChange={handleChange} type="text" className="form-control" placeholder="area" />
+                      <label htmlFor="area" className="form-label">Área</label>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="modelo" className="form-label">
-                        Modelo
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="modelo"
-                        value={formDetalles.Producto.modelo}
-                        onChange={handleChangeProducto}
-                        placeholder="Ingrese el área"
-                      ></input>
+
+                  </div>
+                  <div className="col-md-3">
+                    <div className="form-floating mb-3">
+                      <input name="modelo" value={formDetalles.Producto.modelo} onChange={handleChangeProducto} type="text" className="form-control" placeholder="modelo" />
+                      <label htmlFor="modelo" className="form-label">Modelo</label>
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="observacion" className="form-label">
-                        Observacion
-                      </label>
+                    <div className="form-floating mb-3">
                       <textarea
                         className="form-control"
                         value={formDetalles.observacion}
                         onChange={handleChange}
                         name="observacion"
-                        rows="3"
+                        rows={3}
                         placeholder="Ingrese observaciones"
                       ></textarea>
+                      <label htmlFor="observacion" className="form-label">
+                        Observacion
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -198,29 +181,29 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
                   className="table table-sm table-striped table-bordered"
                   style={{ fontSize: "0.8rem" }}
                 >
-                  <thead>
-                    <tr className="text-center">
+                  <thead style={{ background: "#00B2FF" }}>
+                    <tr className="text-center text-white">
                       <th scope="col">FECHA CREADO</th>
                       <th scope="col">SERIE</th>
                       <th scope="col">OPERATIVO</th>
                       <th scope="col">OBSERVACIONES</th>
                       <th scope="col">FECHA COMPRA</th>
+                      <th scope="col">ACCIONES</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="text-center">
                     {articulos.length === 0 ? (
                       <tr>
-                        {" "}
                         <td className="text-center" colSpan={9}>
                           Vacio
-                        </td>{" "}
+                        </td>
                       </tr>
                     ) : (
                       articulos.map((x, index) => (
                         <tr key={index}>
                           <td>{moment(x.FechaCreado).format("L")}</td>
                           <td>{x.Serie}</td>
-                          <td>{x.Operativo ? "Si" : "No"}</td>
+                          <td>{x.Operativo ? <i className="bi bi-check text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}</td>
                           <td>{x.Observaciones}</td>
                           <td>{moment(x.FechaCompra).format("L")}</td>
                           <td className="text-center">
@@ -241,10 +224,10 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
                     )}
                   </tbody>
                 </table>
-                <div className="modal-footer">
+                <div className="modal-footer" style={{ position: "absolute", bottom: "0", right: "0", width: "100%" }}>
                   <button
                     type="button"
-                    className="btn btn-success"
+                    className="btn text-white" style={{ background: "#008065" }}
                     data-bs-toggle="modal"
                     data-bs-target="#AgregarArticulosDetalles"
                   >
@@ -258,7 +241,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles }) => {
                   >
                     Close
                   </button>
-                  <button type="submit" className="btn btn-success">
+                  <button type="submit" className="btn text-white" style={{ background: "#00B2FF" }}>
                     {" "}
                     Crear
                   </button>
