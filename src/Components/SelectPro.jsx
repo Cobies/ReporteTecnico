@@ -9,6 +9,8 @@ const SelectPro = ({
   onCaptureObj,
   SP,
   modal = "",
+  SM = false,
+  id
 }) => {
   const [showList, setShowList] = useState(false);
   const [selectedValue, setSelectedValue] = useState({
@@ -33,9 +35,13 @@ const SelectPro = ({
     }
   }
   useEffect(() => {
-    GetAll(0, "20", SP);
+    GetAll(0, "20", SP, id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(()=>{
+    GetAll(0, "20", SP, id);
+  },[id])
 
   return (
     <>
@@ -49,17 +55,21 @@ const SelectPro = ({
           placeholder={name}
           value={selectedValue.value}
           autoComplete="off"
+          disabled={!SP && !id && SM ? true : false}
         />
-        <span
-          style={{ background: "#00B2FF" }}
-          onClick={() => console.log("xD")}
-          className=" h-100 text-center text-white"
-          type="button"
-          data-bs-toggle="modal"
-          data-bs-target={"#" + modal}
-        >
-          +
-        </span>
+        {
+          SM ? null : <span
+            style={{ background: "#00B2FF", borderRadius: 3 }}
+            // onClick={() => console.log("xD")}
+            className=" h-100 text-center text-white"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target={"#" + modal}
+          >
+            +
+          </span>
+        }
+
         <label htmlFor={"select"} className="form-label">
           {name}
         </label>
@@ -80,20 +90,21 @@ const SelectPro = ({
               autoFocus
               onKeyDown={handleSearchKeyDown}
               onChange={(e) => setSearchQuery(e.target.value)}
+
             />
-            {data ? (
-              data.map((x) => (
+            {data.length == 0 ?
+              <li>No se encontro datos</li>
+              :
+              data.map((x, index) => (
                 <li
-                  key={x._id}
+                  key={index}
                   onClick={() => handleSelection(nameExtractor(x), x._id, x)}
                   className="list-group-item"
                 >
                   {nameExtractor(x)}
                 </li>
               ))
-            ) : (
-              <li>No se encontro datos</li>
-            )}
+            }
           </ul>
         )}
         <input
@@ -105,12 +116,13 @@ const SelectPro = ({
     </>
   );
 
-  async function GetAll(skip, search, SP) {
+  async function GetAll(skip, search, SP, id) {
+    // console.log(id)
     const response = await axios.get(
-      `https://localhost:7044${endpoint}/${SP ? "" : skip + "&" + search}`
+      `https://localhost:7044${endpoint}/${SP ? "" : id ? id : `${skip}&${search}`}`
     );
     setData(response.data);
-    console.log(response.data);
+    // console.log(response.data);
   }
 };
 

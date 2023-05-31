@@ -1,7 +1,40 @@
+import { useEffect, useState } from "react";
+import SelectPro from "../../../Components/SelectPro";
+import axios from "axios";
+
 const AgregarCliente = () => {
+  const [formCliente, setFormCliente] = useState({
+    departamento: {},
+    provincia: null,
+    distrito: null,
+    nombre: "",
+    documento: "",
+    tipoDocumentoIdentidad: ""
+
+  });
+
+  const GetData = async (numero) => {
+    const response = await axios.get(`https://localhost:7044/Cliente/ObtenerDNI/${numero}`)
+    console.log(response.data)
+    setFormCliente({ ...formCliente, nombre: response.data.nombre })
+  }
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const fieldValue =
+      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+    setFormCliente((prev) => ({
+      ...prev,
+      [name]: fieldValue,
+    }));
+  };
+
+  useEffect(() => {
+    console.log(formCliente);
+  }, [formCliente]);
   return (
     <div
-      style={{ paddingTop: "15%" }}
+      style={{ paddingTop: "40px" }}
       className="modal fade"
       id="AgregarCliente"
       tabIndex={-1}
@@ -25,24 +58,175 @@ const AgregarCliente = () => {
             ></button>
           </div>
           <div className="modal-body">
-            
-            
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
-            <button
-              type="button"
-              className="btn text-white"
-              style={{ background: "#00B2FF" }}
-            >
-              Crear Cliente
-            </button>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div className="row">
+                <div className="col-md-6 pb-3">
+                  <SelectPro
+                    name={"Tipo Documento Identidad"}
+                    nameExtractor={(x) => x.abreviatura}
+                    onCaptureObj={(x) =>
+                      setFormCliente({ ...formCliente, tipoDocumentoIdentidad: x })
+                    }
+                    SM={true}
+                    SP={true}
+                    endpoint={"/TipoDocumentoIdentidad/GetAllTipoDocumentoIdentidad"}
+                  />
+                </div>
+                <div className="col-md-6 pb-3">
+                  <div className="input-group form-floating">
+                    <input
+                      autoComplete="off"
+                      name="documento"
+                      // value={formCliente.Producto.modelo}
+                      onChange={handleChange}
+                      type="text"
+                      className="form-control"
+                      placeholder="documento"
+                    />
+                    <label htmlFor="documento" className="form-label">
+                      N° Documento
+                    </label>
+                    <button
+                      style={{ background: "#00B2FF", borderRadius: 3, border: "none" }}
+                      onClick={()=>GetData(formCliente.documento)}
+                      className="btn btn-outline-secondary"
+                      type="button"
+                    >
+                      <i
+                        className="bi bi-search text-white"
+                        style={{ fontSize: 12 }}
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="col-md-12 pb-3">
+                  <div className="form-floating">
+                    <input
+                      autoComplete="off"
+                      name="nombre"
+                      value={formCliente.nombre}
+                      onChange={handleChange}
+                      type="text"
+                      className="form-control"
+                      placeholder="nombre"
+                    />
+                    <label htmlFor="nombre" className="form-label">
+                      Nombres y Apellidos
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-6 pb-3">
+                  <div className="form-floating">
+                    <input
+                      autoComplete="off"
+                      name="telefono"
+                      // value={formDetalles.Producto.modelo}
+                      onChange={handleChange}
+                      type="text"
+                      className="form-control"
+                      placeholder="telefono"
+                    />
+                    <label htmlFor="telefono" className="form-label">
+                      Telefono
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-6 pb-3">
+                  <SelectPro
+                    name={"Departamento"}
+                    onCaptureObj={(x) =>
+                      setFormCliente({
+                        ...formCliente,
+                        departamento: x,
+                        provincia: null,
+                      })
+                    }
+                    nameExtractor={(x) => x.nombre}
+                    endpoint={"/Departamento/GetAllDepartamento"}
+                    SP={true}
+                    SM={true}
+                  />
+                </div>
+                <div className="col-md-6 pb-3">
+                  <SelectPro
+                    name={"Provincia"}
+                    onCaptureObj={(x) =>
+                      setFormCliente({
+                        ...formCliente,
+                        provincia: x,
+                        distrito: null,
+                      })
+                    }
+                    nameExtractor={(x) => x.nombre}
+                    endpoint={"/Provincia/GetProvinciaForDepartamento"}
+                    SP={false}
+                    SM={true}
+                    id={formCliente.departamento?._id}
+                  />
+                </div>
+                <div className="col-md-6 pb-3">
+                  <SelectPro
+                    name={"Distrito"}
+                    onCaptureObj={(x) =>
+                      setFormCliente({ ...formCliente, distrito: x })
+                    }
+                    nameExtractor={(x) => x.nombre}
+                    endpoint={"/Distrito/GetDistritoForProvincia"}
+                    SP={false}
+                    SM={true}
+                    id={formCliente.provincia?._id}
+                  />
+                </div>
+                <div className="col-md-12 pb-3">
+                  <div className="form-floating">
+                    <input
+                      autoComplete="off"
+                      name="direccion"
+                      // value={formDetalles.Producto.modelo}
+                      onChange={handleChange}
+                      type="text"
+                      className="form-control"
+                      placeholder="direccion"
+                    />
+                    <label htmlFor="direccion" className="form-label">
+                      Dirección
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-12 pb-3">
+                  <div className="form-floating">
+                    <input
+                      autoComplete="off"
+                      name="correoElectronico"
+                      // value={formDetalles.Producto.modelo}
+                      onChange={handleChange}
+                      type="text"
+                      className="form-control"
+                      placeholder="correoElectronico"
+                    />
+                    <label htmlFor="correoElectronico" className="form-label">
+                      Correo Electronico
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="button"
+                  className="btn text-white"
+                  style={{ background: "#00B2FF" }}
+                >
+                  Crear Cliente
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
