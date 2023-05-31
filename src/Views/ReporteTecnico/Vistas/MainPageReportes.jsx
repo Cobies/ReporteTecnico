@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 import AgregarDetallesReporte from '../Modals/AgregarDetallesReporte';
 import AgregarReporteVistaTecnica from '../Modals/AgregarReporteVistaTecnico';
 import AgregarArticulosDetalles from '../Modals/AgregarArticulosDetalles';
+import AgregarCliente from '../Modals/AgregarCliente';
+import AgregarProducto from '../Modals/AgregarProducto';
+import AgregarMarca from '../Modals/AgregarMarca';
+import AgregarLinea from '../Modals/AgregarLinea';
 
 function MainPageReportes({ session }) {
 
@@ -85,6 +89,10 @@ function MainPageReportes({ session }) {
       }} />
       <AgregarDetallesReporte articulos={articulos} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
       <AgregarArticulosDetalles articulos={articulos} detalles={detalles} setArticulos={setArticulos} />
+      <AgregarCliente />
+      <AgregarProducto />
+      <AgregarMarca />
+      <AgregarLinea />
     </>
   );
 }

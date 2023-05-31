@@ -145,6 +145,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                         nameExtractor={(x) => x.nombre}
                         onCaptureObj={onCaptureObj}
                         SP={false}
+                        modal="AgregarProducto"
                       />
                     </div>
                   </div>

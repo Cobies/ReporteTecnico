@@ -31,6 +31,7 @@ const Login = ({ session, setSession }) => {
         headers: { 'Content-Type': 'application/json' },
       })
       const data = await response.text();
+      localStorage.setItem('token',data)
       const perfil = jwtDecode(data)
       setSession({ username: perfil.nombreusuaio, isLoggedIn: true, id: perfil.identificador })
     } catch (error) {
