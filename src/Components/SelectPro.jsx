@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
+import { isEmpty } from "lodash";
 import { useEffect, useState } from "react";
 
 const SelectPro = ({
@@ -10,7 +11,8 @@ const SelectPro = ({
   SP,
   modal = "",
   SM = false,
-  id
+  id,
+  initial
 }) => {
   const [showList, setShowList] = useState(false);
   const [selectedValue, setSelectedValue] = useState({
@@ -31,17 +33,22 @@ const SelectPro = ({
   function handleSearchKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      GetAll(0, searchQuery, SP);
+      console.log(searchQuery)
+      if (searchQuery === "") {
+        GetAll(initial);
+        return;
+      }
+      GetAllForSearch(0, searchQuery.toUpperCase(), SP);
     }
   }
   useEffect(() => {
-    GetAll(0, "20", SP, id);
+    GetAll(initial);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(()=>{
-    GetAll(0, "20", SP, id);
-  },[id])
+  useEffect(() => {
+    GetAllForSearch(0, "20", SP, id);
+  }, [id])
 
   return (
     <>
@@ -116,13 +123,22 @@ const SelectPro = ({
     </>
   );
 
-  async function GetAll(skip, search, SP, id) {
+  async function GetAllForSearch(skip, search, SP, id) {
     // console.log(id)
     const response = await axios.get(
       `https://localhost:7044${endpoint}/${SP ? "" : id ? id : `${skip}&${search.toUpperCase()}`}`
     );
     setData(response.data);
-    // console.log(response.data);
+    console.log(response.data);
+  }
+
+  async function GetAll(initial) {
+    // console.log(id)
+    const response = await axios.get(
+      `https://localhost:7044${initial}`
+    );
+    setData(response.data);
+    console.log(response.data);
   }
 };
 

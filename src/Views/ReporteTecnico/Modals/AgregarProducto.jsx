@@ -124,6 +124,7 @@ const AgregarProducto = () => {
                     endpoint={"/Marca/GetBusquedaMarcaLimite"}
                     SP={false}
                     modal="AgregarMarca"
+                    search={"A"}
                   />
                 </div>
                 <div className="col-md-6 py-3">
@@ -134,6 +135,7 @@ const AgregarProducto = () => {
                     endpoint={"/Linea/GetBusquedaLineaLimite"}
                     SP={false}
                     modal="AgregarLinea"
+                    search={"A"}
                   />
                 </div>
               </div>

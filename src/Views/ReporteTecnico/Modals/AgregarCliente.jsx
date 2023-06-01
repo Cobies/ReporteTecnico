@@ -19,9 +19,11 @@ const AgregarCliente = () => {
 
   async function postCliente(e) {
     e.preventDefault()
-
-    const bodyPersona = {
-
+    if (!formCliente.nombre || !formCliente.tipoDocumentoIdentidad || !formCliente.documento || !formCliente.direccion || !formCliente.telefono || !formCliente.distrito) {
+      setMessage("Campos obligatorios *")
+      return
+    }
+    const response = await axios.post(`https://localhost:7044/Persona/SetPersona`, {
       nombre: formCliente.nombre,
       documentoIdentidad: formCliente.documento,
       tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
@@ -29,28 +31,25 @@ const AgregarCliente = () => {
       email: formCliente.correoElectronico,
       telefono: formCliente.telefono,
       distrito: formCliente.distrito
-
-    }
-    const response = await axios.post(`https://localhost:7044/Persona/SetPersona`, bodyPersona, {
+    }, {
       headers: {
         // Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
       }
     })
-    const bodyCliente = {
+    const responseCliente = await axios.post(`https://localhost:7044/Cliente/SetCliente`, {
       FechaRegistro: new Date(),
       persona: {
         _id: response.data,
-        nombre: formCliente.nombre,
+        nombre: formCliente.nombre.toUpperCase(),
         documentoIdentidad: formCliente.documento,
         tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
-        direccion: formCliente.direccion,
+        direccion: formCliente.direccion.toUpperCase(),
         email: formCliente.correoElectronico,
         telefono: formCliente.telefono,
         distrito: formCliente.distrito
       }
-    }
-    const responseCliente = await axios.post(`https://localhost:7044/Cliente/SetCliente`, bodyCliente, {
+    }, {
       headers: {
         // Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
@@ -68,8 +67,9 @@ const AgregarCliente = () => {
       telefono: "",
       direccion: ""
     }));
-
+    setMessage("")
   }
+
 
   const GetData = async (numero) => {
     const response = await axios.get(`https://api.grupoupgrade.com.pe/Cliente/ObtenerDNI/${numero}`, {
@@ -148,7 +148,7 @@ const AgregarCliente = () => {
                       placeholder="documento"
                     />
                     <label htmlFor="documento" className="form-label">
-                      N° Documento
+                      N° Documento *
                     </label>
                     <button
                       style={{ background: "#00B2FF", borderRadius: 3, border: "none" }}
@@ -168,7 +168,7 @@ const AgregarCliente = () => {
                     <input
                       autoComplete="off"
                       name="nombre"
-                      value={formCliente.nombre}
+                      value={formCliente.nombre.toUpperCase()}
                       onChange={handleChange}
                       type="text"
                       className="form-control"
@@ -191,7 +191,7 @@ const AgregarCliente = () => {
                       placeholder="telefono"
                     />
                     <label htmlFor="telefono" className="form-label">
-                      Telefono
+                      Telefono *
                     </label>
                   </div>
                 </div>
@@ -246,14 +246,14 @@ const AgregarCliente = () => {
                     <input
                       autoComplete="off"
                       name="direccion"
-                      value={formCliente.direccion}
+                      value={formCliente.direccion.toUpperCase()}
                       onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="direccion"
                     />
                     <label htmlFor="direccion" className="form-label">
-                      Dirección
+                      Dirección *
                     </label>
                   </div>
                 </div>

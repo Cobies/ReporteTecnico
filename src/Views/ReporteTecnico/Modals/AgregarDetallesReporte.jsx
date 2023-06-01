@@ -141,11 +141,12 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                     <div className="mb-3">
                       <SelectPro
                         name={"Producto"}
-                        endpoint={"/Producto/GetBusquedaProductoLimite"}
+                        endpoint={"/ProductoReporte/GetBusquedaProductoReporteLimite"}
                         nameExtractor={(x) => x.nombre}
                         onCaptureObj={onCaptureObj}
                         SP={false}
                         modal="AgregarProducto"
+                        initial={"/ProductoReporte/GetAllProductoReporteLimite/0"}
                       />
                     </div>
                   </div>
