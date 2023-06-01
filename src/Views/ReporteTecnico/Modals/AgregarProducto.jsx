@@ -38,7 +38,7 @@ const AgregarProducto = () => {
     if (!formProducto.nombre || !formProducto.modelo || !formProducto.marca || !formProducto.linea) {
       setMessage("Completa los campos que falta")
     } else {
-      const response = await axios.post("https://localhost:7044/ProductoReporte/SetProductoReporte",
+      const response = await axios.post("https://api.grupoupgrade.com.pe/ProductoReporte/SetProductoReporte",
         {
           codigo: generarCodigo(formProducto.nombre, formProducto.marca?.abreviatura, formProducto.linea?.nombre),
           nombre: formProducto.nombre.toUpperCase(),
@@ -47,7 +47,7 @@ const AgregarProducto = () => {
           modelo: formProducto.modelo.toUpperCase()
         }, {
         headers: {
-          // Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json"
         }
       })

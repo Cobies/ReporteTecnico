@@ -2,7 +2,13 @@ import axios from "axios";
 
 export async function GetAllReportes() {
   const response = await axios.get(
-    "https://localhost:7044/ReporteVisitaTecnica/GetAllReporteVisitaTecnicaLimite/0"
+    "https://api.grupoupgrade.com.pe/ReporteVisitaTecnica/GetAllReporteVisitaTecnicaLimite/0",
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    }
   );
   return response.data;
 }

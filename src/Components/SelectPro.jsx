@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
-import { isEmpty } from "lodash";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const SelectPro = ({
@@ -12,7 +12,7 @@ const SelectPro = ({
   modal = "",
   SM = false,
   id,
-  initial
+  initial,
 }) => {
   const [showList, setShowList] = useState(false);
   const [selectedValue, setSelectedValue] = useState({
@@ -22,6 +22,7 @@ const SelectPro = ({
   });
   const [data, setData] = useState([{}]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(null);
 
   function handleSelection(value, id, obj) {
     setSelectedValue({ ...selectedValue, value: value, id: id, obj: obj });
@@ -33,7 +34,7 @@ const SelectPro = ({
   function handleSearchKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      console.log(searchQuery)
+      console.log(searchQuery);
       if (searchQuery === "") {
         GetAll(initial);
         return;
@@ -48,7 +49,7 @@ const SelectPro = ({
 
   useEffect(() => {
     GetAllForSearch(0, "20", SP, id);
-  }, [id])
+  }, [id]);
 
   return (
     <>
@@ -64,8 +65,8 @@ const SelectPro = ({
           autoComplete="off"
           disabled={!SP && !id && SM ? true : false}
         />
-        {
-          SM ? null : <span
+        {SM ? null : (
+          <span
             style={{ background: "#00B2FF", borderRadius: 3 }}
             // onClick={() => console.log("xD")}
             className=" h-100 text-center text-white"
@@ -75,7 +76,7 @@ const SelectPro = ({
           >
             +
           </span>
-        }
+        )}
 
         <label htmlFor={"select"} className="form-label">
           {name + " *"}
@@ -97,11 +98,27 @@ const SelectPro = ({
               autoFocus
               onKeyDown={handleSearchKeyDown}
               onChange={(e) => setSearchQuery(e.target.value)}
-
             />
-            {data.length == 0 ?
-              <li>No se encontro datos</li>
-              :
+            {data.length == 0 ? (
+              <li className="text-center bg-success text-white">
+                No se encontro datos
+              </li>
+            ) : loading ? (
+              <li>
+                <motion.h3
+                  className="text-center"
+                  style={{
+                    background: "white",
+                    color: "black",
+                    padding: "10px",
+                  }}
+                >
+                  <div className="spinner-border text-info" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </motion.h3>
+              </li>
+            ) : (
               data.map((x, index) => (
                 <li
                   key={index}
@@ -111,7 +128,7 @@ const SelectPro = ({
                   {nameExtractor(x)}
                 </li>
               ))
-            }
+            )}
           </ul>
         )}
         <input
@@ -124,21 +141,37 @@ const SelectPro = ({
   );
 
   async function GetAllForSearch(skip, search, SP, id) {
-    // console.log(id)
+    setLoading(true);
     const response = await axios.get(
-      `https://localhost:7044${endpoint}/${SP ? "" : id ? id : `${skip}&${search.toUpperCase()}`}`
+      `https://api.grupoupgrade.com.pe${endpoint}/${
+        SP ? "" : id ? id : `${skip}&${search.toUpperCase()}`
+      }`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      }
     );
     setData(response.data);
     console.log(response.data);
+    setLoading(false);
   }
 
   async function GetAll(initial) {
-    // console.log(id)
+    setLoading(true);
     const response = await axios.get(
-      `https://localhost:7044${initial}`
+      `https://api.grupoupgrade.com.pe${initial}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      }
     );
     setData(response.data);
     console.log(response.data);
+    setLoading(false);
   }
 };
 

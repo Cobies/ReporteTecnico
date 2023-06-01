@@ -57,7 +57,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
 
   async function PostArticuloDetalle(e) {
     e.preventDefault();
-    if (!formArticulos.observaciones) {
+    if (!formArticulos.observaciones || !formArticulos.fechaCompra) {
       setMessage("Completa los Campos *");
       return;
     }

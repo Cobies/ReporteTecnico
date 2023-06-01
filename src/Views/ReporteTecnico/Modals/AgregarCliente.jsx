@@ -23,7 +23,7 @@ const AgregarCliente = () => {
       setMessage("Campos obligatorios *")
       return
     }
-    const response = await axios.post(`https://localhost:7044/Persona/SetPersona`, {
+    const response = await axios.post(`https://api.grupoupgrade.com.pe/Persona/SetPersona`, {
       nombre: formCliente.nombre,
       documentoIdentidad: formCliente.documento,
       tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
@@ -33,11 +33,11 @@ const AgregarCliente = () => {
       distrito: formCliente.distrito
     }, {
       headers: {
-        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
       }
     })
-    const responseCliente = await axios.post(`https://localhost:7044/Cliente/SetCliente`, {
+    const responseCliente = await axios.post(`https://api.grupoupgrade.com.pe/Cliente/SetCliente`, {
       FechaRegistro: new Date(),
       persona: {
         _id: response.data,
@@ -51,7 +51,7 @@ const AgregarCliente = () => {
       }
     }, {
       headers: {
-        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
       }
     })

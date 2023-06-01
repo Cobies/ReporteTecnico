@@ -22,9 +22,9 @@ const AgregarMarca = () => {
 
   async function postMarca(e) {
     e.preventDefault()
-    const response = await axios.post("https://localhost:7044/Marca/SetMarca", { nombre: formMarca.nombre.toUpperCase(), abreviatura: formMarca.abreviatura.toUpperCase() }, {
+    const response = await axios.post("https://api.grupoupgrade.com.pe/Marca/SetMarca", { nombre: formMarca.nombre.toUpperCase(), abreviatura: formMarca.abreviatura.toUpperCase() }, {
       headers: {
-        // Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
       }
     })
