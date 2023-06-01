@@ -52,10 +52,13 @@ const AgregarReporteVistaTecnica = ({
         }
       } else {
         const response = await axios.post(
-          "https://localhost:7044/ReporteVisitaTecnica/SetReporteVisitaTecnica",
+          "https://api.grupoupgrade.com.pe/ReporteVisitaTecnica/SetReporteVisitaTecnica",
           body,
           {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+            },
           }
         );
         console.log(response.data);
