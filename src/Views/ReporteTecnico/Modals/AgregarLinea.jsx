@@ -7,7 +7,7 @@ const AgregarLinea = () => {
   const [message, setMessage] = useState("")
 
   useEffect(() => {
-    console.log(formLinea)
+    // console.log(formLinea)
   }, [formLinea])
 
   const handleChange = (e) => {

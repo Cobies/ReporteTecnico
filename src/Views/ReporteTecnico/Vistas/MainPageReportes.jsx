@@ -9,6 +9,7 @@ import AgregarCliente from '../Modals/AgregarCliente';
 import AgregarProducto from '../Modals/AgregarProducto';
 import AgregarMarca from '../Modals/AgregarMarca';
 import AgregarLinea from '../Modals/AgregarLinea';
+import AgregarUsuarioCliente from '../Modals/AgregarUsuarioCliente';
 
 function MainPageReportes({ session }) {
 
@@ -25,6 +26,11 @@ function MainPageReportes({ session }) {
   useEffect(() => {
     fetchData();
   }, [])
+
+  useEffect(() => {
+    console.log(detalles)
+  }, [detalles])
+
 
   async function fetchData() {
     const data = await GetAllReportes()
@@ -44,6 +50,7 @@ function MainPageReportes({ session }) {
           <div className="container" style={{ marginTop: "1rem" }}>
             <h3 className="text-center">Tus Reportes Actuales</h3>
             <button type="button" className="btn text-white" style={{ background: "#00B2FF" }} data-bs-toggle="modal" data-bs-target="#AgregarReporteVistaTecnica">Crear Reporte</button>
+            {/* <button type="button" className="btn text-white" style={{ background: "#00B2FF" }} data-bs-toggle="modal" data-bs-target="#AgregarUsuarioCliente">Crear Usuario Cliente</button> */}
             <div className="table-responsive" style={{ marginTop: "5rem" }}>
               <table className="table table-striped table-bordered" style={{ fontSize: 15 }}>
                 <thead style={{ background: "#00B2FF" }}>
@@ -57,7 +64,7 @@ function MainPageReportes({ session }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {reporteVistaTecnico.length === 0 ? <tr><td className='text-center' colSpan={6}>Loading</td> </tr> : reporteVistaTecnico.map((x) => (<tr key={x._id}>
+                  {reporteVistaTecnico.length === 0 && Array.isArray(reporteVistaTecnico) ? <tr><td className='text-center' colSpan={6}>Loading</td> </tr> : reporteVistaTecnico.map((x) => (<tr key={x._id}>
                     <td>{x.activo ? <i className="bi bi-check text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}</td>
                     <td>{x.numero}</td>
                     <td>{x.empleado?.persona?.nombre}</td>
@@ -92,7 +99,8 @@ function MainPageReportes({ session }) {
       <AgregarCliente />
       <AgregarProducto />
       <AgregarMarca />
-      <AgregarLinea /> 
+      <AgregarLinea />
+      <AgregarUsuarioCliente />
     </>
   );
 }

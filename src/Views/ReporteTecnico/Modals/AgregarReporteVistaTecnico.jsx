@@ -22,8 +22,16 @@ const AgregarReporteVistaTecnica = ({
 
   const ReporteSubmit = async (e) => {
     e.preventDefault();
-    // const DocumentosPdf = e.target.DocumentosPdf.value;
     try {
+      for (let i = 0; i < detalles.length; i++) {
+        delete detalles[i].cantidad;
+      }
+      console.log(detalles)
+      if (!detalles || !formReporteVistaTecnica.Cliente || !perfil) {
+        console.log("ALGO FALTA PARA ENVIAR")
+        return
+      }
+      console.log(detalles)
       const body = {
         Numero: 5,
         Activo: formReporteVistaTecnica.Activo,
@@ -32,50 +40,33 @@ const AgregarReporteVistaTecnica = ({
         FechaCreado: new Date(),
         Detalle: detalles,
         Sugerencia: formReporteVistaTecnica.Sugerencia,
-        // DocumentosPdf: DocumentosPdf.split('\n')
-      };
-      for (let i = 0; i < body.Detalle.length; i++) {
-        delete body.Detalle[i].cantidad;
       }
-      if (!body.Detalle || !body.Cliente || !body.Empleado) {
-        if (body.Detalle == null) {
-          console.log("Falta Detalles");
-          if (body.Detalle.Articulos == null) {
-            console.log("Falta Detalles Articulos");
-          }
+      console.log("ESTE ",body)
+      const response = await axios.post(
+        "https://api.grupoupgrade.com.pe/ReporteVisitaTecnica/SetReporteVisitaTecnica",
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
         }
-        if (body.Cliente == null) {
-          console.log("Falta Cliente");
-        }
-        if (body.Empleado == null) {
-          console.log("Falta Empleado");
-        }
-      } else {
-        const response = await axios.post(
-          "https://api.grupoupgrade.com.pe/ReporteVisitaTecnica/SetReporteVisitaTecnica",
-          body,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log(response.data);
-        setDetalles([]);
-        setArticulos([]);
-        setMessage("");
-        setFormReporteVistaTecnica((prevState) => ({
-          ...prevState,
-          Cliente: null,
-          FechaCreado: null,
-          Detalle: null,
-          Activo: true,
-          Sugerencia: "",
-        }));
-        const data = await GetAllReportes();
-        setReporteVisitaTecnica(data);
-      }
+      );
+      console.log(response.data);
+      setDetalles([]);
+      setArticulos([]);
+      setMessage("");
+      setFormReporteVistaTecnica((prevState) => ({
+        ...prevState,
+        Cliente: null,
+        FechaCreado: null,
+        Detalle: null,
+        Activo: true,
+        Sugerencia: "",
+      }));
+      const data = await GetAllReportes();
+      setReporteVisitaTecnica(data);
+
     } catch (error) {
       console.error(error);
     }
@@ -200,6 +191,7 @@ const AgregarReporteVistaTecnica = ({
                     nameExtractor={(x) => x.persona.nombre}
                     SP={false}
                     modal="AgregarCliente"
+                    initial={"/Cliente/GetAllClientesLimite/0"}
                   />
                 </div>
 

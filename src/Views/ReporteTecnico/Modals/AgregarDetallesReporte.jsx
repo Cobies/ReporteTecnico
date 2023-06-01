@@ -22,8 +22,9 @@ const AgregarDetallesReporte = ({
   });
 
   useEffect(() => {
-    // console.log(formDetalles)
+    console.log(formDetalles)
   }, [formDetalles]);
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -36,29 +37,31 @@ const AgregarDetallesReporte = ({
     }));
   };
 
-  const handleChangeProducto = (e) => {
-    const { name, value } = e.target;
-    setFormDetalles((prevFormDetalles) => ({
-      ...prevFormDetalles,
-      Producto: {
-        ...prevFormDetalles.Producto,
-        [name]: value,
-      },
-    }));
-  };
+  // const handleChangeProducto = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormDetalles((prevFormDetalles) => ({
+  //     ...prevFormDetalles,
+  //     Producto: {
+  //       ...prevFormDetalles.Producto,
+  //       [name]: value,
+  //     },
+  //   }));
+  // };
 
   const onCaptureObj = (producto) => {
     // Aquí puedes hacer lo que necesites con el objeto seleccionado
     setFormDetalles((prevState) => ({
       ...prevState,
-      Producto: {
-        ...prevState.Producto,
-        nombre: producto.nombre,
-        marca: producto.marca,
-        linea: producto.linea,
-        codigo: producto.codigo,
-      },
+      Producto: producto
     }));
+  };
+
+  const editArticulo = (index, newValues) => {
+    console.log(newValues)
+    newValues.Observaciones = "MODIFICADO"
+    const updatedArticulos = [...articulos];
+    updatedArticulos[index] = { ...updatedArticulos[index], ...newValues };
+    setArticulos(updatedArticulos);
   };
 
   async function PostDetalle(e) {
@@ -176,7 +179,7 @@ const AgregarDetallesReporte = ({
                       </label>
                     </div>
                   </div>
-                  <div className="col-md-3">
+                  {/* <div className="col-md-3">
                     <div className="form-floating mb-3">
                       <input
                         autoComplete="off"
@@ -191,7 +194,7 @@ const AgregarDetallesReporte = ({
                         Modelo
                       </label>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-md-3">
                     <div className="form-floating mb-3">
                       <textarea
@@ -243,15 +246,15 @@ const AgregarDetallesReporte = ({
                             )}
                           </td>
                           <td>{x.Observaciones}</td>
-                          <td>{moment(x.FechaCompra).format("L")}</td>
+                          <td>{moment(x.FechaCompra).isValid() ? moment(x.FechaCompra).format("L") : "Sin Fecha"}</td>
                           <td className="text-center">
                             <div className="d-flex justify-content-center gap-2 align-items-center">
                               <button
                                 type="button"
                                 className="btn btn-primary"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                onClick={() => console.log(x)}
+                                // data-bs-toggle="modal"
+                                // data-bs-target="#exampleModal"
+                                onClick={() => editArticulo(index, x)}
                               >
                                 Ver
                               </button>
@@ -264,12 +267,6 @@ const AgregarDetallesReporte = ({
                 </table>
                 <div
                   className="modal-footer"
-                  // style={{
-                  //   position: "absolute",
-                  //   bottom: "0",
-                  //   right: "0",
-                  //   width: "100%",
-                  // }}
                 >
                   <button
                     type="button"
@@ -277,7 +274,7 @@ const AgregarDetallesReporte = ({
                     style={{ background: "#008065" }}
                     data-bs-toggle="modal"
                     data-bs-target="#AgregarArticulosDetalles"
-                    disabled={formDetalles.Producto.nombre == "" ? true : false  }
+                    disabled={formDetalles.Producto.nombre == "" ? true : false}
                   >
                     Agregar Articulos
                   </button>

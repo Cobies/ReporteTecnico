@@ -34,12 +34,13 @@ const SelectPro = ({
   function handleSearchKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      console.log(searchQuery);
-      if (searchQuery === "") {
+      if (searchQuery.trim() == "" && searchQuery != null) {
         GetAll(initial);
         return;
+      }else{
+        GetAllForSearch(0, searchQuery.toUpperCase(), SP);
+
       }
-      GetAllForSearch(0, searchQuery.toUpperCase(), SP);
     }
   }
   useEffect(() => {

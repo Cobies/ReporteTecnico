@@ -78,7 +78,7 @@ const AgregarCliente = () => {
         "Content-Type": "application/json"
       }
     })
-    console.log(response.data)
+    // console.log(response.data)
     setFormCliente({ ...formCliente, nombre: response.data.nombre })
     setMessage("")
   }
@@ -94,7 +94,7 @@ const AgregarCliente = () => {
   };
 
   useEffect(() => {
-    console.log(formCliente);
+    // console.log(formCliente);
   }, [formCliente]);
   return (
     <div

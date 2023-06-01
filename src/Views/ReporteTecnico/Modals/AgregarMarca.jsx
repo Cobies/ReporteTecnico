@@ -7,7 +7,7 @@ const AgregarMarca = () => {
   // const [message, setMessage] = useState("");
 
   useEffect(() => {
-    console.log(formMarca)
+    // console.log(formMarca)
   }, [formMarca])
 
   const handleChange = (e) => {

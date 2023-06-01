@@ -10,5 +10,6 @@ export async function GetAllReportes() {
       },
     }
   );
+  console.log(response)
   return response.data;
 }

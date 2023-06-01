@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
   const [formArticulos, setFormArticulos] = useState({
-    fechaCompra: "",
+    fechaCompra: undefined,
     operativo: true,
     observaciones: "",
     cantidad: 1,
@@ -28,6 +27,23 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
       [name]: fieldValue,
     }));
   };
+
+  function generarCodigoClienteProducto(nombreCliente, codigoProducto) {
+    let contador = localStorage.getItem('contador') || 1;
+
+    const inicialesCliente = nombreCliente
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
+
+    const codigoGenerado = `${inicialesCliente}${codigoProducto}-${contador}`;
+
+    localStorage.setItem('contador', parseInt(contador) + 1);
+
+    return codigoGenerado;
+  }
+
 
   useEffect(() => {
     console.log(formArticulos);
@@ -57,7 +73,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
 
   async function PostArticuloDetalle(e) {
     e.preventDefault();
-    if (!formArticulos.observaciones || !formArticulos.fechaCompra) {
+    if (!formArticulos.observaciones) {
       setMessage("Completa los Campos *");
       return;
     }
@@ -67,10 +83,10 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
         { length: formArticulos.cantidad },
         () => ({
           FechaCreado: new Date(),
-          Serie: uuidv4().substring(0, 8),
+          Serie: generarCodigoClienteProducto("", ""),
           Operativo: formArticulos.operativo,
           Observaciones: formArticulos.observaciones,
-          FechaCompra: formArticulos.fechaCompra,
+          FechaCompra: formArticulos.fechaCompra == '' ? null : formArticulos.fechaCompra,
         })
       );
 
@@ -78,7 +94,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
     }
 
     setFormArticulos({
-      fechaCompra: "",
+      fechaCompra: null,
       operativo: true,
       observaciones: "",
       cantidad: 1,
@@ -151,7 +167,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                       required
                     />
                     <label htmlFor="cantidad" className="form-label">
-                      Cantidad *
+                      Cantidad
                     </label>
                   </div>
                 </div>
@@ -165,15 +181,15 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                       value={
                         formArticulos.fechaCompra
                           ? formArticulos.fechaCompra
-                              .toISOString()
-                              .substr(0, 10)
+                            .toISOString()
+                            .substr(0, 10)
                           : ""
                       }
                       onChange={handleChange}
-                      required
+
                     ></input>
                     <label htmlFor="fechaCompra" className="form-label">
-                      Fecha Compra *
+                      Fecha Compra
                     </label>
                   </div>
                 </div>
