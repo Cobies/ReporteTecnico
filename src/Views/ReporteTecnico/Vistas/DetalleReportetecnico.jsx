@@ -20,7 +20,7 @@ function DetalleReporteTecnico() {
  
   return ( 
     <>
-      <div className="container" style={{ marginTop: "5rem" }}>
+      <div className="container bg-reporte" style={{ marginTop: "5rem" }}>
       <div className="row pdfmodal" style={{ marginTop: "2rem" }}>
           <h3 className='text-center'>INVENTARIO DEL REPORTE</h3>
           <div className='table-responsive'>

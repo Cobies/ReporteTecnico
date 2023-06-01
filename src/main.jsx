@@ -4,7 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
-import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -68,39 +68,54 @@ const Login = ({ session, setSession }) => {
         className="fixed-top"
         initial={{ height: "100vh" }}
         animate={{
-          background: "#00B2FF",
+          background: "rgb(14,21,46)",
           width: "100vw",
-          height: session.isLoggedIn ? "50px" : "100vh",
+          height: session.isLoggedIn ? "60px" : "100vh",
           zIndex: 9999,
           borderBottom: "1px solid white",
         }}
       >
         {session.isLoggedIn ? (
           <div
-            style={{ padding: "12px 0", fontSize: 17 }}
+            style={{ padding: "15px 0", fontSize: 17 }}
             className="container d-flex justify-content-between text-white position-relative"
           >
             <Link
               to="/"
+              className="fw-bold fs-5"
               style={{
                 color: "white",
                 textDecoration: "none",
                 cursor: "pointer",
               }}
             >
-              Soporte Tecnico
+              Soporte Técnico
             </Link>
-            <div style={{ cursor: "pointer" }}>
-              {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link> */}
-              <i
-                onClick={handleLogout}
-                style={{ marginRight: 25 }}
-                className="bi bi-box-arrow-left text-danger p-1"
-              >
-                {" "}
-                {session.username}
-              </i>
+
+            <div className="dropdown">
+              <a className="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg" className="rounded-circle" height={25} alt="Black and White Portrait of a Man" loading="lazy" />
+              </a>
+              
+              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                <li>
+                  <a className="dropdown-item" href="#">Mis Reportes</a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                      {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link> */}
+                      <i
+                        onClick={handleLogout}
+                        className="bi bi-box-arrow-left fw-bold text-danger"
+                      >
+                        {" "}
+                        Salir
+                      </i>
+                  </a>
+                </li>
+              </ul>
             </div>
+
           </div>
         ) : (
           <form className="form-login" onSubmit={handleLogin}>
@@ -109,7 +124,7 @@ const Login = ({ session, setSession }) => {
               style={{ width: 250, padding: 25 }}
               alt="Logo"
             ></img>
-            <h2 style={{ color: "white" }}>Soporte Técnico</h2>
+            <h2 className="titulo" style={{ color: "white" }}>SOPORTE TÉCNICO</h2>
             <div className="mb-6" style={{ margin: "auto" }}>
               <input
                 className="psw input-login"
