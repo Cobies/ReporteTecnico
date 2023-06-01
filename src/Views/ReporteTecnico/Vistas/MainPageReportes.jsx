@@ -42,11 +42,19 @@ function MainPageReportes({ session }) {
       <div className='container'>
         <div className='row'>
           <div className="container" style={{ marginTop: "1rem" }}>
-            <h3 className="text-center">Tus Reportes Actuales</h3>
-            <button type="button" className="btn text-white" style={{ background: "#00B2FF" }} data-bs-toggle="modal" data-bs-target="#AgregarReporteVistaTecnica">Crear Reporte</button>
-            <div className="table-responsive" style={{ marginTop: "5rem" }}>
-              <table className="table table-striped table-bordered" style={{ fontSize: 15 }}>
-                <thead style={{ background: "#00B2FF" }}>
+            <h3 className="text-center mt-2 titulo fw-bold">Bienvenido, aqui estan tus Reportes Actuales</h3>
+            <button className="Btn"  type="button" data-bs-toggle="modal" data-bs-target="#AgregarReporteVistaTecnica">
+              <div class="sign">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
+                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0z"/>
+              </svg>
+              </div>
+              <div class="text">Crear Reporte</div>
+            </button>
+            
+            <div className="table-responsive rounded" style={{ marginTop: "3rem" }}>
+              <table className="table table-striped table-bordere" style={{ fontSize: 15 }} >
+                <thead style={{ background: "rgb(113,123,216)" }}>
                   <tr className="text-center text-white">
                     <th scope="col">ACTIVO</th>
                     <th scope="col">CODIGO</th>
