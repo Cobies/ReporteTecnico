@@ -3,35 +3,38 @@ import SelectPro from "../../../Components/SelectPro";
 import moment from "moment";
 
 /* eslint-disable react/prop-types */
-const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos }) => {
+const AgregarDetallesReporte = ({
+  articulos,
+  detalles,
+  setDetalles,
+  setArticulos,
+}) => {
   const [formDetalles, setFormDetalles] = useState({
     observacion: "",
     area: "",
     Producto: {
       nombre: "",
       marca: "",
-      linea: {
-      },
+      linea: {},
       codigo: "",
-      modelo: ""
-    }
-  })
+      modelo: "",
+    },
+  });
 
   useEffect(() => {
     // console.log(formDetalles)
-  }, [formDetalles])
+  }, [formDetalles]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const fieldValue = type === 'checkbox'
-      ? checked : type === 'date'
-        ? new Date(value) : value;
+    const fieldValue =
+      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
 
     setFormDetalles((prev) => ({
       ...prev,
       [name]: fieldValue,
-    }))
-  }
+    }));
+  };
 
   const handleChangeProducto = (e) => {
     const { name, value } = e.target;
@@ -39,8 +42,8 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
       ...prevFormDetalles,
       Producto: {
         ...prevFormDetalles.Producto,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
   };
 
@@ -53,8 +56,8 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
         nombre: producto.nombre,
         marca: producto.marca,
         linea: producto.linea,
-        codigo: producto.codigo
-      }
+        codigo: producto.codigo,
+      },
     }));
   };
 
@@ -68,7 +71,7 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
         Observacion: formDetalles.observacion,
         Area: formDetalles.observacion,
         Articulos: articulos,
-        Producto: formDetalles.Producto
+        Producto: formDetalles.Producto,
       },
     ]);
 
@@ -77,11 +80,11 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
       observacion: "",
       area: "",
       Producto: {
-        modelo: ""
-      }
+        modelo: "",
+      },
     }));
 
-    setArticulos([])
+    setArticulos([]);
     // setReporteVisitaTecnica((prevState) => [
     //   ...prevState,
     //   {
@@ -121,7 +124,10 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
       >
         <div className="modal-dialog modal-dialog-scrollable modal-fullscreen p-5">
           <div className="modal-content">
-            <div className="modal-header text-white" style={{ background: "#00B2FF" }}>
+            <div
+              className="modal-header text-white"
+              style={{ background: "#00B2FF" }}
+            >
               <h5 className="modal-title">Agregar Detalles</h5>
               <button
                 type="button"
@@ -141,26 +147,49 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                     <div className="mb-3">
                       <SelectPro
                         name={"Producto"}
-                        endpoint={"/ProductoReporte/GetBusquedaProductoReporteLimite"}
+                        endpoint={
+                          "/ProductoReporte/GetBusquedaProductoReporteLimite"
+                        }
                         nameExtractor={(x) => x.nombre}
                         onCaptureObj={onCaptureObj}
                         SP={false}
                         modal="AgregarProducto"
-                        initial={"/ProductoReporte/GetAllProductoReporteLimite/0"}
+                        initial={
+                          "/ProductoReporte/GetAllProductoReporteLimite/0"
+                        }
                       />
                     </div>
                   </div>
                   <div className="col-md-3">
                     <div className="form-floating mb-3">
-                      <input autoComplete="off" name="area" value={formDetalles.area} onChange={handleChange} type="text" className="form-control" placeholder="area" />
-                      <label htmlFor="area" className="form-label">Área</label>
+                      <input
+                        autoComplete="off"
+                        name="area"
+                        value={formDetalles.area}
+                        onChange={handleChange}
+                        type="text"
+                        className="form-control"
+                        placeholder="area"
+                      />
+                      <label htmlFor="area" className="form-label">
+                        Área
+                      </label>
                     </div>
-
                   </div>
                   <div className="col-md-3">
                     <div className="form-floating mb-3">
-                      <input autoComplete="off" name="modelo" value={formDetalles.Producto.modelo} onChange={handleChangeProducto} type="text" className="form-control" placeholder="modelo" />
-                      <label htmlFor="modelo" className="form-label">Modelo</label>
+                      <input
+                        autoComplete="off"
+                        name="modelo"
+                        value={formDetalles.Producto.modelo}
+                        onChange={handleChangeProducto}
+                        type="text"
+                        className="form-control"
+                        placeholder="modelo"
+                      />
+                      <label htmlFor="modelo" className="form-label">
+                        Modelo
+                      </label>
                     </div>
                   </div>
                   <div className="col-md-3">
@@ -206,7 +235,13 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                         <tr key={index}>
                           <td>{moment(x.FechaCreado).format("L")}</td>
                           <td>{x.Serie}</td>
-                          <td>{x.Operativo ? <i className="bi bi-check text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}</td>
+                          <td>
+                            {x.Operativo ? (
+                              <i className="bi bi-check text-success"></i>
+                            ) : (
+                              <i className="bi bi-x-lg text-danger"></i>
+                            )}
+                          </td>
                           <td>{x.Observaciones}</td>
                           <td>{moment(x.FechaCompra).format("L")}</td>
                           <td className="text-center">
@@ -227,12 +262,22 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                     )}
                   </tbody>
                 </table>
-                <div className="modal-footer" style={{ position: "absolute", bottom: "0", right: "0", width: "100%" }}>
+                <div
+                  className="modal-footer"
+                  // style={{
+                  //   position: "absolute",
+                  //   bottom: "0",
+                  //   right: "0",
+                  //   width: "100%",
+                  // }}
+                >
                   <button
                     type="button"
-                    className="btn text-white" style={{ background: "#008065" }}
+                    className="btn text-white"
+                    style={{ background: "#008065" }}
                     data-bs-toggle="modal"
                     data-bs-target="#AgregarArticulosDetalles"
+                    disabled={formDetalles.Producto.nombre == "" ? true : false  }
                   >
                     Agregar Articulos
                   </button>
@@ -244,7 +289,11 @@ const AgregarDetallesReporte = ({ articulos, detalles, setDetalles, setArticulos
                   >
                     Close
                   </button>
-                  <button type="submit" className="btn text-white" style={{ background: "#00B2FF" }}>
+                  <button
+                    type="submit"
+                    className="btn text-white"
+                    style={{ background: "#00B2FF" }}
+                  >
                     {" "}
                     Crear
                   </button>

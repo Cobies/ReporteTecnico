@@ -7,12 +7,21 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
     fechaCompra: "",
     operativo: true,
     observaciones: "",
+    cantidad: 1,
   });
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const fieldValue =
+    let fieldValue =
       type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+
+    if (name === "cantidad") {
+      fieldValue = parseFloat(fieldValue); // O parseInt(fieldValue) si deseas convertirlo a un número entero
+      if (isNaN(fieldValue)) {
+        fieldValue = 1; // O cualquier otro valor por defecto si no se puede convertir a un número válido
+      }
+    }
 
     setFormArticulos((prevFormArticulos) => ({
       ...prevFormArticulos,
@@ -20,7 +29,9 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
     }));
   };
 
-  useEffect(() => {}, [formArticulos]);
+  useEffect(() => {
+    console.log(formArticulos);
+  }, [formArticulos]);
   // const ModalArticulos = useRef(null);
   // useEffect(() => {
   //     const handleModalClose = () => {
@@ -46,20 +57,31 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
 
   async function PostArticuloDetalle(e) {
     e.preventDefault();
-    setArticulos([
-      ...articulos,
-      {
-        FechaCreado: new Date(),
-        Serie: uuidv4().substring(0, 8),
-        Operativo: formArticulos.operativo,
-        Observaciones: formArticulos.observaciones,
-        FechaCompra: formArticulos.fechaCompra,
-      },
-    ]);
+    if (!formArticulos.observaciones) {
+      setMessage("Completa los Campos *");
+      return;
+    }
+
+    if (formArticulos.cantidad > 0) {
+      const newArticulos = Array.from(
+        { length: formArticulos.cantidad },
+        () => ({
+          FechaCreado: new Date(),
+          Serie: uuidv4().substring(0, 8),
+          Operativo: formArticulos.operativo,
+          Observaciones: formArticulos.observaciones,
+          FechaCompra: formArticulos.fechaCompra,
+        })
+      );
+
+      setArticulos([...articulos, ...newArticulos]);
+    }
+
     setFormArticulos({
       fechaCompra: "",
       operativo: true,
       observaciones: "",
+      cantidad: 1,
     });
   }
 
@@ -90,34 +112,50 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
           </div>
           <div className="modal-body">
             <form onSubmit={PostArticuloDetalle}>
-              <div className="col-md-4">
-                <div className="mb-3">
-                  <div className="form-check form-switch">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <div className="form-check form-switch">
+                      <input
+                        className="form-check-input"
+                        name="operativo"
+                        type="checkbox"
+                        role="switch"
+                        value={formArticulos.operativo}
+                        onChange={handleChange}
+                        defaultChecked={true}
+                        style={{
+                          backgroundColor: formArticulos.operativo
+                            ? "#00B2FF"
+                            : null,
+                          border: "none",
+                        }}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexSwitchCheckDefault"
+                      >
+                        Operativo
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-floating mb-3">
                     <input
-                      className="form-check-input"
-                      name="operativo"
-                      type="checkbox"
-                      role="switch"
-                      value={formArticulos.operativo}
+                      type="number"
+                      className="form-control"
+                      name="cantidad"
+                      value={formArticulos.cantidad}
                       onChange={handleChange}
-                      defaultChecked={true}
-                      style={{
-                        backgroundColor: formArticulos.operativo
-                          ? "#00B2FF"
-                          : null,
-                        border: "none",
-                      }}
+                      required
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="flexSwitchCheckDefault"
-                    >
-                      Operativo
+                    <label htmlFor="cantidad" className="form-label">
+                      Cantidad *
                     </label>
                   </div>
                 </div>
-              </div>
-              <div className="row">
+
                 <div className="col-md-6">
                   <div className="form-floating mb-3">
                     <input
@@ -135,7 +173,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                       required
                     ></input>
                     <label htmlFor="fechaCompra" className="form-label">
-                      Fecha Compra
+                      Fecha Compra *
                     </label>
                   </div>
                 </div>
@@ -152,12 +190,13 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                       placeholder="Ingrese observaciones"
                     ></textarea>
                     <label htmlFor="observacion" className="form-label">
-                      Observaciones
+                      Observaciones *
                     </label>
                   </div>
                 </div>
               </div>
               <div className="modal-footer">
+                <label className="text-danger">{message}</label>
                 <button
                   type="button"
                   className="btn btn-secondary"
