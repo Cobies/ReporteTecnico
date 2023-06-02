@@ -44,7 +44,7 @@ const SelectPro = ({
     }
   }
   useEffect(() => {
-    if (showList) {
+    if (showList && !SM) {
       GetAll(initial);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
