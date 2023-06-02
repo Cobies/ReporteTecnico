@@ -98,14 +98,14 @@ const Login = ({ session, setSession }) => {
               </a>
               
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                <li>
+                {/* <li>
                   <a className="dropdown-item" href="#">Mis Reportes</a>
-                </li>
+                </li> */}
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a onClick={handleLogout} className="dropdown-item" href="#">
                       {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link> */}
                       <i
-                        onClick={handleLogout}
+                        
                         className="bi bi-box-arrow-left fw-bold text-danger"
                       >
                         {" "}
