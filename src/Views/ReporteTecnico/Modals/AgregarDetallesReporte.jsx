@@ -8,6 +8,7 @@ const AgregarDetallesReporte = ({
   detalles,
   setDetalles,
   setArticulos,
+  setCapture
 }) => {
   const [formDetalles, setFormDetalles] = useState({
     observacion: "",
@@ -25,11 +26,10 @@ const AgregarDetallesReporte = ({
     // console.log(formDetalles)
   }, [formDetalles]);
 
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const fieldValue =
-      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+      type === "checkbox" ? checked : type === "date" ? value : value;
 
     setFormDetalles((prev) => ({
       ...prev,
@@ -56,13 +56,7 @@ const AgregarDetallesReporte = ({
     }));
   };
 
-  const editArticulo = (index, newValues) => {
-    // console.log(newValues)
-    newValues.Observaciones = "MODIFICADO"
-    const updatedArticulos = [...articulos];
-    updatedArticulos[index] = { ...updatedArticulos[index], ...newValues };
-    setArticulos(updatedArticulos);
-  };
+  
 
   async function PostDetalle(e) {
     e.preventDefault();
@@ -232,11 +226,11 @@ const AgregarDetallesReporte = ({
                               <button
                                 type="button"
                                 className="btn btn-primary"
-                                // data-bs-toggle="modal"
-                                // data-bs-target="#exampleModal"
-                                onClick={() => editArticulo(index, x)}
+                                data-bs-toggle="modal"
+                                data-bs-target="#EditarArticulosDetalles"
+                                onClick={() => setCapture({index, x})}
                               >
-                                Ver
+                                Editar
                               </button>
                             </div>
                           </td>

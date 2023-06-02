@@ -93,15 +93,15 @@ const SelectPro = ({
               height: 200,
               overflow: "auto",
             }}
-          >
-            <input
-              type="text"
-              placeholder="Buscar por Nombre"
-              className="form-control"
-              autoFocus
-              onKeyDown={handleSearchKeyDown}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          >{SM ? null : <input
+            type="text"
+            placeholder="Buscar por Nombre"
+            className="form-control"
+            autoFocus
+            onKeyDown={handleSearchKeyDown}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />}
+
             {data.length === 0 && !loading ? (
               <li className="text-center bg-success text-white">
                 No se encontraron datos

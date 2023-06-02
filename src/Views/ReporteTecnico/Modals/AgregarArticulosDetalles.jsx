@@ -13,15 +13,15 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     let fieldValue =
-      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
-
+      type === "checkbox" ? checked : type === "datetime-local" ? new Date(value) : value;
+   
     if (name === "cantidad") {
       fieldValue = parseFloat(fieldValue); // O parseInt(fieldValue) si deseas convertirlo a un número entero
       if (isNaN(fieldValue)) {
         fieldValue = 1; // O cualquier otro valor por defecto si no se puede convertir a un número válido
       }
     }
-
+    console.log(fieldValue)
     setFormArticulos((prevFormArticulos) => ({
       ...prevFormArticulos,
       [name]: fieldValue,
@@ -86,7 +86,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
           Serie: generarCodigoClienteProducto("", ""),
           Operativo: formArticulos.operativo,
           Observaciones: formArticulos.observaciones,
-          FechaCompra: formArticulos.fechaCompra == '' ? null : formArticulos.fechaCompra,
+          FechaCompra: formArticulos.fechaCompra,
         })
       );
 
@@ -175,14 +175,14 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                 <div className="col-md-6">
                   <div className="form-floating mb-3">
                     <input
-                      type="date"
+                      type="datetime-local"
                       className="form-control"
                       name="fechaCompra"
                       value={
                         formArticulos.fechaCompra
                           ? formArticulos.fechaCompra
                             .toISOString()
-                            .substr(0, 10)
+                            .substr(0, 16)
                           : ""
                       }
                       onChange={handleChange}
