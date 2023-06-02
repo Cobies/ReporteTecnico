@@ -9,7 +9,6 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
     editar(updatedArticulos);
   };
 
-
   async function editArticuloArticulo(e) {
     e.preventDefault()
     console.log(capture.FechaCompra)
@@ -20,7 +19,6 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
     const { name, value, type, checked } = e.target;
     const fieldValue =
       type === "checkbox" ? checked : type === "datetime-local" ? new Date(value) : value;
-
     setCapture({ ...capture, x: { [name]: fieldValue } })
   }
 
