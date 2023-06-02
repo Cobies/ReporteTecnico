@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const AgregarMarca = () => {
 
   const [formMarca, setFormMarca] = useState({ nombre: "", abreviatura: "" })
-  // const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     // console.log(formMarca)
@@ -22,6 +22,10 @@ const AgregarMarca = () => {
 
   async function postMarca(e) {
     e.preventDefault()
+    if (!formMarca.nombre || !formMarca.abreviatura) {
+      setMessage("Completa Campos *")
+      return
+    }
     const response = await axios.post("https://api.grupoupgrade.com.pe/Marca/SetMarca", { nombre: formMarca.nombre.toUpperCase(), abreviatura: formMarca.abreviatura.toUpperCase() }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -30,7 +34,7 @@ const AgregarMarca = () => {
     })
     console.log(response.data)
     setFormMarca({ nombre: "", abreviatura: "" })
-    // setMessage("")
+    setMessage("")
   }
 
   return (
@@ -91,11 +95,12 @@ const AgregarMarca = () => {
                 </div>
               </div>
               <div className="modal-footer">
-                {/* <label className="text-danger">{message}</label> */}
+                <label className="text-danger">{message}</label>
                 <button
                   type="button"
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
+                  aria-hidden="true"
                 >
                   Cerrar
                 </button>
@@ -103,6 +108,7 @@ const AgregarMarca = () => {
                   type="submit"
                   className="btn text-white"
                   data-bs-dismiss="modal"
+                  aria-hidden="true"
                   style={{ background: "#00B2FF" }}
                 >
                   Crear Marca

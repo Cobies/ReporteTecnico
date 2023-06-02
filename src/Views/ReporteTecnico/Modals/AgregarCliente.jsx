@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SelectPro from "../../../Components/SelectPro";
+import SelectPro from "../Selects/SelectPro";
 import axios from "axios";
 
 const AgregarCliente = () => {

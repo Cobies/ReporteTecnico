@@ -34,7 +34,7 @@ const AgregarUsuarioCliente = () => {
     }
 
     useEffect(() => {
-        console.log(formUsuarioCliente)
+        // console.log(formUsuarioCliente)
     }, [formUsuarioCliente])
 
     return <div

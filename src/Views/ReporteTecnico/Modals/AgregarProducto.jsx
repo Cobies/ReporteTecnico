@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SelectPro from "../../../Components/SelectPro";
+import SelectPro from "../Selects/SelectPro";
 import axios from "axios";
 
 const AgregarProducto = () => {
@@ -7,7 +7,7 @@ const AgregarProducto = () => {
   const [message, setMessage] = useState("")
 
   useEffect(() => {
-    console.log(formProducto)
+    // console.log(formProducto)
   }, [formProducto])
 
   const handleChange = (e) => {
@@ -124,7 +124,7 @@ const AgregarProducto = () => {
                     endpoint={"/Marca/GetBusquedaMarcaLimite"}
                     SP={false}
                     modal="AgregarMarca"
-                    search={"A"}
+                    initial={"/Marca/GetAllMarcaLimite/0"}
                   />
                 </div>
                 <div className="col-md-6 py-3">
@@ -135,7 +135,7 @@ const AgregarProducto = () => {
                     endpoint={"/Linea/GetBusquedaLineaLimite"}
                     SP={false}
                     modal="AgregarLinea"
-                    search={"A"}
+                    initial={"/Linea/GetAllLineaLimite/0"}
                   />
                 </div>
               </div>

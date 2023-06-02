@@ -37,16 +37,18 @@ const SelectPro = ({
       if (searchQuery.trim() == "" && searchQuery != null) {
         GetAll(initial);
         return;
-      }else{
+      } else {
         GetAllForSearch(0, searchQuery.toUpperCase(), SP);
 
       }
     }
   }
   useEffect(() => {
-    GetAll(initial);
+    if (showList) {
+      GetAll(initial);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [showList]);
 
   useEffect(() => {
     GetAllForSearch(0, "20", SP, id);
@@ -100,9 +102,9 @@ const SelectPro = ({
               onKeyDown={handleSearchKeyDown}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            {data.length == 0 ? (
+            {data.length === 0 && !loading ? (
               <li className="text-center bg-success text-white">
-                No se encontro datos
+                No se encontraron datos
               </li>
             ) : loading ? (
               <li>
@@ -114,9 +116,7 @@ const SelectPro = ({
                     padding: "10px",
                   }}
                 >
-                  <div className="spinner-border text-info" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                  <div className="spinner-border text-info" role="status"></div>
                 </motion.h3>
               </li>
             ) : (
@@ -144,8 +144,7 @@ const SelectPro = ({
   async function GetAllForSearch(skip, search, SP, id) {
     setLoading(true);
     const response = await axios.get(
-      `https://api.grupoupgrade.com.pe${endpoint}/${
-        SP ? "" : id ? id : `${skip}&${search.toUpperCase()}`
+      `https://api.grupoupgrade.com.pe${endpoint}/${SP ? "" : id ? id : `${skip}&${search.toUpperCase()}`
       }`,
       {
         headers: {
@@ -155,7 +154,6 @@ const SelectPro = ({
       }
     );
     setData(response.data);
-    console.log(response.data);
     setLoading(false);
   }
 
@@ -171,7 +169,6 @@ const SelectPro = ({
       }
     );
     setData(response.data);
-    console.log(response.data);
     setLoading(false);
   }
 };

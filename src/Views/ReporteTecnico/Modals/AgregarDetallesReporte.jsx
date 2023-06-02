@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SelectPro from "../../../Components/SelectPro";
+import SelectPro from "../Selects/SelectPro";
 import moment from "moment";
 
 /* eslint-disable react/prop-types */
@@ -22,7 +22,7 @@ const AgregarDetallesReporte = ({
   });
 
   useEffect(() => {
-    console.log(formDetalles)
+    // console.log(formDetalles)
   }, [formDetalles]);
 
 
@@ -57,7 +57,7 @@ const AgregarDetallesReporte = ({
   };
 
   const editArticulo = (index, newValues) => {
-    console.log(newValues)
+    // console.log(newValues)
     newValues.Observaciones = "MODIFICADO"
     const updatedArticulos = [...articulos];
     updatedArticulos[index] = { ...updatedArticulos[index], ...newValues };
@@ -143,10 +143,6 @@ const AgregarDetallesReporte = ({
               <form onSubmit={PostDetalle}>
                 <div className="row">
                   <div className="col-md-3">
-                    {/* <div className="mb-3">
-                      <label htmlFor="cantidad" className="form-label">Cantidad</label>
-                      <input type="text" className="form-control" id="cantidad" name='cantidad' placeholder="Ingrese la cantidad" required></input>
-                    </div> */}
                     <div className="mb-3">
                       <SelectPro
                         name={"Producto"}
@@ -179,22 +175,6 @@ const AgregarDetallesReporte = ({
                       </label>
                     </div>
                   </div>
-                  {/* <div className="col-md-3">
-                    <div className="form-floating mb-3">
-                      <input
-                        autoComplete="off"
-                        name="modelo"
-                        value={formDetalles.Producto.modelo}
-                        onChange={handleChangeProducto}
-                        type="text"
-                        className="form-control"
-                        placeholder="modelo"
-                      />
-                      <label htmlFor="modelo" className="form-label">
-                        Modelo
-                      </label>
-                    </div>
-                  </div> */}
                   <div className="col-md-3">
                     <div className="form-floating mb-3">
                       <textarea

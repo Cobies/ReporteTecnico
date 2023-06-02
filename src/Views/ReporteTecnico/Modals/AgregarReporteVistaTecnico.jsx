@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
-import SelectPro from "../../../Components/SelectPro";
+import SelectPro from "../Selects/SelectPro";
 import moment from "moment/moment";
 import { useEffect, useState } from "react";
 import { GetAllReportes } from "../../../Services/ReporteVistaTecnico";
@@ -26,12 +26,11 @@ const AgregarReporteVistaTecnica = ({
       for (let i = 0; i < detalles.length; i++) {
         delete detalles[i].cantidad;
       }
-      console.log(detalles)
+
       if (!detalles || !formReporteVistaTecnica.Cliente || !perfil) {
-        console.log("ALGO FALTA PARA ENVIAR")
+        setMessage("ALGO FALTA PARA ENVIAR")
         return
       }
-      console.log(detalles)
       const body = {
         Numero: 5,
         Activo: formReporteVistaTecnica.Activo,
@@ -73,7 +72,7 @@ const AgregarReporteVistaTecnica = ({
   };
 
   useEffect(() => {
-    console.log(formReporteVistaTecnica);
+    // console.log(formReporteVistaTecnica);
   }, [formReporteVistaTecnica]);
 
   useEffect(() => {
