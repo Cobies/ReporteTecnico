@@ -11,6 +11,7 @@ const AgregarReporteVistaTecnica = ({
   session,
   setArticulos,
   setReporteVisitaTecnica,
+  setCaptureDetalles
 }) => {
   const [perfil, setPerfil] = useState({});
   const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({
@@ -40,7 +41,7 @@ const AgregarReporteVistaTecnica = ({
         Detalle: detalles,
         Sugerencia: formReporteVistaTecnica.Sugerencia,
       }
-      console.log("ESTE ",body)
+      console.log("ESTE ", body)
       const response = await axios.post(
         "https://api.grupoupgrade.com.pe/ReporteVisitaTecnica/SetReporteVisitaTecnica",
         body,
@@ -290,10 +291,10 @@ const AgregarReporteVistaTecnica = ({
                                 type="button"
                                 className="btn btn-primary"
                                 data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                onClick={() => console.log(item)}
+                                data-bs-target="#EditarDetallesReporte"
+                                onClick={() => setCaptureDetalles(item)}
                               >
-                                Ver
+                                Editar
                               </button>
                             </div>
                           </td>

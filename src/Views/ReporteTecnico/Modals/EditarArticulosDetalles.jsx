@@ -19,7 +19,7 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
     const { name, value, type, checked } = e.target;
     const fieldValue =
       type === "checkbox" ? checked : type === "datetime-local" ? new Date(value) : value;
-    setCapture({ ...capture, x: { [name]: fieldValue } })
+    setCapture({ ...capture, x: { ...capture.x, [name]: fieldValue } })
   }
 
   return (
@@ -104,7 +104,7 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
                       name="Observaciones"
                       value={capture.x.Observaciones}
                       onChange={handleChange}
-                      rows="3"
+                      rows={3}
                       placeholder="Ingrese Observaciones"
                     ></textarea>
                     <label htmlFor="Observaciones" className="form-label">

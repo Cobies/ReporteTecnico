@@ -18,7 +18,7 @@ const AgregarDetallesReporte = ({
       marca: "",
       linea: {},
       codigo: "",
-      modelo: "",
+      modelo: ""
     },
   });
 
@@ -56,7 +56,7 @@ const AgregarDetallesReporte = ({
     }));
   };
 
-  
+
 
   async function PostDetalle(e) {
     e.preventDefault();
@@ -177,7 +177,7 @@ const AgregarDetallesReporte = ({
                         value={formDetalles.observacion}
                         onChange={handleChange}
                         name="observacion"
-                        rows={3}
+                        rows={4}
                         placeholder="Ingrese observaciones"
                       ></textarea>
                       <label htmlFor="observacion" className="form-label">
@@ -228,7 +228,7 @@ const AgregarDetallesReporte = ({
                                 className="btn btn-primary"
                                 data-bs-toggle="modal"
                                 data-bs-target="#EditarArticulosDetalles"
-                                onClick={() => setCapture({index, x})}
+                                onClick={() => setCapture({ index, x })}
                               >
                                 Editar
                               </button>

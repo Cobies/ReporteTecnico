@@ -13,6 +13,7 @@ const SelectPro = ({
   SM = false,
   id,
   initial,
+  capture
 }) => {
   const [showList, setShowList] = useState(false);
   const [selectedValue, setSelectedValue] = useState({
@@ -64,7 +65,7 @@ const SelectPro = ({
           id="select"
           type="text"
           placeholder={name}
-          value={selectedValue.value}
+          value={capture ? capture.nombre : selectedValue.value}
           autoComplete="off"
           disabled={!SP && !id && SM ? true : false}
         />
@@ -135,7 +136,7 @@ const SelectPro = ({
         <input
           type="hidden"
           name={name}
-          value={JSON.stringify(selectedValue.obj)}
+          value={capture ? JSON.stringify(capture) : JSON.stringify(selectedValue.obj)}
         />
       </div>
     </>
