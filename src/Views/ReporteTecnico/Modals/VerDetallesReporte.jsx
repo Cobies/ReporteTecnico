@@ -1,39 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
 import SelectPro from "../Selects/SelectPro"
 import moment from "moment";
 
-const EditarDetallesReporte = ({ captureDetalles }) => {
-
-    const onCaptureObj = (producto) => {
-        console.log(producto)
-        // setFormDetalles((prevState) => ({
-        //     ...prevState,
-        //     Producto: producto
-        // }));
-    };
-
-    useEffect(() => {
-        console.log(captureDetalles)
-    }, [captureDetalles])
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        const fieldValue =
-            type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
-        // setFormReporteVistaTecnica((prev) => ({
-        //     ...prev,
-        //     [name]: fieldValue,
-        // }));
-    }
+const VerDetallesReporte = ({ captureDetalles }) => {
 
     return <div
         className="modal fade"
-        id="EditarDetallesReporte"
+        id="VerDetallesReporte"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
         tabIndex={-1}
-        aria-labelledby="EditarDetallesReporte"
+        aria-labelledby="VerDetallesReporte"
     >
         <div className="modal-dialog modal-dialog-scrollable modal-fullscreen p-5">
             <div className="modal-content">
@@ -61,12 +38,13 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                                         }
                                         capture={captureDetalles.Producto}
                                         nameExtractor={(x) => x.nombre}
-                                        onCaptureObj={onCaptureObj}
+                                        // onCaptureObj={onCaptureObj}
                                         SP={false}
                                         modal="AgregarProducto"
                                         initial={
                                             "/ProductoReporte/GetAllProductoReporteLimite/0"
                                         }
+                                        SM={true}
                                     />
                                 </div>
                             </div>
@@ -80,6 +58,7 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                                         type="text"
                                         className="form-control"
                                         placeholder="area"
+                                        readOnly
                                     />
                                     <label htmlFor="area" className="form-label">
                                         Área
@@ -96,6 +75,7 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                                         name="observacion"
                                         rows={3}
                                         placeholder="Ingrese observaciones"
+                                        readOnly
                                     ></textarea>
                                     <label htmlFor="observacion" className="form-label">
                                         Observacion
@@ -115,7 +95,7 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                                     <th scope="col">OPERATIVO</th>
                                     <th scope="col">OBSERVACIONES</th>
                                     <th scope="col">FECHA COMPRA</th>
-                                    <th scope="col">ACCIONES</th>
+                                    {/* <th scope="col">ACCIONES</th> */}
                                 </tr>
                             </thead>
                             <tbody className="text-center">
@@ -139,19 +119,19 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                                             </td>
                                             <td>{x.Observaciones}</td>
                                             <td>{moment(x.FechaCompra).isValid() ? moment(x.FechaCompra).format("L") : "Sin Fecha"}</td>
-                                            <td className="text-center">
+                                            {/* <td className="text-center">
                                                 <div className="d-flex justify-content-center gap-2 align-items-center">
                                                     <button
                                                         type="button"
                                                         className="btn btn-primary"
-                                                    // data-bs-toggle="modal"
-                                                    // data-bs-target="#EditarArticulosDetalles"
-                                                    // onClick={() => setCapture({ index, x })}
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#EditarArticulosDetalles"
+                                                        onClick={() => setCapture({ index, x })}
                                                     >
-                                                        Editar
+                                                        Ver
                                                     </button>
                                                 </div>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     ))
                                 )}
@@ -160,7 +140,7 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                         <div
                             className="modal-footer"
                         >
-                            <button
+                            {/* <button
                                 type="button"
                                 className="btn text-white"
                                 style={{ background: "#008065" }}
@@ -169,7 +149,7 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                             // disabled={formDetalles.Producto.nombre == "" ? true : false}
                             >
                                 Agregar Articulos
-                            </button>
+                            </button> */}
                             <button
                                 type="button"
                                 className="btn btn-secondary"
@@ -178,14 +158,14 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
                             >
                                 Close
                             </button>
-                            <button
+                            {/* <button
                                 type="submit"
                                 className="btn text-white"
                                 style={{ background: "#00B2FF" }}
                             >
                                 {" "}
-                                Crear
-                            </button>
+                                Editar
+                            </button> */}
                         </div>
                     </form>
                 </div>
@@ -194,4 +174,4 @@ const EditarDetallesReporte = ({ captureDetalles }) => {
     </div>
 }
 
-export default EditarDetallesReporte
+export default VerDetallesReporte

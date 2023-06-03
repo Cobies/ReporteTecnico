@@ -17,7 +17,7 @@ const AgregarReporteVistaTecnica = ({
   const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({
     Activo: true,
     Sugerencia: "",
-    Cliente: {},
+    Cliente: null,
   });
   const [message, setMessage] = useState("");
 
@@ -113,6 +113,10 @@ const AgregarReporteVistaTecnica = ({
       Cliente: cliente,
     }));
   };
+
+  useEffect(()=>{
+    console.log(formReporteVistaTecnica)
+  },[formReporteVistaTecnica])
 
   // Alerta por si desea eliminar el producto
   // const handleEliminarProducto = () => {
@@ -289,12 +293,13 @@ const AgregarReporteVistaTecnica = ({
                             <div className="d-flex justify-content-center gap-2 align-items-center">
                               <button
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn"
+                                style={{ background: "#00B2FF", color: "white" }}
                                 data-bs-toggle="modal"
-                                data-bs-target="#EditarDetallesReporte"
+                                data-bs-target="#VerDetallesReporte"
                                 onClick={() => setCaptureDetalles(item)}
                               >
-                                Editar
+                                Ver
                               </button>
                             </div>
                           </td>
@@ -319,6 +324,7 @@ const AgregarReporteVistaTecnica = ({
                   className="btn btn-success"
                   data-bs-toggle="modal"
                   data-bs-target="#AgregarDetallesReporte"
+                  disabled={!formReporteVistaTecnica.Cliente?.persona?.nombre ? true : false}
                 >
                   Agregar Detalles
                 </button>

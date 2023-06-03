@@ -51,6 +51,10 @@ const SelectPro = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showList]);
 
+  useEffect(()=>{
+    console.log(capture)
+  },[capture])
+
   useEffect(() => {
     GetAllForSearch(0, "20", SP, id);
   }, [id]);
@@ -65,7 +69,7 @@ const SelectPro = ({
           id="select"
           type="text"
           placeholder={name}
-          value={capture ? capture.nombre : selectedValue.value}
+          value={capture?.nombre ? capture.nombre : selectedValue.value}
           autoComplete="off"
           disabled={!SP && !id && SM ? true : false}
         />

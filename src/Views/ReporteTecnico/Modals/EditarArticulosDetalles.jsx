@@ -11,7 +11,6 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
 
   async function editArticuloArticulo(e) {
     e.preventDefault()
-    console.log(capture.FechaCompra)
     editArticulo(capture.index, capture.x, setArticulos, articulos)
   }
 

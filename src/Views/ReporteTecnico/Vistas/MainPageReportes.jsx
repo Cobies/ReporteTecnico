@@ -10,7 +10,7 @@ import AgregarProducto from '../Modals/AgregarProducto';
 import AgregarMarca from '../Modals/AgregarMarca';
 import AgregarLinea from '../Modals/AgregarLinea';
 import EditarArticulosDetalles from '../Modals/EditarArticulosDetalles';
-import EditarDetallesReporte from '../Modals/EditarDetallesReporte';
+import VerDetallesReporte from '../Modals/VerDetallesReporte';
 
 function MainPageReportes({ session }) {
 
@@ -111,15 +111,15 @@ function MainPageReportes({ session }) {
         detalles,
         setDetalles,
         setArticulos,
-      }} setCaptureDetalles={setCaptureDetalles} />
-      <AgregarDetallesReporte setCapture={setCapture} articulos={articulos} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
+      }} setCaptureDetalles={setCaptureDetalles} capture={capture} />
+      <AgregarDetallesReporte articulos={articulos} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
       <AgregarArticulosDetalles articulos={articulos} detalles={detalles} setArticulos={setArticulos} />
       <AgregarCliente />
       <AgregarProducto />
       <AgregarMarca />
       <AgregarLinea />
+      <VerDetallesReporte captureDetalles={captureDetalles} setCaptureDetalles={setCaptureDetalles} setCapture={setCapture} />
       <EditarArticulosDetalles capture={capture} setCapture={setCapture} articulos={articulos} setArticulos={setArticulos} />
-      <EditarDetallesReporte captureDetalles={captureDetalles} setCaptureDetalles={setCaptureDetalles} />
     </>
   );
 }

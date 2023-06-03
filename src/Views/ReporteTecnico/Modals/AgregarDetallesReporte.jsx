@@ -8,7 +8,7 @@ const AgregarDetallesReporte = ({
   detalles,
   setDetalles,
   setArticulos,
-  setCapture
+  setCapture,
 }) => {
   const [formDetalles, setFormDetalles] = useState({
     observacion: "",
@@ -76,9 +76,7 @@ const AgregarDetallesReporte = ({
       ...prevState,
       observacion: "",
       area: "",
-      Producto: {
-        modelo: "",
-      },
+      Producto: prevState.Producto
     }));
 
     setArticulos([]);
@@ -225,12 +223,14 @@ const AgregarDetallesReporte = ({
                             <div className="d-flex justify-content-center gap-2 align-items-center">
                               <button
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn"
+                                style={{ background: "#00B2FF", color: "white" }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#EditarArticulosDetalles"
+
                                 onClick={() => setCapture({ index, x })}
                               >
-                                Editar
+                               Editar
                               </button>
                             </div>
                           </td>
