@@ -19,6 +19,7 @@ function MainPageReportes({ session }) {
   }])
   const [detalles, setDetalles] = useState([])
   const [articulos, setArticulos] = useState([])
+  const [loading, setLoading] = useState(null)
 
   const [capture, setCapture] = useState({
     index: 0, x: {
@@ -44,8 +45,10 @@ function MainPageReportes({ session }) {
 
 
   async function fetchData() {
+    setLoading(true)
     const data = await GetAllReportes()
     setReporteVisitaTecnica(data)
+    setLoading(false)
   }
 
   // const style = StyleSheet({
@@ -82,22 +85,27 @@ function MainPageReportes({ session }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {reporteVistaTecnico.length === 0 && Array.isArray(reporteVistaTecnico) ? <tr><td className='text-center' colSpan={6}>Loading</td> </tr> : reporteVistaTecnico.map((x) => (<tr key={x._id}>
-                    <td>{x.activo ? <i className="bi bi-check text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}</td>
-                    <td>{x.numero}</td>
-                    <td>{x.empleado?.persona?.nombre}</td>
-                    <td>{x.cliente?.persona?.nombre}</td>
-                    {/* <td>{x.documentosPdf?.map((u, index) => <a href={u} key={index} target='_blank' rel='noreferrer'>{u}<br></br></a>)}</td> */}
-                    <td>
-                      <div className="d-flex justify-content-center gap-2 align-items-center">
-                        <Link className="btn btn-danger border  bi bi-file-pdf" to={`https://pdf.grupoupgrade.com.pe/Reporte/ReporteVisitaTecnica/${x._id}`} target='_blank'></Link>
-                        {/* <Link className="btn btn-success border border-0 bi bi-pencil-fill" to="/reportes/AgregarDetalles"></Link>
+                  {loading ? <tr>
+                    <td className="text-center" colSpan={6}>Loading</td>
+                  </tr> :
+                    reporteVistaTecnico.length === 0 && Array.isArray(reporteVistaTecnico) ? <tr>
+                      <td className="text-center" colSpan={6}>No se encontraron resultados</td>
+                    </tr> : reporteVistaTecnico.map((x) => (<tr key={x._id}>
+                      <td>{x.activo ? <i className="bi bi-check text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}</td>
+                      <td>{x.numero}</td>
+                      <td>{x.empleado?.persona?.nombre}</td>
+                      <td>{x.cliente?.persona?.nombre}</td>
+                      {/* <td>{x.documentosPdf?.map((u, index) => <a href={u} key={index} target='_blank' rel='noreferrer'>{u}<br></br></a>)}</td> */}
+                      <td>
+                        <div className="d-flex justify-content-center gap-2 align-items-center">
+                          <Link className="btn btn-danger border  bi bi-file-pdf" to={`https://pdf.grupoupgrade.com.pe/Reporte/ReporteVisitaTecnica/${x._id}`} target='_blank'></Link>
+                          {/* <Link className="btn btn-success border border-0 bi bi-pencil-fill" to="/reportes/AgregarDetalles"></Link>
                         <button className="btn btn-danger border border-0">
                           <i className="bi bi-trash-fill"></i>
                         </button> */}
-                      </div>
-                    </td>
-                  </tr>))}
+                        </div>
+                      </td>
+                    </tr>))}
                 </tbody>
               </table>
             </div>

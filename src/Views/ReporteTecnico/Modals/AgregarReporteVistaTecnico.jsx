@@ -114,9 +114,9 @@ const AgregarReporteVistaTecnica = ({
     }));
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(formReporteVistaTecnica)
-  },[formReporteVistaTecnica])
+  }, [formReporteVistaTecnica])
 
   // Alerta por si desea eliminar el producto
   // const handleEliminarProducto = () => {
@@ -340,6 +340,7 @@ const AgregarReporteVistaTecnica = ({
                   className="btn text-white"
                   style={{ background: "#00B2FF" }}
                   data-bs-dismiss="modal"
+                  disabled={detalles.length == 0 || !formReporteVistaTecnica.Cliente?.persona?.nombre ? true : false}
                 >
                   Crear
                 </button>

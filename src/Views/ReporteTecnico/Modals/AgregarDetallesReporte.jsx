@@ -230,7 +230,7 @@ const AgregarDetallesReporte = ({
 
                                 onClick={() => setCapture({ index, x })}
                               >
-                               Editar
+                                Editar
                               </button>
                             </div>
                           </td>
@@ -264,6 +264,7 @@ const AgregarDetallesReporte = ({
                     type="submit"
                     className="btn text-white"
                     style={{ background: "#00B2FF" }}
+                    disabled={formDetalles.Producto.nombre == "" ? true : false}
                   >
                     {" "}
                     Crear
