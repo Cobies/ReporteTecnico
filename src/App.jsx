@@ -9,6 +9,12 @@ import MainPageReportes from "./Views/ReporteTecnico/Vistas/MainPageReportes";
 function App() {
   const [session, setSession] = useState({ username: '', isLoggedIn: false, id: "" })
 
+  // if (localStorage.getItem("token")) {
+  //   setSession({ ...session, isLoggedIn: true })
+  // } else {
+  //   console.log("No existe Login")
+  // }
+
   return (
     <BrowserRouter>
       <__Layout session={session} setSession={setSession} >

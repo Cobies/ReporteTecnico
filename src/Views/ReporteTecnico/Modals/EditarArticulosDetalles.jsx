@@ -17,7 +17,7 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const fieldValue =
-      type === "checkbox" ? checked : type === "datetime-local" ? new Date(value) : value;
+      type === "checkbox" ? checked : value;
     setCapture({ ...capture, x: { ...capture.x, [name]: fieldValue } })
   }
 
@@ -78,17 +78,11 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
                 <div className="col-md-6">
                   <div className="form-floating mb-3">
                     <input
-                      type="datetime-local"
+                      type="date"
                       className="form-control"
                       name="FechaCompra"
-                      value={
-                        capture.x.FechaCompra
-                          ? capture.x.FechaCompra
-                            .toISOString()
-                            .substr(0, 16)
-                          : ""
-                      }
-                      onChange={handleChange}
+                      value={capture.x.FechaCompra}
+                      onChange={(e) => setCapture({ ...capture, x: { ...capture.x, FechaCompra: e.target.value } })}
                     ></input>
                     <label htmlFor="FechaCompra" className="form-label">
                       Fecha Compra
