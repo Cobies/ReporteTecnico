@@ -3,7 +3,7 @@ import axios from "axios";
 import SelectPro from "../Selects/SelectPro";
 import moment from "moment/moment";
 import { useEffect, useState } from "react";
-import { GetAllReportes } from "../../../Services/ReporteVistaTecnico";
+import { GetAllReportes, PostDetalles } from "../../../Services/ReporteVistaTecnico";
 
 const AgregarReporteVistaTecnica = ({
   detalles,
@@ -32,13 +32,18 @@ const AgregarReporteVistaTecnica = ({
         setMessage("ALGO FALTA PARA ENVIAR")
         return
       }
+      const detalleIds = await Promise.all(detalles.map(async detalle => {
+        const id = await PostDetalles(detalle);
+        return { ...detalle, _id: id };
+      }));
+
       const body = {
         Numero: 5,
         Activo: formReporteVistaTecnica.Activo,
         Cliente: formReporteVistaTecnica.Cliente,
         Empleado: perfil,
         FechaCreado: new Date(),
-        Detalle: detalles,
+        Detalle: detalleIds,
         Sugerencia: formReporteVistaTecnica.Sugerencia,
       }
       console.log("ESTE ", body)

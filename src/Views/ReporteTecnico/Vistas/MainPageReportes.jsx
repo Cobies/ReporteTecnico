@@ -11,6 +11,7 @@ import AgregarMarca from '../Modals/AgregarMarca';
 import AgregarLinea from '../Modals/AgregarLinea';
 import EditarArticulosDetalles from '../Modals/EditarArticulosDetalles';
 import VerDetallesReporte from '../Modals/VerDetallesReporte';
+import VerReporteVistaTecnico from '../Modals/VerReporteVistaTecnico';
 
 function MainPageReportes({ session }) {
 
@@ -28,6 +29,8 @@ function MainPageReportes({ session }) {
       Observaciones: ""
     }
   })
+
+  const [verReporteVistaTecnico, setVerReporteVistaTecnico] = useState({})
 
   const [captureDetalles, setCaptureDetalles] = useState({})
 
@@ -99,10 +102,17 @@ function MainPageReportes({ session }) {
                       <td>
                         <div className="d-flex justify-content-center gap-2 align-items-center">
                           <Link className="btn btn-danger border  bi bi-file-pdf" to={`https://pdf.grupoupgrade.com.pe/Reporte/ReporteVisitaTecnica/${x._id}`} target='_blank'></Link>
-                          {/* <Link className="btn btn-success border border-0 bi bi-pencil-fill" to="/reportes/AgregarDetalles"></Link>
-                        <button className="btn btn-danger border border-0">
-                          <i className="bi bi-trash-fill"></i>
-                        </button> */}
+                          {/* <Link className="btn btn-success border border-0 bi bi-pencil-fill" to="/reportes/AgregarDetalles"></Link> */}
+                          {/* <button className="btn btn-danger border border-0">
+                            <i className="bi bi-trash-fill"></i>
+                          </button> */}
+                          <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#VerReporteVistaTecnico"
+                            onClick={() => setVerReporteVistaTecnico(x)}
+                            className="btn btn-primary border border-0">
+                            <i className="bi bi-search"></i>
+                          </button>
                         </div>
                       </td>
                     </tr>))}
@@ -126,8 +136,11 @@ function MainPageReportes({ session }) {
       <AgregarProducto />
       <AgregarMarca />
       <AgregarLinea />
-      <VerDetallesReporte captureDetalles={captureDetalles} setCaptureDetalles={setCaptureDetalles} setCapture={setCapture} />
       <EditarArticulosDetalles capture={capture} setCapture={setCapture} articulos={articulos} setArticulos={setArticulos} />
+      <VerReporteVistaTecnico verReporteVistaTecnico={verReporteVistaTecnico} setCaptureDetalles={setCaptureDetalles} />
+      <VerDetallesReporte captureDetalles={captureDetalles} setCaptureDetalles={setCaptureDetalles} setCapture={setCapture} />
+
+
     </>
   );
 }
