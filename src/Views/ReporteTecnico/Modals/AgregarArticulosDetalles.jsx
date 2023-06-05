@@ -21,7 +21,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
         fieldValue = 1; // O cualquier otro valor por defecto si no se puede convertir a un número válido
       }
     }
-    console.log(fieldValue)
+    // console.log(fieldValue)
     setFormArticulos((prevFormArticulos) => ({
       ...prevFormArticulos,
       [name]: fieldValue,
@@ -45,9 +45,9 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
   }
 
 
-  useEffect(() => {
-    console.log(formArticulos);
-  }, [formArticulos]);
+  // useEffect(() => {
+  //   console.log(formArticulos);
+  // }, [formArticulos]);
   // const ModalArticulos = useRef(null);
   // useEffect(() => {
   //     const handleModalClose = () => {

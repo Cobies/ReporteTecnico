@@ -10,7 +10,7 @@ const VerDetallesReporte = ({ captureDetalles }) => {
     }, [])
 
     const articulos = captureDetalles.Articulos || captureDetalles.articulos;
-    console.log(articulos)
+    // console.log(articulos)
 
     return <div
         className="modal fade"

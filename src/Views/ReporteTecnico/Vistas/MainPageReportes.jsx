@@ -130,13 +130,14 @@ function MainPageReportes({ session }) {
         setDetalles,
         setArticulos,
       }} setCaptureDetalles={setCaptureDetalles} capture={capture} />
-      <AgregarDetallesReporte articulos={articulos} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
+      <AgregarDetallesReporte articulos={articulos} setCapture={setCapture} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
       <AgregarArticulosDetalles articulos={articulos} detalles={detalles} setArticulos={setArticulos} />
+      <EditarArticulosDetalles capture={capture} setCapture={setCapture} articulos={articulos} setArticulos={setArticulos} />
       <AgregarCliente />
       <AgregarProducto />
       <AgregarMarca />
       <AgregarLinea />
-      <EditarArticulosDetalles capture={capture} setCapture={setCapture} articulos={articulos} setArticulos={setArticulos} />
+
       <VerReporteVistaTecnico verReporteVistaTecnico={verReporteVistaTecnico} setCaptureDetalles={setCaptureDetalles} />
       <VerDetallesReporte captureDetalles={captureDetalles} setCaptureDetalles={setCaptureDetalles} setCapture={setCapture} />
 

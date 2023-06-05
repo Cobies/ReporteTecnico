@@ -57,7 +57,7 @@ const AgregarReporteVistaTecnica = ({
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       setDetalles([]);
       setArticulos([]);
       setMessage("");
@@ -119,9 +119,9 @@ const AgregarReporteVistaTecnica = ({
     }));
   };
 
-  useEffect(() => {
-    console.log(formReporteVistaTecnica)
-  }, [formReporteVistaTecnica])
+  // useEffect(() => {
+  //   console.log(formReporteVistaTecnica)
+  // }, [formReporteVistaTecnica])
 
   // Alerta por si desea eliminar el producto
   // const handleEliminarProducto = () => {

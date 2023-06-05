@@ -227,7 +227,6 @@ const AgregarDetallesReporte = ({
                                 style={{ background: "#00B2FF", color: "white" }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#EditarArticulosDetalles"
-
                                 onClick={() => setCapture({ index, x })}
                               >
                                 Editar

@@ -27,7 +27,7 @@ const AgregarUsuarioCliente = () => {
                     "Content-Type": "application/json"
                 }
             })
-            console.log(response.data)
+            // console.log(response.data)
             setFormUsuarioCliente({ usuario: "", password: "" })
         }
 
