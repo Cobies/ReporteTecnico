@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProtectedRoutes from "./ProtectedRoute";
 import Error from "./Components/Error";
 import __Layout from "./Shared/__Layout";
@@ -9,11 +9,14 @@ import MainPageReportes from "./Views/ReporteTecnico/Vistas/MainPageReportes";
 function App() {
   const [session, setSession] = useState({ username: '', isLoggedIn: false, id: "" })
 
-  // if (localStorage.getItem("token")) {
-  //   setSession({ ...session, isLoggedIn: true })
-  // } else {
-  //   console.log("No existe Login")
-  // }
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     setSession((prevSession) => ({ ...prevSession, isLoggedIn: true }));
+  //   } else {
+  //     console.log('Cerrastes Session');
+  //   }
+  // }, []);
+  //FUNCIONAAAAAAA
 
   return (
     <BrowserRouter>
