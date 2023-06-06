@@ -1,24 +1,24 @@
-import axios from "axios";
+import axios from 'axios'
 
-const url = "https://localhost:7044";
+const url = 'https://localhost:7044'
 // const url = "https://api.grupoupgrade.com.pe"
 
 const Options = {
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
   },
-};
+}
 
 //AUTHO
 export async function Authorization(body) {
-  delete Options.headers.Authorization;
+  delete Options.headers.Authorization
   const response = await axios.post(
     `${url}/Autenticacion/AutenticacionClienteYEmpleado`,
     body,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 // GET
@@ -26,24 +26,24 @@ export async function GetDNI(numero) {
   const response = await axios.get(
     `${url}/Cliente/ObtenerDNI/${numero}`,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 export async function GetAllReportes() {
   const response = await axios.get(
     `${url}/ReporteVisitaTecnica/GetAllReporteVisitaTecnicaLimite/0`,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 export async function GetEmpleadoId(id) {
   const response = await axios.get(
     `${url}/Empleado/GetEmpleadoId/${id}`,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 // POST
@@ -52,8 +52,8 @@ export async function PostDetalles(body) {
     `${url}/DetalleReporteVisitaTecnica/SetDetalleReporteVisitaTecnica`,
     body,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 export async function PostReporteVistaTecnica(body) {
@@ -61,18 +61,18 @@ export async function PostReporteVistaTecnica(body) {
     `${url}/ReporteVisitaTecnica/SetReporteVisitaTecnica`,
     body,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 export async function PostLinea(body) {
-  const response = await axios.post(`${url}/Linea/SetLinea`, body, Options);
-  return response.data;
+  const response = await axios.post(`${url}/Linea/SetLinea`, body, Options)
+  return response.data
 }
 
 export async function PostMarca(body) {
-  const response = await axios.post(`${url}/Marca/SetMarca`, body, Options);
-  return response.data;
+  const response = await axios.post(`${url}/Marca/SetMarca`, body, Options)
+  return response.data
 }
 
 export async function PostProductoReporte(body) {
@@ -80,8 +80,8 @@ export async function PostProductoReporte(body) {
     `${url}/ProductoReporte/SetProductoReporte`,
     body,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 export async function PostDetalleReporteVisitaTecnica(body) {
@@ -89,8 +89,8 @@ export async function PostDetalleReporteVisitaTecnica(body) {
     `${url}/DetalleReporteVisitaTecnica/SetDetalleReporteVisitaTecnica`,
     body,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 export async function PostUsuarioClienteReporteTecnico(body) {
@@ -98,34 +98,16 @@ export async function PostUsuarioClienteReporteTecnico(body) {
     `${url}/UsuarioClienteReporteTecnico/SetUsuarioClienteReporteTecnico`,
     body,
     Options
-  );
-  return response.data;
+  )
+  return response.data
 }
 
 export async function PostPersona(body) {
-  const response = await axios.post(`${url}/Persona/SetPersona`, body, Options);
-  return response.data;
+  const response = await axios.post(`${url}/Persona/SetPersona`, body, Options)
+  return response.data
 }
 
 export async function PostCliente(body) {
-  const response = await axios.post(`${url}/Cliente/SetCliente`, body, Options);
-  return response.data;
+  const response = await axios.post(`${url}/Cliente/SetCliente`, body, Options)
+  return response.data
 }
-// const responseCliente = await axios.post(`https://api.grupoupgrade.com.pe/Cliente/SetCliente`, {
-//   FechaRegistro: new Date(),
-//   persona: {
-//     _id: await PostPersona(persona),
-//     nombre: formCliente.nombre.toUpperCase(),
-//     documentoIdentidad: formCliente.documento,
-//     tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
-//     direccion: formCliente.direccion.toUpperCase(),
-//     email: formCliente.correoElectronico,
-//     telefono: formCliente.telefono,
-//     distrito: formCliente.distrito
-//   }
-// }, {
-//   headers: {
-//     Authorization: `Bearer ${localStorage.getItem("token")}`,
-//     "Content-Type": "application/json"
-//   }
-// })

@@ -4,7 +4,7 @@ import logo from "./Logo.svg";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import { Authorization } from "../Services/ReporteVistaTecnico";
+import { Authorization } from "../../Services/ReporteVistaTecnico";
 
 /* eslint-disable react/prop-types */
 const Login = ({ session, setSession }) => {
@@ -24,7 +24,7 @@ const Login = ({ session, setSession }) => {
       setLoading(true);
       const data = await Authorization({ nombreUsuario, password });
       localStorage.setItem("token", data);
-      const perfil = jwtDecode(data);
+      const perfil = jwtDecode(data)
       setSession({
         username: perfil.nombreusuaio,
         isLoggedIn: true,

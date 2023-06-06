@@ -1,41 +1,43 @@
-import { useEffect, useState } from "react";
-import { PostMarca } from "../../../Services/ReporteVistaTecnico";
+import { useEffect, useState } from 'react'
+import { PostMarca } from '../../../Services/ReporteVistaTecnico'
 
 const AgregarMarca = () => {
-
-  const [formMarca, setFormMarca] = useState({ nombre: "", abreviatura: "" })
-  const [message, setMessage] = useState("");
+  const [formMarca, setFormMarca] = useState({ nombre: '', abreviatura: '' })
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     // console.log(formMarca)
   }, [formMarca])
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target
     const fieldValue =
-      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+      type === 'checkbox' ? checked : type === 'date' ? new Date(value) : value
     setFormMarca((prev) => ({
       ...prev,
       [name]: fieldValue,
-    }));
-  };
+    }))
+  }
 
   async function postMarca(e) {
     e.preventDefault()
     if (!formMarca.nombre || !formMarca.abreviatura) {
-      setMessage("Completa Campos *")
+      setMessage('Completa Campos *')
       return
     }
-    const body = { nombre: formMarca.nombre.toUpperCase(), abreviatura: formMarca.abreviatura.toUpperCase() }
+    const body = {
+      nombre: formMarca.nombre.toUpperCase(),
+      abreviatura: formMarca.abreviatura.toUpperCase(),
+    }
 
     console.log(await PostMarca(body))
-    setFormMarca({ nombre: "", abreviatura: "" })
-    setMessage("")
+    setFormMarca({ nombre: '', abreviatura: '' })
+    setMessage('')
   }
 
   return (
     <div
-      style={{ paddingTop: "15%" }}
+      style={{ paddingTop: '15%' }}
       className="modal fade"
       id="AgregarMarca"
       tabIndex={-1}
@@ -46,7 +48,7 @@ const AgregarMarca = () => {
         <div className="modal-content">
           <div
             className="modal-header text-white"
-            style={{ background: "#00B2FF" }}
+            style={{ background: '#00B2FF' }}
           >
             <h5 className="modal-title">Agregar Marca</h5>
             <button
@@ -105,7 +107,7 @@ const AgregarMarca = () => {
                   className="btn text-white"
                   data-bs-dismiss="modal"
                   aria-hidden="true"
-                  style={{ background: "#00B2FF" }}
+                  style={{ background: '#00B2FF' }}
                 >
                   Crear Marca
                 </button>
@@ -115,7 +117,7 @@ const AgregarMarca = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AgregarMarca;
+export default AgregarMarca

@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 const AgregarLinea = () => {
-
-  const [formLinea, setFormLinea] = useState({ nombre: "", descripcion: "" })
-  const [message, setMessage] = useState("")
+  const [formLinea, setFormLinea] = useState({ nombre: '', descripcion: '' })
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     // console.log(formLinea)
   }, [formLinea])
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target
     const fieldValue =
-      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+      type === 'checkbox' ? checked : type === 'date' ? new Date(value) : value
     setFormLinea((prev) => ({
       ...prev,
       [name]: fieldValue,
-    }));
-  };
+    }))
+  }
 
   async function postLinea(e) {
     e.preventDefault()
     if (!formLinea.nombre || !formLinea.descripcion) {
-      setMessage("Completa los campos que faltan")
+      setMessage('Completa los campos que faltan')
     } else {
-      const body = { nombre: formLinea.nombre.toUpperCase(), descripcion: formLinea.descripcion.toUpperCase() }
+      const body = {
+        nombre: formLinea.nombre.toUpperCase(),
+        descripcion: formLinea.descripcion.toUpperCase(),
+      }
 
       // const response = await axios.post("https://api.grupoupgrade.com.pe/Linea/SetLinea",
       // body, {
@@ -34,14 +36,13 @@ const AgregarLinea = () => {
       //   }
       // })
       console.log(await postLinea(body))
-      setFormLinea({ nombre: "", descripcion: "" })
+      setFormLinea({ nombre: '', descripcion: '' })
     }
-
   }
 
   return (
     <div
-      style={{ paddingTop: "15%" }}
+      style={{ paddingTop: '15%' }}
       className="modal fade"
       id="AgregarLinea"
       tabIndex={-1}
@@ -52,7 +53,7 @@ const AgregarLinea = () => {
         <div className="modal-content">
           <div
             className="modal-header text-white"
-            style={{ background: "#00B2FF" }}
+            style={{ background: '#00B2FF' }}
           >
             <h5 className="modal-title">Agregar Linea</h5>
             <button
@@ -109,7 +110,7 @@ const AgregarLinea = () => {
                   type="submit"
                   className="btn text-white"
                   data-bs-dismiss="modal"
-                  style={{ background: "#00B2FF" }}
+                  style={{ background: '#00B2FF' }}
                 >
                   Crear Linea
                 </button>
@@ -119,7 +120,7 @@ const AgregarLinea = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AgregarLinea;
+export default AgregarLinea

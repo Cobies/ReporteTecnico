@@ -1,30 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTecnica, detalles }) => {
-
+const AgregarArticulosDetalles = ({
+  articulos,
+  setArticulos,
+  formReporteVistaTecnica,
+  detalles,
+}) => {
   const [formArticulos, setFormArticulos] = useState({
     fechaCompra: null,
     operativo: true,
-    observaciones: "",
+    observaciones: '',
     cantidad: 1,
-  });
-  const [message, setMessage] = useState("");
+  })
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
-    setFormArticulos({ ...formArticulos, fechaCompra: new Date().toISOString().split("T")[0] })
+    setFormArticulos({
+      ...formArticulos,
+      fechaCompra: new Date().toISOString().split('T')[0],
+    })
   }, [])
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    let fieldValue =
-      type === "checkbox" ? checked : value;
+    const { name, value, type, checked } = e.target
+    let fieldValue = type === 'checkbox' ? checked : value
 
-    if (name === "cantidad") {
-      fieldValue = parseFloat(fieldValue); // O parseInt(fieldValue) si deseas convertirlo a un número entero
+    if (name === 'cantidad') {
+      fieldValue = parseFloat(fieldValue) // O parseInt(fieldValue) si deseas convertirlo a un número entero
       if (isNaN(fieldValue)) {
-        fieldValue = 1; // O cualquier otro valor por defecto si no se puede convertir a un número válido
+        fieldValue = 1 // O cualquier otro valor por defecto si no se puede convertir a un número válido
       }
     }
     setFormArticulos((prevFormArticulos) => ({
@@ -34,26 +40,26 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTec
   }
 
   function generarCodigoClienteProducto(nombreCliente, codigoProducto) {
-    let contador = localStorage.getItem('contador') || 1;
+    let contador = localStorage.getItem('contador') || 1
 
     const inicialesCliente = nombreCliente
       .split(' ')
-      .map(word => word[0])
+      .map((word) => word[0])
       .join('')
-      .toUpperCase();
+      .toUpperCase()
 
-    const codigoGenerado = `${inicialesCliente}${codigoProducto}-${contador}`;
-    localStorage.setItem('contador', parseInt(contador) + 1);
-    return codigoGenerado;
+    const codigoGenerado = `${inicialesCliente}${codigoProducto}-${contador}`
+    localStorage.setItem('contador', parseInt(contador) + 1)
+    return codigoGenerado
   }
 
   console.log(detalles.length)
 
   async function PostArticuloDetalle(e) {
-    e.preventDefault();
+    e.preventDefault()
     if (!formArticulos.observaciones) {
-      setMessage("Completa los Campos *");
-      return;
+      setMessage('Completa los Campos *')
+      return
     }
     const index = detalles.length - 1
 
@@ -62,30 +68,33 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTec
         { length: formArticulos.cantidad },
         () => ({
           FechaCreado: new Date(),
-          Serie: generarCodigoClienteProducto(formReporteVistaTecnica.Cliente?.persona?.nombre, detalles[index]?.Producto?.codigo),
+          Serie: generarCodigoClienteProducto(
+            formReporteVistaTecnica.Cliente?.persona?.nombre,
+            detalles[index]?.Producto?.codigo
+          ),
           Operativo: formArticulos.operativo,
           Observaciones: formArticulos.observaciones,
           FechaCompra: formArticulos.fechaCompra,
         })
       )
 
-      setArticulos([...articulos, ...newArticulos]);
+      setArticulos([...articulos, ...newArticulos])
     }
 
     setFormArticulos({
       fechaCompra: null,
       operativo: true,
-      observaciones: "",
-      cantidad: 1
+      observaciones: '',
+      cantidad: 1,
     })
 
-    setMessage("")
+    setMessage('')
   }
 
   return (
     <div
       // ref={ModalArticulos}
-      style={{ paddingTop: "15%" }}
+      style={{ paddingTop: '15%' }}
       className="modal fade"
       id="AgregarArticulosDetalles"
       data-bs-backdrop="static"
@@ -97,7 +106,7 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTec
         <div className="modal-content">
           <div
             className="modal-header text-white"
-            style={{ background: "#00B2FF" }}
+            style={{ background: '#00B2FF' }}
           >
             <h5 className="modal-title">Agregar Articulos</h5>
             <button
@@ -123,9 +132,9 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTec
                         defaultChecked={true}
                         style={{
                           backgroundColor: formArticulos.operativo
-                            ? "#00B2FF"
+                            ? '#00B2FF'
                             : null,
-                          border: "none",
+                          border: 'none',
                         }}
                       />
                       <label
@@ -161,7 +170,12 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTec
                       className="form-control"
                       name="fechaCompra"
                       value={formArticulos.fechaCompra}
-                      onChange={(e) => setFormArticulos({ ...formArticulos, fechaCompra: e.target.value })}
+                      onChange={(e) =>
+                        setFormArticulos({
+                          ...formArticulos,
+                          fechaCompra: e.target.value,
+                        })
+                      }
                     ></input>
                     <label htmlFor="fechaCompra" className="form-label">
                       Fecha Compra
@@ -199,9 +213,9 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTec
                 <button
                   type="submit"
                   className="btn text-white"
-                  style={{ background: "#00B2FF" }}
+                  style={{ background: '#00B2FF' }}
                 >
-                  {" "}
+                  {' '}
                   Crear
                 </button>
               </div>
@@ -210,6 +224,6 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTec
         </div>
       </div>
     </div>
-  );
-};
-export default AgregarArticulosDetalles;
+  )
+}
+export default AgregarArticulosDetalles

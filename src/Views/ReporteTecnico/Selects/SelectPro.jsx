@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import axios from 'axios'
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 const SelectPro = ({
   name,
@@ -9,55 +9,54 @@ const SelectPro = ({
   nameExtractor,
   onCaptureObj,
   SP,
-  modal = "",
+  modal = '',
   SM = false,
   id,
   initial,
-  capture
+  capture,
 }) => {
-  const [showList, setShowList] = useState(false);
+  const [showList, setShowList] = useState(false)
   const [selectedValue, setSelectedValue] = useState({
-    value: "",
+    value: '',
     id: null,
-    obj: "",
-  });
-  const [data, setData] = useState([{}]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [loading, setLoading] = useState(null);
+    obj: '',
+  })
+  const [data, setData] = useState([{}])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [loading, setLoading] = useState(null)
 
   function handleSelection(value, id, obj) {
-    setSelectedValue({ ...selectedValue, value: value, id: id, obj: obj });
-    setShowList(false);
+    setSelectedValue({ ...selectedValue, value: value, id: id, obj: obj })
+    setShowList(false)
     // console.log(value, id, JSON.stringify(obj))
-    onCaptureObj(obj);
+    onCaptureObj(obj)
   }
 
   function handleSearchKeyDown(e) {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      if (searchQuery.trim() == "" && searchQuery != null) {
-        GetAll(initial);
-        return;
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (searchQuery.trim() == '' && searchQuery != null) {
+        GetAll(initial)
+        return
       } else {
-        GetAllForSearch(0, searchQuery.toUpperCase(), SP);
-
+        GetAllForSearch(0, searchQuery.toUpperCase(), SP)
       }
     }
   }
   useEffect(() => {
     if (showList && !SM) {
-      GetAll(initial);
+      GetAll(initial)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showList]);
+  }, [showList])
 
   // useEffect(()=>{
   //   console.log(capture)
   // },[capture])
 
   useEffect(() => {
-    GetAllForSearch(0, "20", SP, id);
-  }, [id]);
+    GetAllForSearch(0, '20', SP, id)
+  }, [id])
 
   return (
     <>
@@ -75,37 +74,40 @@ const SelectPro = ({
         />
         {SM ? null : (
           <span
-            style={{ background: "#00B2FF", borderRadius: 3 }}
+            style={{ background: '#00B2FF', borderRadius: 3 }}
             // onClick={() => console.log("xD")}
             className=" h-100 text-center text-white"
             type="button"
             data-bs-toggle="modal"
-            data-bs-target={"#" + modal}
+            data-bs-target={'#' + modal}
           >
             +
           </span>
         )}
 
-        <label htmlFor={"select"} className="form-label">
-          {name + " *"}
+        <label htmlFor={'select'} className="form-label">
+          {name + ' *'}
         </label>
         {showList && (
           <ul
             className="list-group position-absolute"
             style={{
               zIndex: 99999,
-              width: "100%",
+              width: '100%',
               height: 200,
-              overflow: "auto",
+              overflow: 'auto',
             }}
-          >{SM ? null : <input
-            type="text"
-            placeholder="Buscar por Nombre"
-            className="form-control"
-            autoFocus
-            onKeyDown={handleSearchKeyDown}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />}
+          >
+            {SM ? null : (
+              <input
+                type="text"
+                placeholder="Buscar por Nombre"
+                className="form-control"
+                autoFocus
+                onKeyDown={handleSearchKeyDown}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            )}
 
             {data.length === 0 && !loading ? (
               <li className="text-center bg-success text-white">
@@ -116,9 +118,9 @@ const SelectPro = ({
                 <motion.h3
                   className="text-center"
                   style={{
-                    background: "white",
-                    color: "black",
-                    padding: "10px",
+                    background: 'white',
+                    color: 'black',
+                    padding: '10px',
                   }}
                 >
                   <div className="spinner-border text-info" role="status"></div>
@@ -140,42 +142,47 @@ const SelectPro = ({
         <input
           type="hidden"
           name={name}
-          value={capture ? JSON.stringify(capture) : JSON.stringify(selectedValue.obj)}
+          value={
+            capture
+              ? JSON.stringify(capture)
+              : JSON.stringify(selectedValue.obj)
+          }
         />
       </div>
     </>
-  );
+  )
 
   async function GetAllForSearch(skip, search, SP, id) {
-    setLoading(true);
+    setLoading(true)
     const response = await axios.get(
-      `https://api.grupoupgrade.com.pe${endpoint}/${SP ? "" : id ? id : `${skip}&${search.toUpperCase()}`
+      `https://api.grupoupgrade.com.pe${endpoint}/${
+        SP ? '' : id ? id : `${skip}&${search.toUpperCase()}`
       }`,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
         },
       }
-    );
-    setData(response.data);
-    setLoading(false);
+    )
+    setData(response.data)
+    setLoading(false)
   }
 
   async function GetAll(initial) {
-    setLoading(true);
+    setLoading(true)
     const response = await axios.get(
       `https://api.grupoupgrade.com.pe${initial}`,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
         },
       }
-    );
-    setData(response.data);
-    setLoading(false);
+    )
+    setData(response.data)
+    setLoading(false)
   }
-};
+}
 
-export default SelectPro;
+export default SelectPro

@@ -1,13 +1,12 @@
-.bg-reporte{
-  background-color: rgb(28,51,95);
+.bg-reporte {
+  background-color: rgb(28, 51, 95);
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 * {
   font-family: 'Anton', sans-serif;
 }
-
-
 
 .Btn {
   display: flex;
@@ -41,6 +40,7 @@
 .sign svg path {
   fill: white;
 }
+
 /* text */
 .text {
   position: absolute;
@@ -52,6 +52,7 @@
   font-weight: 600;
   transition-duration: .3s;
 }
+
 /* hover effect on button width */
 .Btn:hover {
   width: 190px;
@@ -63,6 +64,7 @@
   width: 20%;
   transition-duration: .3s;
 }
+
 /* hover effect button's text */
 .Btn:hover .text {
   opacity: 1;
@@ -70,7 +72,8 @@
   transition-duration: .3s;
   padding-right: 10px;
 }
+
 /* button click effect*/
 .Btn:active {
-  transform: translate(2px ,2px);
+  transform: translate(2px, 2px);
 }

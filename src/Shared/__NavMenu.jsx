@@ -1,12 +1,12 @@
-import Login from "../Components/Login";
+import Login from '../Views/Session/Login'
 
 /* eslint-disable react/prop-types */
 const Navbar = ({ session, setSession }) => {
   return (
-    <div >
+    <div>
       <Login session={session} setSession={setSession} />
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

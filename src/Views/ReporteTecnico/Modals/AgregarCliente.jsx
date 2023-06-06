@@ -1,26 +1,37 @@
-import { useEffect, useState } from "react";
-import SelectPro from "../Selects/SelectPro";
-import { GetDNI, PostCliente, PostPersona } from "../../../Services/ReporteVistaTecnico";
+import { useEffect, useState } from 'react'
+import SelectPro from '../Selects/SelectPro'
+import {
+  GetDNI,
+  PostCliente,
+  PostPersona,
+} from '../../../Services/ReporteVistaTecnico'
 
 const AgregarCliente = () => {
   const [formCliente, setFormCliente] = useState({
     departamento: {},
     provincia: null,
     distrito: null,
-    nombre: "",
-    documento: "",
-    correoElectronico: "",
+    nombre: '',
+    documento: '',
+    correoElectronico: '',
     tipoDocumentoIdentidad: null,
-    telefono: "",
-    direccion: ""
-  });
+    telefono: '',
+    direccion: '',
+  })
 
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState('')
 
   async function postCliente(e) {
     e.preventDefault()
-    if (!formCliente.nombre || !formCliente.tipoDocumentoIdentidad || !formCliente.documento || !formCliente.direccion || !formCliente.telefono || !formCliente.distrito) {
-      setMessage("Campos obligatorios *")
+    if (
+      !formCliente.nombre ||
+      !formCliente.tipoDocumentoIdentidad ||
+      !formCliente.documento ||
+      !formCliente.direccion ||
+      !formCliente.telefono ||
+      !formCliente.distrito
+    ) {
+      setMessage('Campos obligatorios *')
       return
     }
     const persona = {
@@ -30,7 +41,7 @@ const AgregarCliente = () => {
       direccion: formCliente.direccion.toUpperCase(),
       email: formCliente.correoElectronico,
       telefono: formCliente.telefono,
-      distrito: formCliente.distrito
+      distrito: formCliente.distrito,
     }
 
     const personaId = {
@@ -41,46 +52,46 @@ const AgregarCliente = () => {
       direccion: formCliente.direccion.toUpperCase(),
       email: formCliente.correoElectronico,
       telefono: formCliente.telefono,
-      distrito: formCliente.distrito
+      distrito: formCliente.distrito,
     }
 
     console.log(await PostCliente(personaId))
 
-    setFormCliente(prevState => ({
+    setFormCliente((prevState) => ({
       ...prevState,
       departamento: {},
       provincia: null,
       distrito: null,
-      nombre: "",
-      documento: "",
-      correoElectronico: "",
-      telefono: "",
-      direccion: ""
-    }));
-    setMessage("")
+      nombre: '',
+      documento: '',
+      correoElectronico: '',
+      telefono: '',
+      direccion: '',
+    }))
+    setMessage('')
   }
 
   const GetData = async (numero) => {
     setFormCliente({ ...formCliente, nombre: await GetDNI(numero).data.nombre })
-    setMessage("")
+    setMessage('')
   }
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target
     const fieldValue =
-      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+      type === 'checkbox' ? checked : type === 'date' ? new Date(value) : value
     setFormCliente((prev) => ({
       ...prev,
       [name]: fieldValue,
-    }));
-  };
+    }))
+  }
 
   useEffect(() => {
     // console.log(formCliente);
-  }, [formCliente]);
+  }, [formCliente])
   return (
     <div
-      style={{ paddingTop: "40px" }}
+      style={{ paddingTop: '40px' }}
       className="modal fade"
       id="AgregarCliente"
       tabIndex={-1}
@@ -91,7 +102,7 @@ const AgregarCliente = () => {
         <div className="modal-content">
           <div
             className="modal-header text-white"
-            style={{ background: "#00B2FF" }}
+            style={{ background: '#00B2FF' }}
           >
             <h5 className="modal-title" id="exampleModalLabel">
               Agregar Cliente
@@ -108,14 +119,19 @@ const AgregarCliente = () => {
               <div className="row">
                 <div className="col-md-6 pb-3">
                   <SelectPro
-                    name={"Tipo Documento Identidad"}
+                    name={'Tipo Documento Identidad'}
                     nameExtractor={(x) => x.abreviatura}
                     onCaptureObj={(x) =>
-                      setFormCliente({ ...formCliente, tipoDocumentoIdentidad: x })
+                      setFormCliente({
+                        ...formCliente,
+                        tipoDocumentoIdentidad: x,
+                      })
                     }
                     SM={true}
                     SP={true}
-                    endpoint={"/TipoDocumentoIdentidad/GetAllTipoDocumentoIdentidad"}
+                    endpoint={
+                      '/TipoDocumentoIdentidad/GetAllTipoDocumentoIdentidad'
+                    }
                   />
                 </div>
                 <div className="col-md-6 pb-3">
@@ -133,8 +149,17 @@ const AgregarCliente = () => {
                       N° Documento *
                     </label>
                     <button
-                      style={{ background: "#00B2FF", borderRadius: 3, border: "none" }}
-                      onClick={() => formCliente.tipoDocumentoIdentidad && formCliente.documento ? GetData(formCliente.documento) : setMessage("Falta TipoDocumento o Numero")}
+                      style={{
+                        background: '#00B2FF',
+                        borderRadius: 3,
+                        border: 'none',
+                      }}
+                      onClick={() =>
+                        formCliente.tipoDocumentoIdentidad &&
+                          formCliente.documento
+                          ? GetData(formCliente.documento)
+                          : setMessage('Falta TipoDocumento o Numero')
+                      }
                       className="btn btn-outline-secondary"
                       type="button"
                     >
@@ -179,7 +204,7 @@ const AgregarCliente = () => {
                 </div>
                 <div className="col-md-6 pb-3">
                   <SelectPro
-                    name={"Departamento"}
+                    name={'Departamento'}
                     onCaptureObj={(x) =>
                       setFormCliente({
                         ...formCliente,
@@ -188,14 +213,14 @@ const AgregarCliente = () => {
                       })
                     }
                     nameExtractor={(x) => x.nombre}
-                    endpoint={"/Departamento/GetAllDepartamento"}
+                    endpoint={'/Departamento/GetAllDepartamento'}
                     SP={true}
                     SM={true}
                   />
                 </div>
                 <div className="col-md-6 pb-3">
                   <SelectPro
-                    name={"Provincia"}
+                    name={'Provincia'}
                     onCaptureObj={(x) =>
                       setFormCliente({
                         ...formCliente,
@@ -204,7 +229,7 @@ const AgregarCliente = () => {
                       })
                     }
                     nameExtractor={(x) => x.nombre}
-                    endpoint={"/Provincia/GetProvinciaForDepartamento"}
+                    endpoint={'/Provincia/GetProvinciaForDepartamento'}
                     SP={false}
                     SM={true}
                     id={formCliente.departamento?._id}
@@ -212,12 +237,12 @@ const AgregarCliente = () => {
                 </div>
                 <div className="col-md-6 pb-3">
                   <SelectPro
-                    name={"Distrito"}
+                    name={'Distrito'}
                     onCaptureObj={(x) =>
                       setFormCliente({ ...formCliente, distrito: x })
                     }
                     nameExtractor={(x) => x.nombre}
-                    endpoint={"/Distrito/GetDistritoForProvincia"}
+                    endpoint={'/Distrito/GetDistritoForProvincia'}
                     SP={false}
                     SM={true}
                     id={formCliente.provincia?._id}
@@ -268,7 +293,7 @@ const AgregarCliente = () => {
                 <button
                   type="submit"
                   className="btn text-white"
-                  style={{ background: "#00B2FF" }}
+                  style={{ background: '#00B2FF' }}
                 >
                   Crear Cliente
                 </button>
@@ -278,7 +303,7 @@ const AgregarCliente = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AgregarCliente;
+export default AgregarCliente

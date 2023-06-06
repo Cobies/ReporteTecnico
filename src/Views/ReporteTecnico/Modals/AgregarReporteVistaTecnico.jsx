@@ -1,8 +1,13 @@
 /* eslint-disable react/prop-types */
-import SelectPro from "../Selects/SelectPro";
-import moment from "moment/moment";
-import { useEffect, useState } from "react";
-import { GetAllReportes, GetEmpleadoId, PostDetalles, PostReporteVistaTecnica } from "../../../Services/ReporteVistaTecnico";
+import SelectPro from '../Selects/SelectPro'
+import moment from 'moment/moment'
+import { useEffect, useState } from 'react'
+import {
+  GetAllReportes,
+  GetEmpleadoId,
+  PostDetalles,
+  PostReporteVistaTecnica,
+} from '../../../Services/ReporteVistaTecnico'
 
 const AgregarReporteVistaTecnica = ({
   detalles,
@@ -12,26 +17,28 @@ const AgregarReporteVistaTecnica = ({
   setReporteVisitaTecnica,
   setCaptureDetalles,
   formReporteVistaTecnica,
-  setFormReporteVistaTecnica
+  setFormReporteVistaTecnica,
 }) => {
-  const [perfil, setPerfil] = useState({});
-  const [message, setMessage] = useState("");
+  const [perfil, setPerfil] = useState({})
+  const [message, setMessage] = useState('')
 
   const ReporteSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       for (let i = 0; i < detalles.length; i++) {
-        delete detalles[i].cantidad;
+        delete detalles[i].cantidad
       }
 
       if (!detalles || !formReporteVistaTecnica.Cliente || !perfil) {
-        setMessage("ALGO FALTA PARA ENVIAR")
+        setMessage('ALGO FALTA PARA ENVIAR')
         return
       }
-      const detalleIds = await Promise.all(detalles.map(async detalle => {
-        const id = await PostDetalles(detalle);
-        return { ...detalle, _id: id };
-      }));
+      const detalleIds = await Promise.all(
+        detalles.map(async (detalle) => {
+          const id = await PostDetalles(detalle)
+          return { ...detalle, _id: id }
+        })
+      )
 
       const body = {
         Numero: 5,
@@ -42,62 +49,61 @@ const AgregarReporteVistaTecnica = ({
         Detalle: detalleIds,
         Sugerencia: formReporteVistaTecnica.Sugerencia,
       }
-      console.log("ESTE ", body)
+      console.log('ESTE ', body)
 
-      console.log(await PostReporteVistaTecnica(body));
+      console.log(await PostReporteVistaTecnica(body))
 
-      setDetalles([]);
-      setArticulos([]);
-      setMessage("");
+      setDetalles([])
+      setArticulos([])
+      setMessage('')
       setFormReporteVistaTecnica((prevState) => ({
         ...prevState,
         Cliente: null,
         FechaCreado: null,
         Detalle: null,
         Activo: true,
-        Sugerencia: "",
-      }));
-      const data = await GetAllReportes();
-      setReporteVisitaTecnica(data);
-
+        Sugerencia: '',
+      }))
+      const data = await GetAllReportes()
+      setReporteVisitaTecnica(data)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
     // console.log(formReporteVistaTecnica);
-  }, [formReporteVistaTecnica]);
+  }, [formReporteVistaTecnica])
 
   useEffect(() => {
-    getPerfil(session.id);
-  }, []);
+    getPerfil(session.id)
+  }, [])
 
   async function getPerfil(id) {
     try {
-      setPerfil(await GetEmpleadoId(id));
+      setPerfil(await GetEmpleadoId(id))
     } catch (error) {
-      console.log("");
+      console.log('')
     }
   }
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target
     const fieldValue =
-      type === "checkbox" ? checked : type === "date" ? new Date(value) : value;
+      type === 'checkbox' ? checked : type === 'date' ? new Date(value) : value
     setFormReporteVistaTecnica((prev) => ({
       ...prev,
       [name]: fieldValue,
-    }));
-  };
+    }))
+  }
 
   const onCaptureObj = (cliente) => {
     // Aquí puedes hacer lo que necesites con el objeto seleccionado
     setFormReporteVistaTecnica((prevState) => ({
       ...prevState,
       Cliente: cliente,
-    }));
-  };
+    }))
+  }
 
   // useEffect(() => {
   //   console.log(formReporteVistaTecnica)
@@ -137,7 +143,7 @@ const AgregarReporteVistaTecnica = ({
         <div className="modal-content">
           <div
             className="modal-header text-white"
-            style={{ background: "#00B2FF" }}
+            style={{ background: '#00B2FF' }}
           >
             <h5 className="modal-title">Agregar Reporte Vista Tecnico</h5>
             <button
@@ -157,9 +163,9 @@ const AgregarReporteVistaTecnica = ({
                       onChange={handleChange}
                       style={{
                         backgroundColor: formReporteVistaTecnica.Activo
-                          ? "#00B2FF"
+                          ? '#00B2FF'
                           : null,
-                        border: "none",
+                        border: 'none',
                       }}
                       className="form-check-input"
                       name="Activo"
@@ -175,12 +181,12 @@ const AgregarReporteVistaTecnica = ({
                 <div className="mb-3 col-4">
                   <SelectPro
                     onCaptureObj={onCaptureObj}
-                    name={"Cliente"}
-                    endpoint={"/Cliente/GetBusquedaClienteLimite"}
+                    name={'Cliente'}
+                    endpoint={'/Cliente/GetBusquedaClienteLimite'}
                     nameExtractor={(x) => x.persona.nombre}
                     SP={false}
                     modal="AgregarCliente"
-                    initial={"/Cliente/GetAllClientesLimite/0"}
+                    initial={'/Cliente/GetAllClientesLimite/0'}
                   />
                 </div>
 
@@ -240,9 +246,9 @@ const AgregarReporteVistaTecnica = ({
 
                 <table
                   className="table table-sm table-striped table-bordered"
-                  style={{ fontSize: "0.8rem" }}
+                  style={{ fontSize: '0.8rem' }}
                 >
-                  <thead style={{ background: "#00B2FF" }}>
+                  <thead style={{ background: '#00B2FF' }}>
                     <tr className="text-center text-white">
                       <th scope="col">Cantidad</th>
                       <th scope="col">Producto</th>
@@ -258,10 +264,10 @@ const AgregarReporteVistaTecnica = ({
                   <tbody className="text-center">
                     {detalles.length === 0 ? (
                       <tr>
-                        {" "}
+                        {' '}
                         <td className="text-center" colSpan={9}>
                           Vacio
-                        </td>{" "}
+                        </td>{' '}
                       </tr>
                     ) : (
                       detalles.map((item, index) => (
@@ -271,7 +277,7 @@ const AgregarReporteVistaTecnica = ({
                           <td>{item.Producto?.marca?.nombre}</td>
                           <td>{item.Producto?.modelo}</td>
                           <td>{item.Area}</td>
-                          <td>{moment(item.FechaCreado).format("L")}</td>
+                          <td>{moment(item.FechaCreado).format('L')}</td>
                           <td>{item.condicion}</td>
                           <td>{item.Observacion}</td>
                           <td className="text-center">
@@ -279,7 +285,10 @@ const AgregarReporteVistaTecnica = ({
                               <button
                                 type="button"
                                 className="btn"
-                                style={{ background: "#00B2FF", color: "white" }}
+                                style={{
+                                  background: '#00B2FF',
+                                  color: 'white',
+                                }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#VerDetallesReporte"
                                 onClick={() => setCaptureDetalles(item)}
@@ -297,10 +306,10 @@ const AgregarReporteVistaTecnica = ({
               <div
                 className="modal-footer"
                 style={{
-                  position: "absolute",
-                  bottom: "0",
-                  right: "0",
-                  width: "100%",
+                  position: 'absolute',
+                  bottom: '0',
+                  right: '0',
+                  width: '100%',
                 }}
               >
                 <label className="text-danger">{message}</label>
@@ -309,7 +318,11 @@ const AgregarReporteVistaTecnica = ({
                   className="btn btn-success"
                   data-bs-toggle="modal"
                   data-bs-target="#AgregarDetallesReporte"
-                  disabled={!formReporteVistaTecnica.Cliente?.persona?.nombre ? true : false}
+                  disabled={
+                    !formReporteVistaTecnica.Cliente?.persona?.nombre
+                      ? true
+                      : false
+                  }
                 >
                   Agregar Detalles
                 </button>
@@ -323,9 +336,14 @@ const AgregarReporteVistaTecnica = ({
                 <button
                   type="submit"
                   className="btn text-white"
-                  style={{ background: "#00B2FF" }}
+                  style={{ background: '#00B2FF' }}
                   data-bs-dismiss="modal"
-                  disabled={detalles.length == 0 || !formReporteVistaTecnica.Cliente?.persona?.nombre ? true : false}
+                  disabled={
+                    detalles.length == 0 ||
+                    !formReporteVistaTecnica.Cliente?.persona?.nombre
+                      ? true
+                      : false
+                  }
                 >
                   Crear
                 </button>
@@ -335,7 +353,7 @@ const AgregarReporteVistaTecnica = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AgregarReporteVistaTecnica;
+export default AgregarReporteVistaTecnica

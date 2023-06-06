@@ -1,13 +1,12 @@
-import __NavMenu from "./__NavMenu";
+import __NavMenu from './__NavMenu'
 
-const __Layout = ({ children, session , setSession }) => {
-
+const __Layout = ({ children, session, setSession }) => {
   return (
     <>
       <__NavMenu session={session} setSession={setSession} />
-        {children}
+      {children}
     </>
-  );
-};
+  )
+}
 
-export default __Layout;
+export default __Layout

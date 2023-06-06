@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import SelectPro from "../Selects/SelectPro";
-import moment from "moment";
+import { useEffect, useState } from 'react'
+import SelectPro from '../Selects/SelectPro'
+import moment from 'moment'
 
 /* eslint-disable react/prop-types */
 const AgregarDetallesReporte = ({
@@ -11,31 +11,31 @@ const AgregarDetallesReporte = ({
   setCapture,
 }) => {
   const [formDetalles, setFormDetalles] = useState({
-    observacion: "",
-    area: "",
+    observacion: '',
+    area: '',
     Producto: {
-      nombre: "",
-      marca: "",
+      nombre: '',
+      marca: '',
       linea: {},
-      codigo: "",
-      modelo: ""
+      codigo: '',
+      modelo: '',
     },
-  });
+  })
 
   useEffect(() => {
     // console.log(formDetalles)
-  }, [formDetalles]);
+  }, [formDetalles])
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target
     const fieldValue =
-      type === "checkbox" ? checked : type === "date" ? value : value;
+      type === 'checkbox' ? checked : type === 'date' ? value : value
 
     setFormDetalles((prev) => ({
       ...prev,
       [name]: fieldValue,
-    }));
-  };
+    }))
+  }
 
   // const handleChangeProducto = (e) => {
   //   const { name, value } = e.target;
@@ -52,14 +52,12 @@ const AgregarDetallesReporte = ({
     // Aquí puedes hacer lo que necesites con el objeto seleccionado
     setFormDetalles((prevState) => ({
       ...prevState,
-      Producto: producto
-    }));
-  };
-
-
+      Producto: producto,
+    }))
+  }
 
   async function PostDetalle(e) {
-    e.preventDefault();
+    e.preventDefault()
     // const cantidad = e.target.cantidad.value
     setDetalles([
       ...detalles,
@@ -70,16 +68,16 @@ const AgregarDetallesReporte = ({
         Articulos: articulos,
         Producto: formDetalles.Producto,
       },
-    ]);
+    ])
 
     setFormDetalles((prevState) => ({
       ...prevState,
-      observacion: "",
-      area: "",
-      Producto: prevState.Producto
-    }));
+      observacion: '',
+      area: '',
+      Producto: prevState.Producto,
+    }))
 
-    setArticulos([]);
+    setArticulos([])
     // setReporteVisitaTecnica((prevState) => [
     //   ...prevState,
     //   {
@@ -117,7 +115,7 @@ const AgregarDetallesReporte = ({
           <div className="modal-content">
             <div
               className="modal-header text-white"
-              style={{ background: "#00B2FF" }}
+              style={{ background: '#00B2FF' }}
             >
               <h5 className="modal-title">Agregar Detalles</h5>
               <button
@@ -133,16 +131,16 @@ const AgregarDetallesReporte = ({
                   <div className="col-md-3">
                     <div className="mb-3">
                       <SelectPro
-                        name={"Producto"}
+                        name={'Producto'}
                         endpoint={
-                          "/ProductoReporte/GetBusquedaProductoReporteLimite"
+                          '/ProductoReporte/GetBusquedaProductoReporteLimite'
                         }
                         nameExtractor={(x) => x.nombre}
                         onCaptureObj={onCaptureObj}
                         SP={false}
                         modal="AgregarProducto"
                         initial={
-                          "/ProductoReporte/GetAllProductoReporteLimite/0"
+                          '/ProductoReporte/GetAllProductoReporteLimite/0'
                         }
                       />
                     </div>
@@ -182,9 +180,9 @@ const AgregarDetallesReporte = ({
                 </div>
                 <table
                   className="table table-sm table-striped table-bordered"
-                  style={{ fontSize: "0.8rem" }}
+                  style={{ fontSize: '0.8rem' }}
                 >
-                  <thead style={{ background: "#00B2FF" }}>
+                  <thead style={{ background: '#00B2FF' }}>
                     <tr className="text-center text-white">
                       <th scope="col">FECHA CREADO</th>
                       <th scope="col">SERIE</th>
@@ -204,7 +202,7 @@ const AgregarDetallesReporte = ({
                     ) : (
                       articulos.map((x, index) => (
                         <tr key={index}>
-                          <td>{moment(x.FechaCreado).format("L")}</td>
+                          <td>{moment(x.FechaCreado).format('L')}</td>
                           <td>{x.Serie}</td>
                           <td>
                             {x.Operativo ? (
@@ -214,13 +212,20 @@ const AgregarDetallesReporte = ({
                             )}
                           </td>
                           <td>{x.Observaciones}</td>
-                          <td>{moment(x.FechaCompra).isValid() ? moment(x.FechaCompra).format("L") : "Sin Fecha"}</td>
+                          <td>
+                            {moment(x.FechaCompra).isValid()
+                              ? moment(x.FechaCompra).format('L')
+                              : 'Sin Fecha'}
+                          </td>
                           <td className="text-center">
                             <div className="d-flex justify-content-center gap-2 align-items-center">
                               <button
                                 type="button"
                                 className="btn"
-                                style={{ background: "#00B2FF", color: "white" }}
+                                style={{
+                                  background: '#00B2FF',
+                                  color: 'white',
+                                }}
                                 data-bs-toggle="modal"
                                 data-bs-target="#EditarArticulosDetalles"
                                 onClick={() => setCapture({ index, x })}
@@ -234,16 +239,14 @@ const AgregarDetallesReporte = ({
                     )}
                   </tbody>
                 </table>
-                <div
-                  className="modal-footer"
-                >
+                <div className="modal-footer">
                   <button
                     type="button"
                     className="btn text-white"
-                    style={{ background: "#008065" }}
+                    style={{ background: '#008065' }}
                     data-bs-toggle="modal"
                     data-bs-target="#AgregarArticulosDetalles"
-                    disabled={formDetalles.Producto.nombre == "" ? true : false}
+                    disabled={formDetalles.Producto.nombre == '' ? true : false}
                   >
                     Agregar Articulos
                   </button>
@@ -258,10 +261,10 @@ const AgregarDetallesReporte = ({
                   <button
                     type="submit"
                     className="btn text-white"
-                    style={{ background: "#00B2FF" }}
-                    disabled={formDetalles.Producto.nombre == "" ? true : false}
+                    style={{ background: '#00B2FF' }}
+                    disabled={formDetalles.Producto.nombre == '' ? true : false}
                   >
-                    {" "}
+                    {' '}
                     Crear
                   </button>
                 </div>
@@ -271,7 +274,7 @@ const AgregarDetallesReporte = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AgregarDetallesReporte;
+export default AgregarDetallesReporte

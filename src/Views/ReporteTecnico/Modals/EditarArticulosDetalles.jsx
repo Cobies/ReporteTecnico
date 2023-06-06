@@ -1,13 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos }) {
-
+function EditarArticulosDetalles({
+  capture,
+  setCapture,
+  setArticulos,
+  articulos,
+}) {
   const editArticulo = (index, newValues, editar, articulos) => {
     // console.log(newValues)
-    const updatedArticulos = [...articulos];
-    updatedArticulos[index] = { ...updatedArticulos[index], ...newValues };
-    editar(updatedArticulos);
-  };
+    const updatedArticulos = [...articulos]
+    updatedArticulos[index] = { ...updatedArticulos[index], ...newValues }
+    editar(updatedArticulos)
+  }
 
   async function editArticuloArticulo(e) {
     e.preventDefault()
@@ -15,15 +19,14 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
   }
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const fieldValue =
-      type === "checkbox" ? checked : value;
+    const { name, value, type, checked } = e.target
+    const fieldValue = type === 'checkbox' ? checked : value
     setCapture({ ...capture, x: { ...capture.x, [name]: fieldValue } })
   }
 
   return (
     <div
-      style={{ paddingTop: "15%" }}
+      style={{ paddingTop: '15%' }}
       className="modal fade"
       id="EditarArticulosDetalles"
       tabIndex={-1}
@@ -34,9 +37,11 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
         <div className="modal-content">
           <div
             className="modal-header text-white"
-            style={{ background: "#00B2FF" }}
+            style={{ background: '#00B2FF' }}
           >
-            <h5 className="modal-title">Editar Articulo Detalle - Serie : {capture.x.Serie} </h5>
+            <h5 className="modal-title">
+              Editar Articulo Detalle - Serie : {capture.x.Serie}{' '}
+            </h5>
             <button
               type="button"
               className="btn-close btn-close-white"
@@ -60,15 +65,12 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
                         defaultChecked={true}
                         style={{
                           backgroundColor: capture.x.Operativo
-                            ? "#00B2FF"
+                            ? '#00B2FF'
                             : null,
-                          border: "none",
+                          border: 'none',
                         }}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor="Operativo"
-                      >
+                      <label className="form-check-label" htmlFor="Operativo">
                         Operativo
                       </label>
                     </div>
@@ -82,7 +84,12 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
                       className="form-control"
                       name="FechaCompra"
                       value={capture.x.FechaCompra}
-                      onChange={(e) => setCapture({ ...capture, x: { ...capture.x, FechaCompra: e.target.value } })}
+                      onChange={(e) =>
+                        setCapture({
+                          ...capture,
+                          x: { ...capture.x, FechaCompra: e.target.value },
+                        })
+                      }
                     ></input>
                     <label htmlFor="FechaCompra" className="form-label">
                       Fecha Compra
@@ -119,9 +126,9 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
                 <button
                   type="submit"
                   className="btn text-white"
-                  style={{ background: "#00B2FF" }}
+                  style={{ background: '#00B2FF' }}
                 >
-                  {" "}
+                  {' '}
                   Editar
                 </button>
               </div>
@@ -130,7 +137,7 @@ function EditarArticulosDetalles({ capture, setCapture, setArticulos, articulos 
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default EditarArticulosDetalles;
+export default EditarArticulosDetalles
