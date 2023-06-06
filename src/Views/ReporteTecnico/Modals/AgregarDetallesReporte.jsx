@@ -97,11 +97,7 @@ const AgregarDetallesReporte = ({
     //   },
     // ])
     // try {
-    //   const response = axios.post("https://localhost:7044/DetalleReporteVisitaTecnica/SetDetalleReporteVisitaTecnica", {
-    //   }, {
-    //     headers: { 'Content-Type': 'application/json' }
-    //   })
-    //   console.log(response)
+    //   console.log(await PostDetalleReporteVisitaTecnica({}))
     // } catch (error) {
     //   console.log(error)
     // }

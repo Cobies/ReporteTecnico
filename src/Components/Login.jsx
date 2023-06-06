@@ -4,13 +4,10 @@ import logo from "./Logo.svg";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
+import { Authorization } from "../Services/ReporteVistaTecnico";
 
 /* eslint-disable react/prop-types */
 const Login = ({ session, setSession }) => {
-  // const user = {
-  //   username: "pedro",
-  //   password: "123"
-  // }
 
   useEffect(() => {
     setMessage("");
@@ -25,15 +22,7 @@ const Login = ({ session, setSession }) => {
       const nombreUsuario = e.target.username.value;
       const password = e.target.password.value;
       setLoading(true);
-      const response = await fetch(
-        "https://api.grupoupgrade.com.pe/Autenticacion/AutenticacionClienteYEmpleado",
-        {
-          method: "POST",
-          body: JSON.stringify({ nombreUsuario, password }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await response.text();
+      const data = await Authorization({ nombreUsuario, password });
       localStorage.setItem("token", data);
       const perfil = jwtDecode(data);
       setSession({
@@ -51,14 +40,9 @@ const Login = ({ session, setSession }) => {
     }
   };
 
-  // async function checkData(data) {
-  //   return data != 'false';
-  // }
-
   const handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    // Aquí se haría la lógica para cerrar sesión y borrar la información de la sesión
     setSession({ username: "", isLoggedIn: false });
   };
 
@@ -96,21 +80,21 @@ const Login = ({ session, setSession }) => {
               <a className="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg" className="rounded-circle" height={25} alt="Black and White Portrait of a Man" loading="lazy" />
               </a>
-              
+
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                 {/* <li>
                   <a className="dropdown-item" href="#">Mis Reportes</a>
                 </li> */}
                 <li>
                   <a onClick={handleLogout} className="dropdown-item" href="#">
-                      {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link> */}
-                      <i
-                        
-                        className="bi bi-box-arrow-left fw-bold text-danger"
-                      >
-                        {" "}
-                        Salir
-                      </i>
+                    {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link> */}
+                    <i
+
+                      className="bi bi-box-arrow-left fw-bold text-danger"
+                    >
+                      {" "}
+                      Salir
+                    </i>
                   </a>
                 </li>
               </ul>

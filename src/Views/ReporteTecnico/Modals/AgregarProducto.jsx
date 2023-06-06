@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SelectPro from "../Selects/SelectPro";
-import axios from "axios";
+import { PostProductoReporte } from "../../../Services/ReporteVistaTecnico";
 
 const AgregarProducto = () => {
   const [formProducto, setFormProducto] = useState({ nombre: "", modelo: "" })
@@ -38,20 +38,15 @@ const AgregarProducto = () => {
     if (!formProducto.nombre || !formProducto.modelo || !formProducto.marca || !formProducto.linea) {
       setMessage("Completa los campos que falta")
     } else {
-      const response = await axios.post("https://api.grupoupgrade.com.pe/ProductoReporte/SetProductoReporte",
-        {
-          codigo: generarCodigo(formProducto.nombre, formProducto.marca?.abreviatura, formProducto.linea?.nombre),
-          nombre: formProducto.nombre.toUpperCase(),
-          marca: formProducto.marca,
-          linea: formProducto.linea,
-          modelo: formProducto.modelo.toUpperCase()
-        }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json"
-        }
-      })
-      console.log(response.data)
+      const body = {
+        codigo: generarCodigo(formProducto.nombre, formProducto.marca?.abreviatura, formProducto.linea?.nombre),
+        nombre: formProducto.nombre.toUpperCase(),
+        marca: formProducto.marca,
+        linea: formProducto.linea,
+        modelo: formProducto.modelo.toUpperCase()
+      }
+
+      console.log(await PostProductoReporte(body))
       setFormProducto({ ...formProducto, nombre: "", modelo: "" })
       setMessage("")
     }

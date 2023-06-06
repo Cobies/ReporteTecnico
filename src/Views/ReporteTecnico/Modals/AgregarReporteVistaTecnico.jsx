@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import SelectPro from "../Selects/SelectPro";
 import moment from "moment/moment";
 import { useEffect, useState } from "react";
-import { GetAllReportes, PostDetalles } from "../../../Services/ReporteVistaTecnico";
+import { GetAllReportes, GetEmpleadoId, PostDetalles, PostReporteVistaTecnica } from "../../../Services/ReporteVistaTecnico";
 
 const AgregarReporteVistaTecnica = ({
   detalles,
@@ -11,14 +10,11 @@ const AgregarReporteVistaTecnica = ({
   session,
   setArticulos,
   setReporteVisitaTecnica,
-  setCaptureDetalles
+  setCaptureDetalles,
+  formReporteVistaTecnica,
+  setFormReporteVistaTecnica
 }) => {
   const [perfil, setPerfil] = useState({});
-  const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({
-    Activo: true,
-    Sugerencia: "",
-    Cliente: null,
-  });
   const [message, setMessage] = useState("");
 
   const ReporteSubmit = async (e) => {
@@ -47,17 +43,9 @@ const AgregarReporteVistaTecnica = ({
         Sugerencia: formReporteVistaTecnica.Sugerencia,
       }
       console.log("ESTE ", body)
-      const response = await axios.post(
-        "https://api.grupoupgrade.com.pe/ReporteVisitaTecnica/SetReporteVisitaTecnica",
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      // console.log(response.data);
+
+      console.log(await PostReporteVistaTecnica(body));
+
       setDetalles([]);
       setArticulos([]);
       setMessage("");
@@ -87,15 +75,7 @@ const AgregarReporteVistaTecnica = ({
 
   async function getPerfil(id) {
     try {
-      const response = await axios.get(
-        `https://api.grupoupgrade.com.pe/Empleado/GetEmpleadoId/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setPerfil(response.data);
+      setPerfil(await GetEmpleadoId(id));
     } catch (error) {
       console.log("");
     }

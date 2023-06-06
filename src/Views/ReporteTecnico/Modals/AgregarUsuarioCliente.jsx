@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
+import { PostUsuarioClienteReporteTecnico } from "../../../Services/ReporteVistaTecnico";
 
 const AgregarUsuarioCliente = () => {
 
@@ -21,13 +21,8 @@ const AgregarUsuarioCliente = () => {
         if (!formUsuarioCliente.usuario || !formUsuarioCliente.password) {
             setMessage("Completa los campos que faltan")
         } else {
-            const response = await axios.post("https://localhost:7044/UsuarioClienteReporteTecnico/SetUsuarioClienteReporteTecnico", { fechaCreado: new Date(), cliente: { usuario: formUsuarioCliente.usuario, password: formUsuarioCliente.password } }, {
-                headers: {
-                    // Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    "Content-Type": "application/json"
-                }
-            })
-            // console.log(response.data)
+            const body = { fechaCreado: new Date(), cliente: { usuario: formUsuarioCliente.usuario, password: formUsuarioCliente.password } }
+            console.log(await PostUsuarioClienteReporteTecnico(body))
             setFormUsuarioCliente({ usuario: "", password: "" })
         }
 

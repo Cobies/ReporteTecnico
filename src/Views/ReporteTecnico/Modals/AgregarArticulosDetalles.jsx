@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
-const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
+const AgregarArticulosDetalles = ({ articulos, setArticulos, formReporteVistaTecnica, detalles }) => {
 
   const [formArticulos, setFormArticulos] = useState({
     fechaCompra: null,
@@ -30,8 +30,8 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
     setFormArticulos((prevFormArticulos) => ({
       ...prevFormArticulos,
       [name]: fieldValue,
-    }));
-  };
+    }))
+  }
 
   function generarCodigoClienteProducto(nombreCliente, codigoProducto) {
     let contador = localStorage.getItem('contador') || 1;
@@ -43,38 +43,11 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
       .toUpperCase();
 
     const codigoGenerado = `${inicialesCliente}${codigoProducto}-${contador}`;
-
     localStorage.setItem('contador', parseInt(contador) + 1);
-
     return codigoGenerado;
   }
 
-
-  // useEffect(() => {
-  //   console.log(formArticulos);
-  // }, [formArticulos]);
-  // const ModalArticulos = useRef(null);
-  // useEffect(() => {
-  //     const handleModalClose = () => {
-  //         // Lógica a ejecutar al cerrar el modal
-  //         console.log("Modal cerrado");
-  //         // Agrega aquí tu script personalizado al cerrar el modal
-  //     };
-
-  //     // Agrega un event listener al evento 'hidden.bs.modal'
-  //     ModalArticulos.current.addEventListener(
-  //         "hidden.bs.modal",
-  //         handleModalClose
-  //     );
-
-  //     // Limpia el event listener cuando el componente se desmonte
-  //     return () => {
-  //         ModalArticulos.current.removeEventListener(
-  //             "hidden.bs.modal",
-  //             handleModalClose
-  //         );
-  //     };
-  // }, []);
+  console.log(detalles.length)
 
   async function PostArticuloDetalle(e) {
     e.preventDefault();
@@ -82,18 +55,19 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
       setMessage("Completa los Campos *");
       return;
     }
+    const index = detalles.length - 1
 
-    if (formArticulos.cantidad > 0) {
+    if (formArticulos.cantidad > 0 && detalles[index]) {
       const newArticulos = Array.from(
         { length: formArticulos.cantidad },
         () => ({
           FechaCreado: new Date(),
-          Serie: generarCodigoClienteProducto("", ""),
+          Serie: generarCodigoClienteProducto(formReporteVistaTecnica.Cliente?.persona?.nombre, detalles[index]?.Producto?.codigo),
           Operativo: formArticulos.operativo,
           Observaciones: formArticulos.observaciones,
           FechaCompra: formArticulos.fechaCompra,
         })
-      );
+      )
 
       setArticulos([...articulos, ...newArticulos]);
     }
@@ -102,8 +76,10 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
       fechaCompra: null,
       operativo: true,
       observaciones: "",
-      cantidad: 1,
-    });
+      cantidad: 1
+    })
+
+    setMessage("")
   }
 
   return (
@@ -162,7 +138,6 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                   </div>
                 </div>
 
-
                 <div className="col-md-6">
                   <div className="form-floating mb-3">
                     <input
@@ -178,7 +153,6 @@ const AgregarArticulosDetalles = ({ articulos, setArticulos }) => {
                     </label>
                   </div>
                 </div>
-
 
                 <div className="col-md-6">
                   <div className="form-floating mb-3">

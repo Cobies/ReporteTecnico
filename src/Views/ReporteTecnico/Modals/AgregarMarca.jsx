@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { PostMarca } from "../../../Services/ReporteVistaTecnico";
 
 const AgregarMarca = () => {
 
@@ -26,13 +26,9 @@ const AgregarMarca = () => {
       setMessage("Completa Campos *")
       return
     }
-    const response = await axios.post("https://api.grupoupgrade.com.pe/Marca/SetMarca", { nombre: formMarca.nombre.toUpperCase(), abreviatura: formMarca.abreviatura.toUpperCase() }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
-    })
-    console.log(response.data)
+    const body = { nombre: formMarca.nombre.toUpperCase(), abreviatura: formMarca.abreviatura.toUpperCase() }
+
+    console.log(await PostMarca(body))
     setFormMarca({ nombre: "", abreviatura: "" })
     setMessage("")
   }

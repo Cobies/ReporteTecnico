@@ -6,7 +6,6 @@ const __Layout = ({ children, session , setSession }) => {
     <>
       <__NavMenu session={session} setSession={setSession} />
         {children}
-     
     </>
   );
 };

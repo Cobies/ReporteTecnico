@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SelectPro from "../Selects/SelectPro";
-import axios from "axios";
+import { GetDNI, PostCliente, PostPersona } from "../../../Services/ReporteVistaTecnico";
 
 const AgregarCliente = () => {
   const [formCliente, setFormCliente] = useState({
@@ -23,39 +23,29 @@ const AgregarCliente = () => {
       setMessage("Campos obligatorios *")
       return
     }
-    const response = await axios.post(`https://api.grupoupgrade.com.pe/Persona/SetPersona`, {
-      nombre: formCliente.nombre,
+    const persona = {
+      nombre: formCliente.nombre.toUpperCase(),
       documentoIdentidad: formCliente.documento,
       tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
-      direccion: formCliente.direccion,
+      direccion: formCliente.direccion.toUpperCase(),
       email: formCliente.correoElectronico,
       telefono: formCliente.telefono,
       distrito: formCliente.distrito
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
-    })
-    const responseCliente = await axios.post(`https://api.grupoupgrade.com.pe/Cliente/SetCliente`, {
-      FechaRegistro: new Date(),
-      persona: {
-        _id: response.data,
-        nombre: formCliente.nombre.toUpperCase(),
-        documentoIdentidad: formCliente.documento,
-        tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
-        direccion: formCliente.direccion.toUpperCase(),
-        email: formCliente.correoElectronico,
-        telefono: formCliente.telefono,
-        distrito: formCliente.distrito
-      }
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
-    })
-    console.log(responseCliente.data)
+    }
+
+    const personaId = {
+      _id: await PostPersona(persona),
+      nombre: formCliente.nombre.toUpperCase(),
+      documentoIdentidad: formCliente.documento,
+      tipoDocumentoIdentidad: formCliente.tipoDocumentoIdentidad,
+      direccion: formCliente.direccion.toUpperCase(),
+      email: formCliente.correoElectronico,
+      telefono: formCliente.telefono,
+      distrito: formCliente.distrito
+    }
+
+    console.log(await PostCliente(personaId))
+
     setFormCliente(prevState => ({
       ...prevState,
       departamento: {},
@@ -70,16 +60,8 @@ const AgregarCliente = () => {
     setMessage("")
   }
 
-
   const GetData = async (numero) => {
-    const response = await axios.get(`https://api.grupoupgrade.com.pe/Cliente/ObtenerDNI/${numero}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
-    })
-    // console.log(response.data)
-    setFormCliente({ ...formCliente, nombre: response.data.nombre })
+    setFormCliente({ ...formCliente, nombre: await GetDNI(numero).data.nombre })
     setMessage("")
   }
 

@@ -22,6 +22,12 @@ function MainPageReportes({ session }) {
   const [articulos, setArticulos] = useState([])
   const [loading, setLoading] = useState(null)
 
+  const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({
+    Activo: true,
+    Sugerencia: "",
+    Cliente: null,
+  });
+
   const [capture, setCapture] = useState({
     index: 0, x: {
       Operativo: "",
@@ -129,17 +135,20 @@ function MainPageReportes({ session }) {
         detalles,
         setDetalles,
         setArticulos,
-      }} setCaptureDetalles={setCaptureDetalles} capture={capture} />
-      <AgregarDetallesReporte articulos={articulos} setCapture={setCapture} detalles={detalles} setArticulos={setArticulos} setDetalles={setDetalles} reporteVistaTecnico={reporteVistaTecnico} setReporteVisitaTecnica={setReporteVisitaTecnica} />
-      <AgregarArticulosDetalles articulos={articulos} detalles={detalles} setArticulos={setArticulos} />
-      <EditarArticulosDetalles capture={capture} setCapture={setCapture} articulos={articulos} setArticulos={setArticulos} />
+        setCaptureDetalles,
+        formReporteVistaTecnica,
+        setFormReporteVistaTecnica
+      }} />
+      <AgregarDetallesReporte {...{ articulos, setCapture, detalles, setArticulos, setDetalles, reporteVistaTecnico, setReporteVisitaTecnica }} />
+      <AgregarArticulosDetalles {...{ formReporteVistaTecnica, articulos, detalles, setArticulos }} />
+      <EditarArticulosDetalles {...{ capture, setCapture, articulos, setArticulos }} />
       <AgregarCliente />
       <AgregarProducto />
       <AgregarMarca />
       <AgregarLinea />
 
-      <VerReporteVistaTecnico verReporteVistaTecnico={verReporteVistaTecnico} setCaptureDetalles={setCaptureDetalles} />
-      <VerDetallesReporte captureDetalles={captureDetalles} setCaptureDetalles={setCaptureDetalles} setCapture={setCapture} />
+      <VerReporteVistaTecnico {...{ verReporteVistaTecnico, setCaptureDetalles }} />
+      <VerDetallesReporte {...{ captureDetalles, setCaptureDetalles, setCapture }} />
 
 
     </>

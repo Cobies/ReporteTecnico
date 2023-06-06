@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 const AgregarLinea = () => {
@@ -25,13 +24,16 @@ const AgregarLinea = () => {
     if (!formLinea.nombre || !formLinea.descripcion) {
       setMessage("Completa los campos que faltan")
     } else {
-      const response = await axios.post("https://api.grupoupgrade.com.pe/Linea/SetLinea", { nombre: formLinea.nombre.toUpperCase(), descripcion: formLinea.descripcion.toUpperCase() }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json"
-        }
-      })
-      console.log(response.data)
+      const body = { nombre: formLinea.nombre.toUpperCase(), descripcion: formLinea.descripcion.toUpperCase() }
+
+      // const response = await axios.post("https://api.grupoupgrade.com.pe/Linea/SetLinea",
+      // body, {
+      //   headers: {
+      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //     "Content-Type": "application/json"
+      //   }
+      // })
+      console.log(await postLinea(body))
       setFormLinea({ nombre: "", descripcion: "" })
     }
 
