@@ -1,105 +1,116 @@
-import { motion } from "framer-motion";
-import "./Login.css";
-import logo from "./Logo.svg";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
-import { Authorization } from "../../Services/ReporteVistaTecnico";
+import { motion } from 'framer-motion'
+import './Login.css'
+import logo from './Logo.svg'
+import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import jwtDecode from 'jwt-decode'
+import { Authorization } from '../../Services/ReporteVistaTecnico'
 
 /* eslint-disable react/prop-types */
 const Login = ({ session, setSession }) => {
-
   useEffect(() => {
-    setMessage("");
-  }, [session.isLoggedIn]);
+    setMessage('')
+  }, [session.isLoggedIn])
 
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(null);
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(null)
 
-  const handleLogin = async (e) => {
+  const handleLogin = async e => {
     try {
-      e.preventDefault();
-      const nombreUsuario = e.target.username.value;
-      const password = e.target.password.value;
-      setLoading(true);
-      const data = await Authorization({ nombreUsuario, password });
-      localStorage.setItem("token", data);
+      e.preventDefault()
+      const nombreUsuario = e.target.username.value
+      const password = e.target.password.value
+      setLoading(true)
+      const data = await Authorization({ nombreUsuario, password })
+      localStorage.setItem('token', data)
       const perfil = jwtDecode(data)
       setSession({
         username: perfil.nombreusuaio,
         isLoggedIn: true,
         id: perfil.identificador,
-      });
+      })
 
-      setLoading(false);
+      setLoading(false)
     } catch (error) {
-      setMessage("Intruso Detectado");
-      e.target.username.value = "";
-      e.target.password.value = "";
-      setLoading(false);
+      setMessage('Intruso Detectado')
+      e.target.username.value = ''
+      e.target.password.value = ''
+      setLoading(false)
     }
-  };
+  }
 
-  const handleLogout = (event) => {
-    event.preventDefault();
-    localStorage.removeItem("token");
-    setSession({ username: "", isLoggedIn: false });
-  };
+  const handleLogout = event => {
+    event.preventDefault()
+    localStorage.removeItem('token')
+    setSession({ username: '', isLoggedIn: false })
+  }
 
   return (
     <>
       <motion.div
         className="fixed-top"
-        initial={{ height: "100vh" }}
+        initial={{ height: '100vh' }}
         animate={{
-          background: "rgb(14,21,46)",
-          width: "100vw",
-          height: session.isLoggedIn ? "60px" : "100vh",
+          background: 'rgb(14,21,46)',
+          width: '100vw',
+          height: session.isLoggedIn ? '60px' : '100vh',
           zIndex: 9999,
-          borderBottom: "1px solid white",
+          borderBottom: '1px solid white',
         }}
       >
         {session.isLoggedIn ? (
           <div
-            style={{ padding: "15px 0", fontSize: 17 }}
+            style={{ padding: '15px 0', fontSize: 17 }}
             className="container d-flex justify-content-between text-white position-relative"
           >
             <Link
               to="/"
               className="fw-bold fs-5"
               style={{
-                color: "white",
-                textDecoration: "none",
-                cursor: "pointer",
+                color: 'white',
+                textDecoration: 'none',
+                cursor: 'pointer',
               }}
             >
               Soporte Técnico
             </Link>
 
             <div className="dropdown">
-              <a className="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg" className="rounded-circle" height={25} alt="Black and White Portrait of a Man" loading="lazy" />
+              <a
+                className="dropdown-toggle d-flex align-items-center hidden-arrow"
+                href="#"
+                id="navbarDropdownMenuAvatar"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="https://img.freepik.com/vector-premium/icono-circulo-usuario-anonimo-ilustracion-vector-estilo-plano-sombra_520826-1931.jpg"
+                  className="rounded-circle"
+                  height={25}
+                  alt="Black and White Portrait of a Man"
+                  loading="lazy"
+                />
               </a>
 
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+              <ul
+                className="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuAvatar"
+              >
                 {/* <li>
                   <a className="dropdown-item" href="#">Mis Reportes</a>
                 </li> */}
                 <li>
                   <a onClick={handleLogout} className="dropdown-item" href="#">
                     {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link> */}
-                    <i
-
-                      className="bi bi-box-arrow-left fw-bold text-danger"
-                    >
-                      {" "}
+                    <i className="bi bi-box-arrow-left fw-bold text-danger">
+                      {' '}
                       Salir
                     </i>
                   </a>
                 </li>
               </ul>
             </div>
-
           </div>
         ) : (
           <form className="form-login" onSubmit={handleLogin}>
@@ -108,8 +119,10 @@ const Login = ({ session, setSession }) => {
               style={{ width: 250, padding: 25 }}
               alt="Logo"
             ></img>
-            <h2 className="titulo" style={{ color: "white" }}>SOPORTE TÉCNICO</h2>
-            <div className="mb-6" style={{ margin: "auto" }}>
+            <h2 className="titulo" style={{ color: 'white' }}>
+              SOPORTE TÉCNICO
+            </h2>
+            <div className="mb-6" style={{ margin: 'auto' }}>
               <input
                 className="psw input-login"
                 id="floatingInput"
@@ -123,20 +136,20 @@ const Login = ({ session, setSession }) => {
                 id="loading"
                 initial={{
                   background:
-                    "linear-gradient(45deg , rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))",
+                    'linear-gradient(45deg , rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))',
                 }}
                 animate={{
                   background: [
-                    "linear-gradient(45deg, rgba(255, 255, 255,1),rgba(255, 255, 255,1), rgba(0, 178, 255,1))",
-                    "linear-gradient(45deg ,rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))",
-                    "linear-gradient(45deg ,rgba(0, 178, 255,1), rgba(255, 255, 255,1),rgba(255, 255, 255,1))",
+                    'linear-gradient(45deg, rgba(255, 255, 255,1),rgba(255, 255, 255,1), rgba(0, 178, 255,1))',
+                    'linear-gradient(45deg ,rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))',
+                    'linear-gradient(45deg ,rgba(0, 178, 255,1), rgba(255, 255, 255,1),rgba(255, 255, 255,1))',
                   ],
                 }}
-                exit={{ background: "" }}
+                exit={{ background: '' }}
                 transition={{
                   repeat: Infinity,
                   duration: 1,
-                  repeatType: "reverse",
+                  repeatType: 'reverse',
                   times: [0, 0.2, 1],
                 }}
               ></motion.span>
@@ -153,38 +166,38 @@ const Login = ({ session, setSession }) => {
               <motion.span
                 initial={{
                   background:
-                    "linear-gradient(45deg , rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))",
+                    'linear-gradient(45deg , rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))',
                 }}
                 animate={{
                   background: [
-                    "linear-gradient(45deg, rgba(255, 255, 255,1),rgba(255, 255, 255,1), rgba(0, 178, 255,1))",
-                    "linear-gradient(45deg ,rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))",
-                    "linear-gradient(45deg ,rgba(0, 178, 255,1), rgba(255, 255, 255,1),rgba(255, 255, 255,1))",
+                    'linear-gradient(45deg, rgba(255, 255, 255,1),rgba(255, 255, 255,1), rgba(0, 178, 255,1))',
+                    'linear-gradient(45deg ,rgba(255, 255, 255,1),rgba(0, 178, 255,1),rgba(255, 255, 255,1))',
+                    'linear-gradient(45deg ,rgba(0, 178, 255,1), rgba(255, 255, 255,1),rgba(255, 255, 255,1))',
                   ],
                 }}
-                exit={{ background: "" }}
+                exit={{ background: '' }}
                 transition={{
                   repeat: Infinity,
                   duration: 1,
-                  repeatType: "reverse",
+                  repeatType: 'reverse',
                 }}
               ></motion.span>
             </div>
 
             <motion.button
               animate={{
-                border: "none",
-                margin: "30px auto",
-                background: "transparent",
-                color: "white",
-                padding: "0 100px",
+                border: 'none',
+                margin: '30px auto',
+                background: 'transparent',
+                color: 'white',
+                padding: '0 100px',
               }}
-              whileHover={{ border: "1px solid white !important" }}
+              whileHover={{ border: '1px solid white !important' }}
             >
               Ingresar
             </motion.button>
 
-            <p style={{ color: "#ffffff99" }}>
+            <p style={{ color: '#ffffff99' }}>
               Desarrolado por <strong>Consultancy</strong>
             </p>
             {loading ? (
@@ -196,12 +209,12 @@ const Login = ({ session, setSession }) => {
                 transition={{ duration: 0.3 }}
                 role="status"
               >
-                {" "}
+                {' '}
               </motion.div>
             ) : (
               <motion.span
-                initial={{ color: "white" }}
-                animate={{ color: "red", y: 20 }}
+                initial={{ color: 'white' }}
+                animate={{ color: 'red', y: 20 }}
               >
                 {message}
               </motion.span>
@@ -210,7 +223,7 @@ const Login = ({ session, setSession }) => {
         )}
       </motion.div>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
