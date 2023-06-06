@@ -105,7 +105,7 @@ const SelectPro = ({
                 className="form-control"
                 autoFocus
                 onKeyDown={handleSearchKeyDown}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={e => setSearchQuery(e.target.value)}
               />
             )}
 
