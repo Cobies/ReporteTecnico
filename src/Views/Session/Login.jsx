@@ -29,6 +29,11 @@ const Login = ({ session, setSession }) => {
         isLoggedIn: true,
         id: perfil.identificador,
       })
+      // setTimeout(() => {
+      //   // Tu función a ejecutar después de que hayan pasado los segundos
+      //   localStorage.removeItem('token')
+      //   setSession({ username: '', isLoggedIn: false, id: null })
+      // }, perfil.exp * 1000) // Multiplica por 1000 para convertir segundos en milisegundos
 
       setLoading(false)
     } catch (error) {
