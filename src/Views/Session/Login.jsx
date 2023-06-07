@@ -44,8 +44,8 @@ const Login = ({ session, setSession }) => {
     }
   }
 
-  const handleLogout = event => {
-    event.preventDefault()
+  const handleLogout = e => {
+    e.preventDefault()
     localStorage.removeItem('token')
     setSession({ username: '', isLoggedIn: false })
   }
