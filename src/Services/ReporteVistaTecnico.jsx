@@ -30,6 +30,21 @@ export async function GetDNI(numero) {
   return response.data
 }
 
+export async function GetAll(initial) {
+  const response = await axios.get(`${url}${initial}`, Options)
+  return response.data
+}
+
+export async function GetSelects(endpoint, SP, id, skip, search) {
+  const response = await axios.get(
+    `${url}${endpoint}/${
+      SP ? '' : id ? id : `${skip}&${search.toUpperCase()}`
+    }`,
+    Options
+  )
+  return response.data
+}
+
 export async function GetAllReportes() {
   const response = await axios.get(
     `${url}/ReporteVisitaTecnica/GetAllReporteVisitaTecnicaLimite/0`,

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import axios from 'axios'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { GetAll, GetSelects } from '../../../Services/ReporteVistaTecnico'
 
 const SelectPro = ({
   name,
@@ -36,7 +36,7 @@ const SelectPro = ({
     if (e.key === 'Enter') {
       e.preventDefault()
       if (searchQuery.trim() == '' && searchQuery != null) {
-        GetAll(initial)
+        GetAllInitial(initial)
         return
       } else {
         GetAllForSearch(0, searchQuery.toUpperCase(), SP)
@@ -45,7 +45,7 @@ const SelectPro = ({
   }
   useEffect(() => {
     if (showList && !SM) {
-      GetAll(initial)
+      GetAllInitial(initial)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showList])
@@ -154,33 +154,13 @@ const SelectPro = ({
 
   async function GetAllForSearch(skip, search, SP, id) {
     setLoading(true)
-    const response = await axios.get(
-      `https://api.grupoupgrade.com.pe${endpoint}/${
-        SP ? '' : id ? id : `${skip}&${search.toUpperCase()}`
-      }`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-    setData(response.data)
+    setData(await GetSelects(endpoint, SP, id, skip, search))
     setLoading(false)
   }
 
-  async function GetAll(initial) {
+  async function GetAllInitial(initial) {
     setLoading(true)
-    const response = await axios.get(
-      `https://api.grupoupgrade.com.pe${initial}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-    setData(response.data)
+    setData(await GetAll(initial))
     setLoading(false)
   }
 }
