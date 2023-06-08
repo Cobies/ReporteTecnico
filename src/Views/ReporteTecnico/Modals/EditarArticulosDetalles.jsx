@@ -18,7 +18,7 @@ function EditarArticulosDetalles({
     editArticulo(capture.index, capture.x, setArticulos, articulos)
   }
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value, type, checked } = e.target
     const fieldValue = type === 'checkbox' ? checked : value
     setCapture({ ...capture, x: { ...capture.x, [name]: fieldValue } })
@@ -84,7 +84,7 @@ function EditarArticulosDetalles({
                       className="form-control"
                       name="FechaCompra"
                       value={capture.x.FechaCompra}
-                      onChange={(e) =>
+                      onChange={e =>
                         setCapture({
                           ...capture,
                           x: { ...capture.x, FechaCompra: e.target.value },

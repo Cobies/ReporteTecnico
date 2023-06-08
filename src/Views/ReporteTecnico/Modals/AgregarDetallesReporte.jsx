@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import SelectPro from '../Selects/SelectPro'
 import moment from 'moment'
 
@@ -9,48 +9,27 @@ const AgregarDetallesReporte = ({
   setDetalles,
   setArticulos,
   setCapture,
+  formDetalles,
+  setFormDetalles,
 }) => {
-  const [formDetalles, setFormDetalles] = useState({
-    observacion: '',
-    area: '',
-    Producto: {
-      nombre: '',
-      marca: '',
-      linea: {},
-      codigo: '',
-      modelo: '',
-    },
-  })
-
   useEffect(() => {
     // console.log(formDetalles)
   }, [formDetalles])
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value, type, checked } = e.target
     const fieldValue =
       type === 'checkbox' ? checked : type === 'date' ? value : value
 
-    setFormDetalles((prev) => ({
+    setFormDetalles(prev => ({
       ...prev,
       [name]: fieldValue,
     }))
   }
 
-  // const handleChangeProducto = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormDetalles((prevFormDetalles) => ({
-  //     ...prevFormDetalles,
-  //     Producto: {
-  //       ...prevFormDetalles.Producto,
-  //       [name]: value,
-  //     },
-  //   }));
-  // };
-
-  const onCaptureObj = (producto) => {
+  const onCaptureObj = producto => {
     // Aquí puedes hacer lo que necesites con el objeto seleccionado
-    setFormDetalles((prevState) => ({
+    setFormDetalles(prevState => ({
       ...prevState,
       Producto: producto,
     }))
@@ -70,7 +49,7 @@ const AgregarDetallesReporte = ({
       },
     ])
 
-    setFormDetalles((prevState) => ({
+    setFormDetalles(prevState => ({
       ...prevState,
       observacion: '',
       area: '',
@@ -78,6 +57,8 @@ const AgregarDetallesReporte = ({
     }))
 
     setArticulos([])
+    localStorage.setItem('contador', 1)
+
     // setReporteVisitaTecnica((prevState) => [
     //   ...prevState,
     //   {
@@ -135,7 +116,7 @@ const AgregarDetallesReporte = ({
                         endpoint={
                           '/ProductoReporte/GetBusquedaProductoReporteLimite'
                         }
-                        nameExtractor={(x) => x.nombre}
+                        nameExtractor={x => x.nombre}
                         onCaptureObj={onCaptureObj}
                         SP={false}
                         modal="AgregarProducto"

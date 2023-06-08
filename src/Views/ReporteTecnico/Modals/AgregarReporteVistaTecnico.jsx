@@ -49,8 +49,7 @@ const AgregarReporteVistaTecnica = ({
         Detalle: detalleIds,
         Sugerencia: formReporteVistaTecnica.Sugerencia,
       }
-      console.log('ESTE ', body)
-
+      console.log(body)
       console.log(await PostReporteVistaTecnica(body))
 
       setDetalles([])
@@ -72,7 +71,7 @@ const AgregarReporteVistaTecnica = ({
   }
 
   useEffect(() => {
-    // console.log(formReporteVistaTecnica);
+    console.log(formReporteVistaTecnica);
   }, [formReporteVistaTecnica])
 
   useEffect(() => {
@@ -104,30 +103,6 @@ const AgregarReporteVistaTecnica = ({
       Cliente: cliente,
     }))
   }
-
-  // useEffect(() => {
-  //   console.log(formReporteVistaTecnica)
-  // }, [formReporteVistaTecnica])
-
-  // Alerta por si desea eliminar el producto
-  // const handleEliminarProducto = () => {
-  //     Swal.fire({
-  //         title: '¿Estás seguro?',
-  //         text: 'Esta acción eliminará el articulo permanentemente',
-  //         icon: 'warning',
-  //         showCancelButton: true,
-  //         confirmButtonColor: '#d33',
-  //         cancelButtonColor: '#3085d6',
-  //         confirmButtonText: 'Eliminar',
-  //         cancelButtonText: 'Cancelar',
-  //     }).then((result) => {
-  //         if (result.isConfirmed) {
-  //             // Aquí puedes realizar la acción de eliminación del producto
-  //             // Ejemplo: llamar a una función para eliminar el producto desde el backend
-  //             // eliminarProducto();
-  //         }
-  //     })
-  // }
 
   return (
     <div

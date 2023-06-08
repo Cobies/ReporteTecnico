@@ -15,6 +15,7 @@ function App() {
   })
 
   useEffect(() => {
+    localStorage.setItem('contador', 1)
     if (localStorage.getItem('token')) {
       const perfil = jwtDecode(localStorage.getItem('token'))
       setSession({
@@ -22,11 +23,6 @@ function App() {
         isLoggedIn: true,
         id: perfil.identificador,
       })
-      // setTimeout(() => {
-      //   // Tu función a ejecutar después de que hayan pasado los segundos
-      //   localStorage.removeItem('token')
-      //   setSession({ username: '', isLoggedIn: false, id: null })
-      // }, perfil.exp * 1000) // Multiplica por 1000 para convertir segundos en milisegundos
     }
   }, [])
 

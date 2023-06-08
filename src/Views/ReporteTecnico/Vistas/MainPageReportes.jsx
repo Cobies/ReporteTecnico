@@ -22,6 +22,17 @@ function MainPageReportes({ session }) {
   const [detalles, setDetalles] = useState([])
   const [articulos, setArticulos] = useState([])
   const [loading, setLoading] = useState(null)
+  const [formDetalles, setFormDetalles] = useState({
+    observacion: '',
+    area: '',
+    Producto: {
+      nombre: '',
+      marca: '',
+      linea: {},
+      codigo: '',
+      modelo: '',
+    },
+  })
 
   const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({
     Activo: true,
@@ -127,7 +138,7 @@ function MainPageReportes({ session }) {
                       </td>
                     </tr>
                   ) : (
-                    reporteVistaTecnico.map((x) => (
+                    reporteVistaTecnico.map(x => (
                       <tr key={x._id}>
                         <td>
                           {x.activo ? (
@@ -192,10 +203,18 @@ function MainPageReportes({ session }) {
           setDetalles,
           reporteVistaTecnico,
           setReporteVisitaTecnica,
+          formDetalles,
+          setFormDetalles,
         }}
       />
       <AgregarArticulosDetalles
-        {...{ formReporteVistaTecnica, articulos, detalles, setArticulos }}
+        {...{
+          formReporteVistaTecnica,
+          articulos,
+          detalles,
+          setArticulos,
+          formDetalles,
+        }}
       />
       <EditarArticulosDetalles
         {...{ capture, setCapture, articulos, setArticulos }}

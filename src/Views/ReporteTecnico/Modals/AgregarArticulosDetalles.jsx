@@ -6,7 +6,7 @@ const AgregarArticulosDetalles = ({
   articulos,
   setArticulos,
   formReporteVistaTecnica,
-  detalles,
+  formDetalles,
 }) => {
   const [formArticulos, setFormArticulos] = useState({
     fechaCompra: null,
@@ -19,11 +19,11 @@ const AgregarArticulosDetalles = ({
   useEffect(() => {
     setFormArticulos({
       ...formArticulos,
-      fechaCompra: new Date().toISOString().split('T')[0],
+      fechaCompra: new Date().toISOString().split('T')[1],
     })
   }, [])
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value, type, checked } = e.target
     let fieldValue = type === 'checkbox' ? checked : value
 
@@ -33,7 +33,7 @@ const AgregarArticulosDetalles = ({
         fieldValue = 1 // O cualquier otro valor por defecto si no se puede convertir a un número válido
       }
     }
-    setFormArticulos((prevFormArticulos) => ({
+    setFormArticulos(prevFormArticulos => ({
       ...prevFormArticulos,
       [name]: fieldValue,
     }))
@@ -44,16 +44,15 @@ const AgregarArticulosDetalles = ({
 
     const inicialesCliente = nombreCliente
       .split(' ')
-      .map((word) => word[0])
+      .map(word => word[0])
       .join('')
       .toUpperCase()
 
     const codigoGenerado = `${inicialesCliente}${codigoProducto}-${contador}`
+    // setNumeroSerie(prevNumeroSerie => prevNumeroSerie + 1)
     localStorage.setItem('contador', parseInt(contador) + 1)
     return codigoGenerado
   }
-
-  console.log(detalles.length)
 
   async function PostArticuloDetalle(e) {
     e.preventDefault()
@@ -61,16 +60,15 @@ const AgregarArticulosDetalles = ({
       setMessage('Completa los Campos *')
       return
     }
-    const index = detalles.length - 1
 
-    if (formArticulos.cantidad > 0 && detalles[index]) {
+    if (formArticulos.cantidad > 0) {
       const newArticulos = Array.from(
         { length: formArticulos.cantidad },
         () => ({
           FechaCreado: new Date(),
           Serie: generarCodigoClienteProducto(
             formReporteVistaTecnica.Cliente?.persona?.nombre,
-            detalles[index]?.Producto?.codigo
+            formDetalles.Producto?.codigo
           ),
           Operativo: formArticulos.operativo,
           Observaciones: formArticulos.observaciones,
@@ -89,6 +87,7 @@ const AgregarArticulosDetalles = ({
     })
 
     setMessage('')
+   
   }
 
   return (
@@ -170,7 +169,7 @@ const AgregarArticulosDetalles = ({
                       className="form-control"
                       name="fechaCompra"
                       value={formArticulos.fechaCompra}
-                      onChange={(e) =>
+                      onChange={e =>
                         setFormArticulos({
                           ...formArticulos,
                           fechaCompra: e.target.value,
