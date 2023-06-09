@@ -50,10 +50,6 @@ function MainPageReportes({ session }) {
   const [captureDetalles, setCaptureDetalles] = useState({})
 
   useEffect(() => {
-    console.log(reporteVistaTecnico)
-  }, [reporteVistaTecnico])
-
-  useEffect(() => {
     fetchData()
   }, [])
 

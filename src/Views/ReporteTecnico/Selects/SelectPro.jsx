@@ -50,10 +50,6 @@ const SelectPro = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showList])
 
-  // useEffect(()=>{
-  //   console.log(capture)
-  // },[capture])
-
   useEffect(() => {
     GetAllForSearch(0, '20', SP, id)
   }, [id])

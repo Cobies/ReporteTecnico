@@ -66,7 +66,6 @@ const AgregarReporteVistaTecnica = ({
         Detalle: detalleIds,
         Sugerencia: formReporteVistaTecnica.Sugerencia,
       }
-      console.log(body)
       console.log(await PostReporteVistaTecnica(body))
 
       setDetalles([])
@@ -86,10 +85,6 @@ const AgregarReporteVistaTecnica = ({
       console.error(error)
     }
   }
-
-  useEffect(() => {
-    console.log(formReporteVistaTecnica)
-  }, [formReporteVistaTecnica])
 
   useEffect(() => {
     getPerfil(session.id)

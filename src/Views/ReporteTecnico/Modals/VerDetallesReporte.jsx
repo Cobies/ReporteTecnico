@@ -1,15 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react'
 import SelectPro from '../Selects/SelectPro'
 import moment from 'moment'
 
 const VerDetallesReporte = ({ captureDetalles }) => {
-  useEffect(() => {
-    return () => console.log('Eliminando Detalles')
-  }, [])
 
   const articulos = captureDetalles.Articulos || captureDetalles.articulos
-  // console.log(articulos)
 
   return (
     <div
