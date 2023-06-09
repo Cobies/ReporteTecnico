@@ -154,7 +154,11 @@ function MainPageReportes({ session }) {
                               to={`https://pdf.grupoupgrade.com.pe/Reporte/ReporteVisitaTecnica/${x._id}`}
                               target="_blank"
                             ></Link>
-                            {/* <Link className="btn btn-success border border-0 bi bi-pencil-fill" to="/reportes/AgregarDetalles"></Link> */}
+                            <Link
+                              className="btn btn-primary border border-0 bi bi bi-file-pdf"
+                              to={`https://pdf.grupoupgrade.com.pe/Reporte/DetalleReporteVisitaTecnica/${x._id}`}
+                              target="_blank"
+                            ></Link>
                             {/* <button className="btn btn-danger border border-0">
                             <i className="bi bi-trash-fill"></i>
                           </button> */}
@@ -188,7 +192,7 @@ function MainPageReportes({ session }) {
           setCaptureDetalles,
           formReporteVistaTecnica,
           setFormReporteVistaTecnica,
-          reporteVistaTecnico
+          reporteVistaTecnico,
         }}
       />
       <AgregarDetallesReporte

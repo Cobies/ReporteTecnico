@@ -106,8 +106,8 @@ const Login = ({ session, setSession }) => {
                   <a className="dropdown-item" href="#">Mis Reportes</a>
                 </li> */}
                 <li>
+                  <label className="px-3 text-center">{session.username}</label>
                   <a onClick={handleLogout} className="dropdown-item" href="#">
-                    {/* <Link style={{ color: "white", textDecoration: "none" }} className="px-1" to="/admin">Test</Link> */}
                     <i className="bi bi-box-arrow-left fw-bold text-danger">
                       {' '}
                       Salir

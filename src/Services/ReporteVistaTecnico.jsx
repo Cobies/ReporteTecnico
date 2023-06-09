@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const url = 'https://localhost:7044'
-const url = "https://api.grupoupgrade.com.pe"
+const url = 'https://api.grupoupgrade.com.pe'
 
 const Options = {
   headers: {
@@ -82,6 +82,15 @@ export async function PostReporteVistaTecnica(body) {
 
 export async function PostLinea(body) {
   const response = await axios.post(`${url}/Linea/SetLinea`, body, Options)
+  return response.data
+}
+
+export async function PostArticuloReporte(body) {
+  const response = await axios.post(
+    `${url}/ArticuloReporte/SetArticuloReporte`,
+    body,
+    Options
+  )
   return response.data
 }
 

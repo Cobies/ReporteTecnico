@@ -70,6 +70,7 @@ const AgregarArticulosDetalles = ({
             formReporteVistaTecnica.Cliente?.persona?.nombre,
             formDetalles.Producto?.codigo
           ),
+          Producto: formDetalles.Producto,
           Operativo: formArticulos.operativo,
           Observaciones: formArticulos.observaciones,
           FechaCompra: formArticulos.fechaCompra,

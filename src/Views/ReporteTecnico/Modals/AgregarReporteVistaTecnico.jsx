@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import {
   GetAllReportes,
   GetEmpleadoId,
+  PostArticuloReporte,
   PostDetalles,
   PostReporteVistaTecnica,
 } from '../../../Services/ReporteVistaTecnico'
@@ -41,8 +42,18 @@ const AgregarReporteVistaTecnica = ({
       }
       const detalleIds = await Promise.all(
         detalles.map(async detalle => {
-          const id = await PostDetalles(detalle)
-          return { ...detalle, _id: id }
+          const articulosIds = await Promise.all(
+            detalle.Articulos.map(async articulo => {
+              const id = await PostArticuloReporte(articulo)
+              return { ...articulo, _id: id }
+            })
+          )
+
+          return {
+            ...detalle,
+            articulos: articulosIds,
+            _id: await PostDetalles(detalle),
+          }
         })
       )
 

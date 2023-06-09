@@ -59,27 +59,6 @@ const AgregarDetallesReporte = ({
     setArticulos([])
     localStorage.setItem('contador', 1)
 
-    // setReporteVisitaTecnica((prevState) => [
-    //   ...prevState,
-    //   {
-    //     cantidad: cantidad,
-    //     fechaCreado: new Date().toDateString(),
-    //     observacion: observacion,
-    //     area: area,
-    //     Producto: {
-    //       nombre: nombre,
-    //       marca: marca,
-    //       linea: linea,
-    //       codigo: codigo,
-    //       modelo: modelo,
-    //     },
-    //   },
-    // ])
-    // try {
-    //   console.log(await PostDetalleReporteVisitaTecnica({}))
-    // } catch (error) {
-    //   console.log(error)
-    // }
   }
 
   return (
