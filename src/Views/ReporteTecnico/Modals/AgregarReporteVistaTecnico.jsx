@@ -18,11 +18,12 @@ const AgregarReporteVistaTecnica = ({
   setCaptureDetalles,
   formReporteVistaTecnica,
   setFormReporteVistaTecnica,
+  reporteVistaTecnico,
 }) => {
   const [perfil, setPerfil] = useState({})
   const [message, setMessage] = useState('')
 
-  const ReporteSubmit = async (e) => {
+  const ReporteSubmit = async e => {
     e.preventDefault()
     try {
       for (let i = 0; i < detalles.length; i++) {
@@ -32,16 +33,21 @@ const AgregarReporteVistaTecnica = ({
       if (!detalles || !formReporteVistaTecnica.Cliente || !perfil) {
         setMessage('ALGO FALTA PARA ENVIAR')
         return
+      } else if (!reporteVistaTecnico) {
+        setMessage(
+          'NO SE PUEDE INGRESAR NO CARGARON LOS REPORTES VISTA TECNICOS'
+        )
+        return
       }
       const detalleIds = await Promise.all(
-        detalles.map(async (detalle) => {
+        detalles.map(async detalle => {
           const id = await PostDetalles(detalle)
           return { ...detalle, _id: id }
         })
       )
 
       const body = {
-        Numero: 5,
+        Numero: reporteVistaTecnico.length + 1,
         Activo: formReporteVistaTecnica.Activo,
         Cliente: formReporteVistaTecnica.Cliente,
         Empleado: perfil,
@@ -55,7 +61,7 @@ const AgregarReporteVistaTecnica = ({
       setDetalles([])
       setArticulos([])
       setMessage('')
-      setFormReporteVistaTecnica((prevState) => ({
+      setFormReporteVistaTecnica(prevState => ({
         ...prevState,
         Cliente: null,
         FechaCreado: null,
@@ -71,7 +77,7 @@ const AgregarReporteVistaTecnica = ({
   }
 
   useEffect(() => {
-    console.log(formReporteVistaTecnica);
+    console.log(formReporteVistaTecnica)
   }, [formReporteVistaTecnica])
 
   useEffect(() => {
@@ -86,19 +92,19 @@ const AgregarReporteVistaTecnica = ({
     }
   }
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value, type, checked } = e.target
     const fieldValue =
       type === 'checkbox' ? checked : type === 'date' ? new Date(value) : value
-    setFormReporteVistaTecnica((prev) => ({
+    setFormReporteVistaTecnica(prev => ({
       ...prev,
       [name]: fieldValue,
     }))
   }
 
-  const onCaptureObj = (cliente) => {
+  const onCaptureObj = cliente => {
     // Aquí puedes hacer lo que necesites con el objeto seleccionado
-    setFormReporteVistaTecnica((prevState) => ({
+    setFormReporteVistaTecnica(prevState => ({
       ...prevState,
       Cliente: cliente,
     }))
@@ -158,7 +164,7 @@ const AgregarReporteVistaTecnica = ({
                     onCaptureObj={onCaptureObj}
                     name={'Cliente'}
                     endpoint={'/Cliente/GetBusquedaClienteLimite'}
-                    nameExtractor={(x) => x.persona.nombre}
+                    nameExtractor={x => x.persona.nombre}
                     SP={false}
                     modal="AgregarCliente"
                     initial={'/Cliente/GetAllClientesLimite/0'}

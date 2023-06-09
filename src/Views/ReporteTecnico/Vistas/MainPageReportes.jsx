@@ -33,13 +33,11 @@ function MainPageReportes({ session }) {
       modelo: '',
     },
   })
-
   const [formReporteVistaTecnica, setFormReporteVistaTecnica] = useState({
     Activo: true,
     Sugerencia: '',
     Cliente: null,
   })
-
   const [capture, setCapture] = useState({
     index: 0,
     x: {
@@ -48,13 +46,11 @@ function MainPageReportes({ session }) {
       Observaciones: '',
     },
   })
-
   const [verReporteVistaTecnico, setVerReporteVistaTecnico] = useState({})
-
   const [captureDetalles, setCaptureDetalles] = useState({})
 
   useEffect(() => {
-    // console.log(reporteVistaTecnico)
+    console.log(reporteVistaTecnico)
   }, [reporteVistaTecnico])
 
   useEffect(() => {
@@ -192,6 +188,7 @@ function MainPageReportes({ session }) {
           setCaptureDetalles,
           formReporteVistaTecnica,
           setFormReporteVistaTecnica,
+          reporteVistaTecnico
         }}
       />
       <AgregarDetallesReporte

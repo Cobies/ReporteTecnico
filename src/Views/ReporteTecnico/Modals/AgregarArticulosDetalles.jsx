@@ -9,7 +9,7 @@ const AgregarArticulosDetalles = ({
   formDetalles,
 }) => {
   const [formArticulos, setFormArticulos] = useState({
-    fechaCompra: null,
+    fechaCompra: new Date().toISOString().split('T')[1],
     operativo: true,
     observaciones: '',
     cantidad: 1,
@@ -87,7 +87,6 @@ const AgregarArticulosDetalles = ({
     })
 
     setMessage('')
-   
   }
 
   return (

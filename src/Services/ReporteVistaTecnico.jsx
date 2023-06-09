@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const url = 'https://localhost:7044'
-// const url = "https://api.grupoupgrade.com.pe"
+// const url = 'https://localhost:7044'
+const url = "https://api.grupoupgrade.com.pe"
 
 const Options = {
   headers: {
