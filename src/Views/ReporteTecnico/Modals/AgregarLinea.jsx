@@ -1,7 +1,48 @@
+import { useEffect, useState } from 'react'
+
 const AgregarLinea = () => {
+  const [formLinea, setFormLinea] = useState({ nombre: '', descripcion: '' })
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    // console.log(formLinea)
+  }, [formLinea])
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+    const fieldValue =
+      type === 'checkbox' ? checked : type === 'date' ? new Date(value) : value
+    setFormLinea((prev) => ({
+      ...prev,
+      [name]: fieldValue,
+    }))
+  }
+
+  async function postLinea(e) {
+    e.preventDefault()
+    if (!formLinea.nombre || !formLinea.descripcion) {
+      setMessage('Completa los campos que faltan')
+    } else {
+      const body = {
+        nombre: formLinea.nombre.toUpperCase(),
+        descripcion: formLinea.descripcion.toUpperCase(),
+      }
+
+      // const response = await axios.post("https://api.grupoupgrade.com.pe/Linea/SetLinea",
+      // body, {
+      //   headers: {
+      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //     "Content-Type": "application/json"
+      //   }
+      // })
+      console.log(await postLinea(body))
+      setFormLinea({ nombre: '', descripcion: '' })
+    }
+  }
+
   return (
     <div
-      style={{ paddingTop: "15%" }}
+      style={{ paddingTop: '15%' }}
       className="modal fade"
       id="AgregarLinea"
       tabIndex={-1}
@@ -12,7 +53,7 @@ const AgregarLinea = () => {
         <div className="modal-content">
           <div
             className="modal-header text-white"
-            style={{ background: "#00B2FF" }}
+            style={{ background: '#00B2FF' }}
           >
             <h5 className="modal-title">Agregar Linea</h5>
             <button
@@ -23,14 +64,14 @@ const AgregarLinea = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={postLinea}>
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 pb-3">
                   <div className="form-floating">
                     <input
                       name="nombre"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formLinea.nombre.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="nombre"
@@ -40,12 +81,12 @@ const AgregarLinea = () => {
                     </label>
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 pb-3">
                   <div className="form-floating">
                     <input
                       name="descripcion"
-                      // value={formDetalles.Producto.modelo}
-                      // onChange={handleChangeProducto}
+                      value={formLinea.descripcion.toUpperCase()}
+                      onChange={handleChange}
                       type="text"
                       className="form-control"
                       placeholder="descripcion"
@@ -57,6 +98,7 @@ const AgregarLinea = () => {
                 </div>
               </div>
               <div className="modal-footer">
+                <label className="text-danger">{message}</label>
                 <button
                   type="button"
                   className="btn btn-secondary"
@@ -68,7 +110,7 @@ const AgregarLinea = () => {
                   type="submit"
                   className="btn text-white"
                   data-bs-dismiss="modal"
-                  style={{ background: "#00B2FF" }}
+                  style={{ background: '#00B2FF' }}
                 >
                   Crear Linea
                 </button>
@@ -78,7 +120,7 @@ const AgregarLinea = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AgregarLinea;
+export default AgregarLinea

@@ -1,47 +1,51 @@
 import { useEffect, useState } from 'react'
-import { PostMarca } from '../../../Services/ReporteVistaTecnico'
+import { PostUsuarioClienteReporteTecnico } from '../../../Services/ReporteVistaTecnico'
 
-const AgregarMarca = () => {
-  const [formMarca, setFormMarca] = useState({ nombre: '', abreviatura: '' })
+const AgregarUsuarioCliente = () => {
+  const [formUsuarioCliente, setFormUsuarioCliente] = useState({
+    usuario: '',
+    password: '',
+  })
   const [message, setMessage] = useState('')
-
-  useEffect(() => {
-    // console.log(formMarca)
-  }, [formMarca])
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
     const fieldValue =
       type === 'checkbox' ? checked : type === 'date' ? new Date(value) : value
-    setFormMarca((prev) => ({
+    setFormUsuarioCliente((prev) => ({
       ...prev,
       [name]: fieldValue,
     }))
   }
 
-  async function postMarca(e) {
+  async function postUsuarioCliente(e) {
     e.preventDefault()
-    if (!formMarca.nombre || !formMarca.abreviatura) {
-      setMessage('Completa Campos *')
-      return
+    if (!formUsuarioCliente.usuario || !formUsuarioCliente.password) {
+      setMessage('Completa los campos que faltan')
+    } else {
+      const body = {
+        fechaCreado: new Date(),
+        cliente: {
+          usuario: formUsuarioCliente.usuario,
+          password: formUsuarioCliente.password,
+        },
+      }
+      console.log(await PostUsuarioClienteReporteTecnico(body))
+      setFormUsuarioCliente({ usuario: '', password: '' })
     }
-    const body = {
-      nombre: formMarca.nombre.toUpperCase(),
-      abreviatura: formMarca.abreviatura.toUpperCase(),
-    }
-
-    console.log(await PostMarca(body))
-    setFormMarca({ nombre: '', abreviatura: '' })
-    setMessage('')
   }
+
+  useEffect(() => {
+    // console.log(formUsuarioCliente)
+  }, [formUsuarioCliente])
 
   return (
     <div
       style={{ paddingTop: '15%' }}
       className="modal fade"
-      id="AgregarMarca"
+      id="AgregarUsuarioCliente"
       tabIndex={-1}
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="AgregarUsuarioCliente"
       aria-hidden="true"
     >
       <div className="modal-dialog">
@@ -50,7 +54,7 @@ const AgregarMarca = () => {
             className="modal-header text-white"
             style={{ background: '#00B2FF' }}
           >
-            <h5 className="modal-title">Agregar Marca</h5>
+            <h5 className="modal-title">Agregar Usuario Cliente</h5>
             <button
               type="button"
               className="btn-close btn-close-white"
@@ -59,35 +63,35 @@ const AgregarMarca = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={postMarca}>
+            <form onSubmit={postUsuarioCliente}>
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-12 pb-3">
                   <div className="form-floating">
                     <input
-                      name="nombre"
-                      value={formMarca.nombre.toUpperCase()}
+                      name="usuario"
+                      value={formUsuarioCliente.usuario}
                       onChange={handleChange}
                       type="text"
                       className="form-control"
-                      placeholder="nombre"
+                      placeholder="usuario"
                     />
-                    <label htmlFor="nombre" className="form-label">
-                      Nombre
+                    <label htmlFor="usuario" className="form-label">
+                      Usuario
                     </label>
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-12 pb-3">
                   <div className="form-floating">
                     <input
-                      name="abreviatura"
-                      value={formMarca.abreviatura.toUpperCase()}
+                      name="password"
+                      value={formUsuarioCliente.password}
                       onChange={handleChange}
-                      type="text"
+                      type="password"
                       className="form-control"
-                      placeholder="abreviatura"
+                      placeholder="descripcion"
                     />
-                    <label htmlFor="abreviatura" className="form-label">
-                      Abreviatura
+                    <label htmlFor="password" className="form-label">
+                      Password
                     </label>
                   </div>
                 </div>
@@ -98,7 +102,6 @@ const AgregarMarca = () => {
                   type="button"
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-hidden="true"
                 >
                   Cerrar
                 </button>
@@ -106,10 +109,9 @@ const AgregarMarca = () => {
                   type="submit"
                   className="btn text-white"
                   data-bs-dismiss="modal"
-                  aria-hidden="true"
                   style={{ background: '#00B2FF' }}
                 >
-                  Crear Marca
+                  Crear Linea
                 </button>
               </div>
             </form>
@@ -120,4 +122,4 @@ const AgregarMarca = () => {
   )
 }
 
-export default AgregarMarca
+export default AgregarUsuarioCliente
